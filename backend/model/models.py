@@ -1,6 +1,17 @@
-from init_app.init_app import db
+from db.init_db import db
 
-class Test(db.Model):
+class Place(db.Model):
+
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    name = db.Column(db.String(20))
-    email = db.Column(db.String(20))
+    name = db.Column(db.String(50))
+    frequency = db.Column(db.Integer)
+
+class Summary(db.Model):
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    name = db.Column(db.String(50))
+
+class Character(db.Model):
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    name = db.Column(db.String(50))
+    lines = db.Column(db.Integer)
+
