@@ -139,13 +139,55 @@ from init_app.init_app import db, create_app
 app = create_app()
 app.app_context().push()
 
-# for index, row in place_df.iterrows():
+for index, row in place_df.iterrows():
+
+    place = Place(name = row['places'], frequency=row['freq'])
+    db.session.add(place)
+    db.session.commit()
+
+from collections import Counter
+# from convert import table_of_contents_raw
+# print(table_of_contents_raw)
+
+
+locations = ['EXT.', 'INT.']
+scriptTerms = [
+        'CUT TO', 'JUMP TO', 'SMASH TO:', 'NOISES.',
+        'TRANSITION:', 'TRANSITION TO:', 'DONATE TO:', 'MATCH CUT:',
+        'TRANSITION BACK:', 'DISSOLVE TO:', 'FADE', 'DISSOLVE',
+        'IN ', 'OUTSIDE ', 'ON ', 'CAMCORDER', 'THE PHOTO',
+        'TRACK', '...', 'CLOSE', '(GASPS)', 'VOICE', 'TIME CUT',
+    ]
+
+characters = []
+for word in table_of_contents_raw:
+    if word[:4] in locations: continue # EXT./INT.로 시작하는 단어 제외
+    for term in scriptTerms:
+        if word.find(term) != -1: break # 시나리오 용어라면 제외
+    else:
+        if word.isupper():
+            word = word.replace(" (CONT’D)", '') # (CONT’D) 제거 (continued)
+            word = word.replace(" (CONT'D)", '') # (CONT'D) 제거 (continued)
+            word = word.replace(" (V.O.)", '') # (V.O.) 제거 (Voice Over, 인물은 출연하지만 말은 안하고, 속마음을 얘기하는 경우)
+            word = word.replace(" (V.O)", '') # (V.O) 제거 (Voice Over, 인물은 출연하지만 말은 안하고, 속마음을 얘기하는 경우)
+            word = word.replace(" (O.C.)", '') # (O.C.) 제거 (Off Camera)
+            word = word.replace(" (O.S.)", '') # (O.S.) 제거 (Off Screen, 인물은 안 보이고 그 인물의 소리만 들리는 경우, 환청 등)
+            word = word.replace(" (ON PHONE)", '')
+            characters.append(word.strip())
+
+characterCount = Counter(characters)
+
+character_dict = {}
+for name, count in characterCount.most_common():
+#     print(f'{name}, {count}')
+    character_dict[name] = count
+# print(character_dict)
+
+from model.models import Character
+
+# for item in character_dict.items():
 #
-#     place = Place(name = row['places'], freq=row['freq'])
-#     db.session.add(place)
+#     character = Character(name = item[0], lines = item[1])
+#     db.session.add(character)
 #     db.session.commit()
-
-
-
-
 
