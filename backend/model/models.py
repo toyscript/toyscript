@@ -15,3 +15,6 @@ class Character(db.Model):
     name = db.Column(db.String(50))
     lines = db.Column(db.Integer)
 
+class Movie(db.Model):
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    title = db.Column(db.String(200))
