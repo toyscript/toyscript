@@ -48,9 +48,6 @@ def get_script_txt(script_url, title):
         with open(title + '.txt', 'w', -1, 'utf-8') as file:
             file.write(script_text)
 
-
-    pass
-
 title = 'Toy Story'
 script_url = get_script_url(title)
 get_script_txt(script_url, title)
