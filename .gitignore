@@ -3,6 +3,10 @@
 # dependencies
 frontend/node_modules
 backend/venv
+backend/.idea
+*.pyc
+backend/python-env
+backend/migrations
 /.pnp
 .pnp.js
 
