@@ -1,1 +1,0 @@
-Haram = Pig
