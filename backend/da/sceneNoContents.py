@@ -27,4 +27,4 @@ while i < numOfLines:
 # print(sceneNoContents.keys()) 
 
 # 씬 번호별 내용 출력
-print(sceneNoContents)
+# print(sceneNoContents)
