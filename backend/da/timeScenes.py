@@ -1,8 +1,9 @@
-from places import locations
+from utils import locations
 from collections import Counter, defaultdict
 from scriptLinesFromTxt import scriptLines
 from characters import charactersSet
 from sceneNoContents import sceneNoContents
+
 
 ## 시간대별 씬 번호 목록
 timeScenes = defaultdict(list)

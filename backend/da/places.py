@@ -1,8 +1,7 @@
+from utils import locations
 from collections import Counter
 from scriptLinesFromTxt import scriptLines
 
-
-locations = ['EXT.', 'INT.']
 
 # 장소 목록 추출
 places = []
