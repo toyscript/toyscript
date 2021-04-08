@@ -41,16 +41,13 @@ def get_script_txt(script_url, title):
         script_text = ''
 
         for line in scriptLines:
-            stripped_line = line.strip()
+            stripped_line = line
             if stripped_line != '':
                 script_text += stripped_line+'\n'
 
         with open(title + '.txt', 'w', -1, 'utf-8') as file:
             file.write(script_text)
 
-
-    pass
-
-title = 'Toy Story'
+title = '2012'
 script_url = get_script_url(title)
 get_script_txt(script_url, title)

@@ -51,14 +51,14 @@ for page in range(0, 130):  # 토이스토리 총 페이지 수 130
 
     writer.addPage(reader.getPage(page))
 
-output_filename = './table_of_contents.txt'
+output_filename = 'table_of_contents.txt'
 
 with open(output_filename, 'wb') as output:
     writer.write(output)
 
 # 로컬에서 개발할 경우 import한 data_func.convert_pdf_to_string로 쓰면 됩니다.
 text = convert_pdf_to_string(
-    './table_of_contents.txt')
+    'table_of_contents.txt')
 
 #print(text)
 
