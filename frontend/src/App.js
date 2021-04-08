@@ -9,6 +9,7 @@ import "./index.css";
 import Header from "./components/Header";
 import Main from "./components/Main";
 import ServiceInfo from "./components/ServiceInfo";
+import AboutUs from "./components/AboutUs";
 
 
 function App() {
@@ -16,6 +17,7 @@ function App() {
     <Router>
       <Route exact path='/' component={Main} />
       <Route path='/serviceinfo' component={ServiceInfo} />
+      <Route path='/aboutus' component={AboutUs} />
     </Router>
 
   );
