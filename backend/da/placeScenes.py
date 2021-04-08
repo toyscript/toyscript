@@ -1,5 +1,4 @@
 from places import locations
-from places import locations
 from sceneNoContents import sceneNoContents
 from collections import Counter, defaultdict
 from scriptLinesFromTxt import scriptLines
