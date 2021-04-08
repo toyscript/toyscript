@@ -1,4 +1,4 @@
-from places import locations
+from utils import locations
 from collections import Counter, defaultdict
 from scriptLinesFromTxt import scriptLines
 
