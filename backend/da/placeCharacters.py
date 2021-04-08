@@ -5,7 +5,7 @@ from sceneNoContents import sceneNoContents
 from characters import charactersSet
 
 
-# 장소별 캐릭터 등장 빈도 수
+# 장소별 캐릭터 등장 빈도
 placeCharacters = defaultdict(list)
 for place, sceneNumbers in placeScenes.items():
     for num in sceneNumbers: 
@@ -15,12 +15,13 @@ for place, sceneNumbers in placeScenes.items():
                 placeCharacters[place].append(word)
 
 
-# 장소별 캐릭터 등장 빈도 수 출력
+# 장소별 캐릭터 등장 빈도 수
 placeCharactersCount = {}
 for place, characters in placeCharacters.items():
     placeCharactersCount[place] = Counter(characters).most_common()
 
 
+# 장소별 캐릭터 등장 빈도 수 출력
 # print(placeCharactersCount)
 # for k, v in placeCharactersCount.items():
 #     print(k, ":", v)
