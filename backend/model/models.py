@@ -6,6 +6,7 @@ class Place(db.Model):
     movieid = db.Column(db.Integer, db.ForeignKey("movie.id"))
     name = db.Column(db.String(50))
     frequency = db.Column(db.Integer)
+    scene = db.Column(db.ARRAY(db.Integer))
 
 class Summary(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
