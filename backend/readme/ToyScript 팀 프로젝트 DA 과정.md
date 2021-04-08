@@ -35,22 +35,6 @@ if response.status_code == 200:
     db.session.commit()
 ```
 
-
-    ---------------------------------------------------------------------------
-
-    ModuleNotFoundError                       Traceback (most recent call last)
-
-    <ipython-input-65-c1e306fa9f61> in <module>
-          2 from bs4 import BeautifulSoup
-          3 
-    ----> 4 from model.models import Movie
-          5 from init_app.init_app import db, create_app
-          6 
-    
-
-    ModuleNotFoundError: No module named 'model'
-
-
 ### 대본 링크를 크롤링해서 txt파일로 정하기
 
 ###### toyscript/backend/da/script_text.py
@@ -199,9 +183,6 @@ for i in range(len(scriptLines)):
         place = place.rstrip().replace('S ’ ', 'S’ ').replace(' ’ ', '’').replace(" '", "’")
         places.append(place)
 ```
-
-    [('CATERPILLAR ROOM', 18), ('PLAYGROUND', 11), ('ANDY’S ROOM', 9), ('HALLWAY', 6), ('OFFICE', 6), ('GARBAGE TRUCK', 5), ('CATERPILLAR CLASSROOM', 4), ('BONNIE’S BEDROOM', 3), ('KEN’S DREAM HOUSE, BUTTERFLY ROOM', 3), ('DUMP', 3), ('BATHROOM', 2), ('KITCHEN', 2), ('DAISY’S HOUSE', 2), ('CEILING CRAWL SPACE, CATERPILLAR ROOM', 2), ('FRONT OFFICE', 2), ('CLASSROOM CEILING CRAWL SPACE', 2), ('CONVEYER BELT', 2), ('BONNIE’S HOUSE', 2), ('OLD WEST', 1), ('TRAIN', 1), ('DESERT PLAINS', 1), ('SPACESHIP', 1), ('ANDY’S KITCHEN', 1), ('FRONT YARD', 1), ('ANDY’S FRONT YARD', 1), ('TOY CHEST, ANDY’S ROOM', 1), ('ANDY’S HOUSE', 1), ('GARAGE', 1), ('ANDY’S YARD', 1), ('CAR / GARAGE', 1), ('DONATION BOX / CAR', 1), ('DAY CARE, PARKING LOT', 1), ('DONATION BOX / PARKING LOT', 1), ('LOBBY', 1), ('DONATION BOX / HALLWAY', 1), ('DONATION BOX / BUTTERFLY CLASSROOM', 1), ("BONNIE'S BEDROOM", 1), ('TOY BOX', 1), ('TEACHERS’ LOUNGE', 1), ('VENDING MACHINE', 1), ('STORAGE CLOSET', 1), ('DAISY’S LIVING ROOM', 1), ('STATION WAGON', 1), ('REST STOP', 1), ('TRUCK BUMPER', 1), ('SUNNYSIDE DAY CARE, FRONT ENTRANCE', 1), ('BUTTERFLY ROOM', 1), ('CEILING CRAWL SPACE, BUTTERFLY ROOM', 1), ('CEILING CRAWL SPACE', 1), ('SANDBOX', 1), ('UTILITY CLOSET', 1), ('TRASH CHUTE', 1), ('GARBAGE CHUTE', 1), ('STREETS', 1), ('TRI-COUNTY DUMP', 1), ('GARBAGE PIT', 1), ('DUMP / STAIRWAY TO HEAVEN', 1), ('INCINERATOR HOPPER', 1), ('CRANE OPERATOR’S BOOTH', 1), ('GARBAGE DUMP, ELSEWHERE', 1), ('GARBAGE DUMP', 1), ('DRIVEWAY', 1), ('BACK YARD', 1), ('GARAGE ROOF', 1), ('CAR', 1), ('HOUSE', 1)]
-    
 
 ### 대본 내 장소 목록
 
@@ -465,7 +446,7 @@ plt.show()
 
 
     
-![png](./img/output_20_0.png)
+![png](output_20_0.png)
     
 
 
@@ -491,7 +472,7 @@ plt.show()
 
 
     
-![png](./img/output_21_0.png)
+![png](output_21_0.png)
     
 
 
@@ -718,7 +699,7 @@ plt.show()
 
 
     
-![png](./img/output_44_0.png)
+![png](output_44_0.png)
     
 
 
@@ -744,4 +725,164 @@ plt.show()
 
 
     
-![png](./img/output_45_0.png)
+![png](output_45_0.png)
+    
+
+
+## 대본 분석 (5) : 시간대 별 장면(Scene) 분석
+
+### 시간대 별 씬 번호 목록
+
+###### toyscript/backend/da/timeScenes.py
+
+
+```python
+from collections import Counter, defaultdict
+# 로컬에서 사용
+# from scriptLinesFromTxt import scriptLines
+# from sceneNoContents import sceneNoContents
+
+
+## 시간대별 씬 번호 목록
+timeScenes = defaultdict(list)
+for sceneNo, contents in sceneNoContents.items():
+    splitted = contents[0].split()
+    time = ''
+    for i in range(len(splitted)):
+        if splitted[i] == '-': # '-'인 경우, '-' 다음부터 다음 '-' 까지 시간 정보
+            for j in range(i+1, len(splitted)):
+                if splitted[j] == '-': # 다음 '-'를 만나면 break
+                    break
+                time += splitted[j] + ' '
+                j += 1
+            break
+    if time:  # time이 빈 문자열이 아닌 경우
+        timeScenes[time.strip()].append(sceneNo)
+```
+
+### 대본내에 존재하는 시간대의 목록
+
+
+```python
+print(timeScenes.keys())
+```
+
+### 시간대별 빈도 수
+
+
+```python
+timeCount = {}
+for time, scenes in timeScenes.items():
+    timeCount[time] = len(scenes)
+
+print(timeCount)
+```
+
+    {'DAY': 47, 'NIGHT': 71, 'CONTINUOUS': 3, 'MOMENTS LATER': 1, 'DUSK': 3, 'LATER': 1, 'DAWN': 3, 'LATE AFTERNOON': 1}
+    
+
+#### 시간대별 빈도 비율 시각화
+
+
+```python
+# Data to plot
+labels = timeCount.keys()
+frequency = timeCount.values()
+colors = ['#FFE13C', '#3c3c3c','#663300', '#FAF58C', '#A390EE', '#CBFF75', '#40E0D0', '#FFCAD5']
+ 
+# Plot
+plt.pie(frequency, labels=labels, colors=colors, startangle=0,frame=False, autopct=lambda p : '{:.1f}%'.format(p))
+centre_circle = plt.Circle((0,0),0.5,color='black', fc='white',linewidth=0)
+fig = plt.gcf()
+fig.gca().add_artist(centre_circle)
+    
+plt.axis('equal')
+plt.tight_layout()
+plt.show()
+```
+
+
+    
+![png](output_54_0.png)
+    
+
+
+### 시간대별 씬 번호 목록
+
+
+```python
+for time, scenes in timeScenes.items():
+    print(f'{time}, {scenes}')
+```
+
+    DAY, [1, 2, 4, 5, 6, 7, 8, 9, 10, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 26, 27, 30, 31, 32, 34, 35, 51, 52, 53, 54, 60, 61, 62, 63, 74, 75, 123, 124, 125, 126, 127, 128, 129, 130]
+    NIGHT, [11, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 56, 57, 64, 65, 66, 67, 68, 69, 70, 71, 72, 73, 76, 77, 79, 80, 81, 82, 83, 84, 85, 86, 87, 88, 89, 90, 91, 92, 93, 94, 95, 96, 97, 98, 99, 100, 101, 102, 103, 104, 105, 106, 107, 108, 109, 110, 111, 112, 113, 114, 115, 116, 117, 118, 119, 120, 121]
+    CONTINUOUS, [25, 29, 78]
+    MOMENTS LATER, [33]
+    DUSK, [36, 55, 132]
+    LATER, [37]
+    DAWN, [58, 59, 122]
+    LATE AFTERNOON, [131]
+    
+
+## 대본 분석 (6) : 시간대 별 등장인물 분석
+
+### 시간대 별 등장인물의 등장 빈도
+
+###### toyscript/backend/da/timeCharacters.py
+
+
+```python
+from collections import defaultdict, Counter
+# 로컬에서 사용
+# from timeScenes import timeScenes
+# from characters import charactersSet
+# from sceneNoContents import sceneNoContents
+
+
+# 시간대별 캐릭터 등장 빈도
+timeCharacters = defaultdict(list)
+for time, sceneNumbers in timeScenes.items():
+    for num in sceneNumbers:
+        for word in sceneNoContents[num]:
+            if word in charactersSet:
+                timeCharacters[time].append(word)
+
+
+# 시간대별 캐릭터 등장 빈도 수
+timeCharactersCount = {}
+for time, characters in timeCharacters.items():
+    timeCharactersCount[time] = Counter(characters).most_common()
+
+
+# 시간대별 캐릭터 등장 빈도 수 출력
+for k, v in timeCharactersCount.items():
+    print(k, ":", v)
+```
+
+    DAY : [('WOODY', 87), ('BUZZ', 42), ('JESSIE', 30), ('REX', 30), ('ANDY', 26), ('HAMM', 25), ('MR. POTATO HEAD', 25), ('MOM', 20), ('MRS. POTATO HEAD', 17), ('SLINKY', 11), ('BONNIE', 11), ('MOLLY', 10), ('ONE-EYED BART', 7), ('LOTSO', 7), ('MR. PRICKLEPANTS', 7), ('BONNIE’S MOM', 6), ('LIFER', 6), ('YOUNG ANDY', 4), ('SARGE', 4), ('RECEPTIONIST', 4), ('KEN', 4), ('BARBIE', 3), ('TRIXIE', 3), ('ALIENS', 2), ('THE TOY CHEST', 2), ('TOYS', 2), ('UNICORN', 2), ('BUTTERCUP', 2), ('PEA #3', 2), ('EVIL DR. PORKCHOP', 1), ('SOLDIER ONE', 1), ('SOLDIER TWO', 1), ('THE TOYS', 1), ('ANDY’S ROOM', 1), ('KEN & BARBIE', 1), ('TRICERATOPS', 1), ('BOTH', 1), ('DOLL', 1), ('DOLLY', 1), ('PEA #1', 1), ('PEA #2', 1), ('TEACHER', 1), ('FROG', 1)]
+    NIGHT : [('WOODY', 60), ('KEN', 41), ('LOTSO', 39), ('JESSIE', 36), ('BUZZ', 34), ('BARBIE', 20), ('HAMM', 19), ('MR. POTATO HEAD', 18), ('REX', 17), ('MRS. POTATO HEAD', 15), ('SPANISH BUZZ', 12), ('SLINKY', 10), ('TRIXIE', 4), ('DOLLY', 4), ('STRETCH', 3), ('TWITCH', 3), ('BUTTERCUP', 3), ('MR. PRICKLEPANTS', 3), ('LIFER', 3), ('SPARKS', 2), ('CHUNK', 2), ('BOOKWORM', 2), ('CHUCKLES', 2), ('TOYS', 2), ('BIG BABY', 2), ('GANG', 1), ('FARMER SAYS TOY', 1), ('PEA POD', 1), ('ALIEN', 1), ('ALIENS', 1)]
+    CONTINUOUS : [('LOTSO', 12), ('KEN', 8), ('BUZZ', 6), ('JESSIE', 4), ('REX', 4), ('MR. POTATO HEAD', 3), ('HAMM', 3), ('WOODY', 3), ('MRS. POTATO HEAD', 3), ('BARBIE', 3), ('BUTTERFLY ROOM TEACHER', 1), ('SLINKY', 1), ('ALIENS', 1), ('JANITOR', 1)]
+    DUSK : [('REX', 4), ('HAMM', 4), ('MR. POTATO HEAD', 4), ('BUZZ', 4), ('MRS. POTATO HEAD', 3), ('SLINKY', 2), ('JESSIE', 2), ('LOTSO', 2), ('YOUNG CHUCKLES', 1), ('ANDY', 1), ('BONNIE', 1), ('WOODY', 1)]
+    LATER : [('KEN', 6), ('BARBIE', 6), ('JESSIE', 2), ('TWITCH', 2), ('BUZZ', 1), ('HAMM', 1), ('REX', 1), ('CHUNK', 1)]
+    DAWN : [('LOTSO', 4), ('WOODY', 3), ('MRS. POTATO HEAD', 3), ('MR. POTATO HEAD', 3), ('HAMM', 3), ('CHUCKLES', 2), ('BUZZ', 2), ('SLINKY', 2), ('BUTTERCUP', 1), ('MR. PRICKLEPANTS', 1), ('DOLLY', 1), ('TRIXIE', 1), ('JESSIE', 1), ('REX', 1), ('ALIENS', 1)]
+    
+
+
+```python
+# 시간대별 캐릭터 등장 빈도 수(시간대별로 상위 5명)
+timeList = []
+timeCharList = []
+for k, v in timeCharactersCount.items():
+    print(k, ":", v[:5])
+```
+
+    DAY : [('WOODY', 87), ('BUZZ', 42), ('JESSIE', 30), ('REX', 30), ('ANDY', 26)]
+    NIGHT : [('WOODY', 60), ('KEN', 41), ('LOTSO', 39), ('JESSIE', 36), ('BUZZ', 34)]
+    CONTINUOUS : [('LOTSO', 12), ('KEN', 8), ('BUZZ', 6), ('JESSIE', 4), ('REX', 4)]
+    DUSK : [('REX', 4), ('HAMM', 4), ('MR. POTATO HEAD', 4), ('BUZZ', 4), ('MRS. POTATO HEAD', 3)]
+    LATER : [('KEN', 6), ('BARBIE', 6), ('JESSIE', 2), ('TWITCH', 2), ('BUZZ', 1)]
+    DAWN : [('LOTSO', 4), ('WOODY', 3), ('MRS. POTATO HEAD', 3), ('MR. POTATO HEAD', 3), ('HAMM', 3)]
+    
+
+이 부분은 하위 그룹을 포함한 도넛 그래프나, 누적 바 그래프로 표현하면 좋을 것 같습니다.
