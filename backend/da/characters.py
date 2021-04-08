@@ -47,7 +47,7 @@ numOfCharacters = len(charactersSet)
 # print(numOfCharacters)
 
 
-# 캐릭도별 빈도 수 출력
+# 캐릭도별 대사 개수 출력
 charactersCount = Counter(characters)
 # for name, count in charactersCount.most_common():
 #     print(f'{name}, {count}')
