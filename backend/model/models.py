@@ -3,6 +3,7 @@ from db.init_db import db
 class Place(db.Model):
 
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    movieid = db.Column(db.Integer, db.ForeignKey("movie.id"))
     name = db.Column(db.String(50))
     frequency = db.Column(db.Integer)
 
