@@ -35,9 +35,8 @@ for i in range(len(scriptLines)):
 
 
 # 장소별 빈도 수
-placesToCount = Counter(places).most_common()
+placesCount = Counter(places).most_common()
 
 
 # 장소별 빈도 수 출력
-# print(placesToCount)
-
+# print(placesCount)
