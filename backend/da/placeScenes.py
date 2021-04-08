@@ -20,5 +20,5 @@ for num, contents in sceneNoContents.items():
 # 장소별 씬 번호 목록 출력
 # print(placeScenes)
 
-for place, scenes in placeScenes.items():
-    print(f'{place}, {scenes}')
+# for place, scenes in placeScenes.items():
+#     print(f'{place}, {scenes}')
