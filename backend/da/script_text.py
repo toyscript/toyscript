@@ -41,7 +41,7 @@ def get_script_txt(script_url, title):
         script_text = ''
 
         for line in scriptLines:
-            stripped_line = line.rstrip()
+            stripped_line = line
             if stripped_line != '':
                 script_text += stripped_line+'\n'
 
