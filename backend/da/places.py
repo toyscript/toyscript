@@ -41,3 +41,5 @@ placesToCount = Counter(places).most_common()
 
 # 장소별 빈도 수 출력
 print(placesToCount)
+
+
