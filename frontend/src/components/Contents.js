@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Container, Tab, Tabs } from "react-bootstrap";
 
 import "../contents.css"
+import Place from "./Place";
 
 function ControlledTabs() {
   const [key, setKey] = useState('home');
@@ -21,7 +22,7 @@ function ControlledTabs() {
           <p style={{backgroundColor:"rgb(246, 238, 204)"}}>character page</p>
         </Tab>
         <Tab id="place" eventKey="place" title="Place">
-          <p style={{backgroundColor:"rgb(246, 238, 204)"}}>place page</p>
+          <Place />
         </Tab>
         <Tab id="time" eventKey="time" title="Time">
           <p style={{backgroundColor:"rgb(246, 238, 204)"}}>time page</p>
