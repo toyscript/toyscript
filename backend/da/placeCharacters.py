@@ -8,9 +8,9 @@ from characters import charactersSet
 # 장소별 캐릭터 등장 빈도
 placeCharacters = defaultdict(list)
 for place, sceneNumbers in placeScenes.items():
-    for num in sceneNumbers: 
+    for num in sceneNumbers:
         for word in sceneNoContents[num]:
-            # 씬별 대본 내용 중 캐릭터 이름이 있으면 해당 장소의 캐릭터 목록에 추가 
+            # 씬별 대본 내용 중 캐릭터 이름이 있으면 해당 장소의 캐릭터 목록에 추가
             if word in charactersSet:
                 placeCharacters[place].append(word)
 

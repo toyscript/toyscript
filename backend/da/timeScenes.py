@@ -7,13 +7,13 @@ from sceneNoContents import sceneNoContents
 timeScenes = defaultdict(list)
 for sceneNo, contents in sceneNoContents.items():
     splitted = contents[0].split()
-    time = ''
+    time = ""
     for i in range(len(splitted)):
-        if splitted[i] == '-': # '-'인 경우, '-' 다음부터 다음 '-' 까지 시간 정보
-            for j in range(i+1, len(splitted)):
-                if splitted[j] == '-': # 다음 '-'를 만나면 break
+        if splitted[i] == "-":  # '-'인 경우, '-' 다음부터 다음 '-' 까지 시간 정보
+            for j in range(i + 1, len(splitted)):
+                if splitted[j] == "-":  # 다음 '-'를 만나면 break
                     break
-                time += splitted[j] + ' '
+                time += splitted[j] + " "
                 j += 1
             break
     if time:  # time이 빈 문자열이 아닌 경우

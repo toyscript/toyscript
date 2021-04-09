@@ -4,12 +4,12 @@ from model.models import Movie
 parser = reqparse.RequestParser()
 parser.add_argument("query", type=str)
 
-class QueryMovie(Resource):
 
+class QueryMovie(Resource):
     def get(self):
 
         args = parser.parse_args()
-        title = args['query']
+        title = args["query"]
         search = "%{}%".format(title)
         movies = Movie.query.filter(Movie.title.like(search)).all()
 
