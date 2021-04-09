@@ -38,7 +38,9 @@ function Main() {
       </Container>
 
       <hr id="result"/>
-      
+      <br />
+      <br />
+      <br />
       <Contents/>
       <hr/>
       <Footer />
