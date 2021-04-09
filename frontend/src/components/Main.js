@@ -32,12 +32,12 @@ function Main() {
             aria-describedby="basic-addon2"
           />
           <InputGroup.Append>
-            <Button variant="outline-danger">GO!</Button>
+            <a href="#result"><Button variant="outline-danger">GO!</Button></a>
           </InputGroup.Append>
         </InputGroup>
       </Container>
 
-      <hr/>
+      <hr id="result"/>
       
       <Contents/>
       <hr/>
