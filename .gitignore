@@ -10,7 +10,6 @@ backend/python-env
 backend/migrations
 /.pnp
 .pnp.js
-img
 
 # testing
 /coverage
