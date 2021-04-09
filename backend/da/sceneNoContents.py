@@ -17,14 +17,14 @@ while i < numOfLines:
             if scriptLines[j][:4] in locations:  # 'EXT.' 또는 'INT.'로 시작하는 다음 문장에서 break
                 break
             k += 1
-            sceneNoContents[sceneNo].append(scriptLines[j]) 
+            sceneNoContents[sceneNo].append(scriptLines[j])
         i += k
     else:
         i += 1
 
 
 # 씬 번호 목록 출력
-# print(sceneNoContents.keys()) 
+# print(sceneNoContents.keys())
 
 # 씬 번호별 내용 출력
 # print(sceneNoContents)
