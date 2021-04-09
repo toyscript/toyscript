@@ -4,6 +4,8 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 import "../main.css"
 import Header from "./Header";
+import Contents from "./Contents";
+import Footer from "./Footer";
 
 
 function Main() {
@@ -26,16 +28,20 @@ function Main() {
       <Container className="search">
         <InputGroup>
           <FormControl
-            placeholder="Let's Search !"
+            placeholder=" 영화 제목을 입력하세요 !"
             aria-describedby="basic-addon2"
           />
           <InputGroup.Append>
-            <Button variant="outline-danger">GO!</Button>
+            <a href="#result"><Button variant="outline-danger">GO!</Button></a>
           </InputGroup.Append>
         </InputGroup>
       </Container>
 
+      <hr id="result"/>
+      
+      <Contents/>
       <hr/>
+      <Footer />
     </>
   )
 }
