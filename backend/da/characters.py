@@ -1,24 +1,23 @@
 from utils import (
-    locations,
+    place_indicators,
     scriptTerms,
     punctuations,
     MAX_SPLIT_LENGTH_IN_CHARACTER_NAME,
 )
 from collections import Counter
-from scriptLinesFromTxt import scriptLines
+from script_lines_from_txt import get_lines_of_script
 
 
-def getAllCharacters():
+def getAllCharacters(script_lines):
     characters = []
-    for token in scriptLines:
-        if token[:4] in locations:
+    for token in script_lines:
+        if token[:4] in place_indicators:
             continue  # 'EXT.' 또는 'INT.'로 시작하면 continue
         for term in scriptTerms:
             if token.find(term) != -1:
                 break  # 장면 전환 등의 시나리오 용어라면 break
         else:
-            if token.isupper() and token.startswith(" "):  # 모든 문자가 대문자이고, 공백으로 시작하면
-
+            if token.isupper():  # 모든 문자가 대문자이고, 공백으로 시작하면
                 # TODO 함수로 구현하기
                 # continued를 의미하는 (CONT’D) 또는 (CONT'D) 제거
                 token = token.replace(" (CONT'D)", "")
@@ -56,15 +55,17 @@ def getAllCharacters():
                     continue
 
                 for char in token:
-                    if char in punctuations + '.':  # 특수 문자가 포함되면 break
+                    if char in punctuations + ".":  # 특수 문자가 포함되면 break
                         break
                 else:
                     characters.append(token.strip())
     return characters
 
 
+script_lines = get_lines_of_script()
+
 # 캐릭터 목록 출력
-charactersSet = set(getAllCharacters())
+charactersSet = set(getAllCharacters(script_lines))
 # print(sorted(list(charactersSet)))
 
 # 총 캐릭터 수 출력
@@ -73,7 +74,7 @@ numOfCharacters = len(charactersSet)
 
 
 # 캐릭터별 대사 개수 출력
-charactersCount = Counter(getAllCharacters()).most_common()
+charactersCount = Counter(getAllCharacters(script_lines)).most_common()
 # print(charactersCount)
 # for name, count in charactersCount:
 #     print(f'{name}, {count}')

@@ -1,23 +1,27 @@
-from utils import locations
+from utils import place_indicators
 from collections import Counter, defaultdict
-from scriptLinesFromTxt import scriptLines
+from script_lines_from_txt import get_lines_of_script
+
+script_lines = get_lines_of_script()
 
 ## 씬 넘버링
 sceneNoContents = defaultdict(list)
 sceneNo = 0
 i = 0
-numOfLines = len(scriptLines)
+numOfLines = len(script_lines)
 
 while i < numOfLines:
-    if scriptLines[i][:4] in locations:  # 'EXT.' 또는 'INT.'로 시작하는 문장일 경우
+    if script_lines[i][:4] in place_indicators:  # 'EXT.' 또는 'INT.'로 시작하는 문장일 경우
         sceneNo += 1
         k = 0
-        sceneNoContents[sceneNo].append(scriptLines[i])
+        sceneNoContents[sceneNo].append(script_lines[i])
         for j in range(i + 1, numOfLines):
-            if scriptLines[j][:4] in locations:  # 'EXT.' 또는 'INT.'로 시작하는 다음 문장에서 break
+            if (
+                script_lines[j][:4] in place_indicators
+            ):  # 'EXT.' 또는 'INT.'로 시작하는 다음 문장에서 break
                 break
             k += 1
-            sceneNoContents[sceneNo].append(scriptLines[j])
+            sceneNoContents[sceneNo].append(script_lines[j])
         i += k
     else:
         i += 1

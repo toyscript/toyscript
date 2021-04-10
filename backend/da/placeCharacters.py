@@ -1,9 +1,10 @@
 from collections import Counter, defaultdict
-from scriptLinesFromTxt import scriptLines
+from script_lines_from_txt import get_lines_of_script
 from placeScenes import placeScenes
 from sceneNoContents import sceneNoContents
 from characters import charactersSet
 
+script_lines = get_lines_of_script()
 
 # 장소별 캐릭터 등장 빈도
 placeCharacters = defaultdict(list)

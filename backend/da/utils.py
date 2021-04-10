@@ -3,7 +3,7 @@ MAX_SPLIT_LENGTH_IN_CHARACTER_NAME = 5
 
 punctuations = """!"$%&'()*+,-/:;<=>?@[\]^_`{|}~"""
 
-locations = ["EXT.", "INT."]
+place_indicators = ["EXT.", "INT."]
 
 scriptTerms = [
     "CUT TO",

@@ -1,31 +1,31 @@
 from typing import List
 from collections import defaultdict
-from scriptLinesFromTxt import scriptLines
+from script_lines_from_txt import get_lines_of_script
 from characters import charactersCount, charactersSet
 from utils import MAX_BLANK_LINES_BETWEEN_CHARACTER_AND_SPEECH
 
 
 # 등장인물 이름과 대사 사이의 공백 줄 개수 구하기
-def countNumberOfBlankLines(scriptLines: List[str], character) -> int:
-    """ 
-        함수 간단 설명
-        매개변수 설명
-        리턴 값 설명
-        (예제) 
-    """ 
+def countNumberOfBlankLines(script_lines: List[str], character) -> int:
+    """
+    함수 간단 설명
+    매개변수 설명
+    리턴 값 설명
+    (예제)
+    """
     numOfBlankLines = 0
     # character = character  # 두 번째로 많이 나오는 캐릭터 (제목 간격이 구해지지 않도록, 예) Joker)
     isFound = False
-    for i in range(len(scriptLines)):
+    for i in range(len(script_lines)):
         if not isFound:
-            line = scriptLines[i]
-            
+            line = script_lines[i]
+
             # 공백으로 시작하고 line 안에 캐릭터 이름이 있으면
             # 캐릭터 이름과 대사 사이의 공백 줄 개수를 확인할 수 있다
             if line.startswith(" ") and character in line.split():
                 for j in range(i + 1, i + MAX_BLANK_LINES_BETWEEN_CHARACTER_AND_SPEECH):
                     isFound = True
-                    if scriptLines[j]:
+                    if script_lines[j]:
                         break
                     numOfBlankLines += 1
         else:
@@ -33,12 +33,12 @@ def countNumberOfBlankLines(scriptLines: List[str], character) -> int:
     return numOfBlankLines
 
 
-# 캐릭터별 대사 목록 추출
-def getCharacterDialogues(scriptLines: List[str]) -> dict:
+# 캐릭터별 대사 뽑기
+def getCharacterDialogues(script_lines: List[str]) -> dict:
     characterSpeech = defaultdict(list)
-    validNumOfBlank = countNumberOfBlankLines(scriptLines, charactersCount[1][0])
-    for i in range(len(scriptLines)):
-        line = scriptLines[i]
+    validNumOfBlank = countNumberOfBlankLines(script_lines, charactersCount[1][0])
+    for i in range(len(script_lines)):
+        line = script_lines[i]
         if line.startswith(" "):
             for character in charactersSet:
                 tokens = line.strip().split()  # tokens : 대본 한 줄을 split한 결과
@@ -72,8 +72,8 @@ def getCharacterDialogues(scriptLines: List[str]) -> dict:
                     )
                 ):
                     numOfBlank = 0
-                    for j in range(i + 1, len(scriptLines)):
-                        token = scriptLines[j].strip()
+                    for j in range(i + 1, len(script_lines)):
+                        token = script_lines[j].strip()
                         if numOfBlank > validNumOfBlank:
                             break
 
@@ -103,7 +103,8 @@ def getCharacterDialogueNum(characterDialogues: dict) -> dict:
     return characterDialogueNum
 
 
-characterDialogues = getCharacterDialogues(scriptLines)
+script_lines = get_lines_of_script()
+characterDialogues = getCharacterDialogues(script_lines)
 # print(characterDialogues, "\n")
 # print(getAllCharactersHavingDialogue(characterDialogues), "\n")
 # print(getNumOfCharasters(characterDialogues), "\n")
