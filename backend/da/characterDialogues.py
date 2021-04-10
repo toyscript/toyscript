@@ -33,7 +33,7 @@ def countNumberOfBlankLines(scriptLines: List[str], character) -> int:
     return numOfBlankLines
 
 
-# 캐릭터별 대사 뽑기
+# 캐릭터별 대사 목록 추출
 def getCharacterDialogues(scriptLines: List[str]) -> dict:
     characterSpeech = defaultdict(list)
     validNumOfBlank = countNumberOfBlankLines(scriptLines, charactersCount[1][0])
