@@ -51,7 +51,9 @@ class TimeCharacter(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     movieid = db.Column(db.Integer, db.ForeignKey("movie.id"))
     timeid = db.Column(db.Integer, db.ForeignKey("time.id"))
+    time = db.relationship('Time')
     characterid = db.Column(db.Integer, db.ForeignKey("character.id"))
+    character = db.relationship('Character')
     frequency = db.Column(db.Integer)
     __table_args__ = {'extend_existing': True}
 
