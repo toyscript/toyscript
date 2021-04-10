@@ -19,3 +19,18 @@ class QueryMovie(Resource):
             movie_list.append(m.title)
 
         return movie_list
+
+class Summary(Resource):
+
+    def get(self, movieid):
+
+        movie = Movie.query.get(movieid)
+        result = {}
+        result['title'] = movie.title
+        result['author'] = movie.author
+        result['totalCharacters'] = movie.totalCharacters
+        result['totalPages'] = movie.totalPages
+        result['totalScenes'] = movie.totalScenes
+        result['totalPlaces'] = movie.totalPlaces
+
+        return result
