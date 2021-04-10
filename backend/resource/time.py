@@ -3,11 +3,11 @@ from model.models import Time, TimeCharacter as TimeCharacterM, Scene
 
 
 class TimeScene(Resource):
-    def get(self, movieid):
+    def get(self, movie_id):
 
         scenes = (
-            Scene.query.filter(Scene.movieid == movieid)
-            .group_by(Scene.timeid, Scene.num)
+            Scene.query.filter(Scene.movie_id == movie_id)
+            .group_by(Scene.time_id, Scene.num)
             .all()
         )
         result = []
@@ -18,9 +18,9 @@ class TimeScene(Resource):
             if scene.time is None:
                 continue
 
-            if timeid != scene.timeid:
+            if timeid != scene.time_id:
                 result.append(time)
-                timeid = scene.timeid
+                timeid = scene.time_id
                 time = {}
                 time["time"] = scene.time.name
                 time["scenes"] = []
@@ -31,12 +31,12 @@ class TimeScene(Resource):
 
 
 class TimeCharacter(Resource):
-    def get(self, movieid):
+    def get(self, movie_id):
         # 시간대별 등장인물 목록 반환
 
         time_characters = (
-            TimeCharacterM.query.filter(TimeCharacterM.movieid == movieid)
-            .group_by(TimeCharacterM.timeid, TimeCharacterM.characterid)
+            TimeCharacterM.query.filter(TimeCharacterM.movie_id == movie_id)
+            .group_by(TimeCharacterM.time_id, TimeCharacterM.character_id)
             .all()
         )
 
@@ -46,10 +46,10 @@ class TimeCharacter(Resource):
 
         for character in time_characters:
 
-            if timeid != character.timeid:
+            if timeid != character.time_id:
 
                 result.append(time)
-                timeid = character.timeid
+                timeid = character.time_id
                 time = {}
                 time["time"] = character.time.name
                 time["characters"] = []
@@ -60,9 +60,9 @@ class TimeCharacter(Resource):
 
 
 class TimeFrequency(Resource):
-    def get(self, movieid):
+    def get(self, movie_id):
 
-        times = Time.query.filter(Time.movieid == movieid).all()
+        times = Time.query.filter(Time.movie_id == movie_id).all()
         result = []
 
         for time in times:

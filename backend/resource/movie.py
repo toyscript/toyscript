@@ -22,15 +22,15 @@ class QueryMovie(Resource):
 
 
 class Summary(Resource):
-    def get(self, movieid):
+    def get(self, movie_id):
 
-        movie = Movie.query.get(movieid)
+        movie = Movie.query.get(movie_id)
         result = {}
         result["title"] = movie.title
         result["author"] = movie.author
-        result["totalCharacters"] = movie.totalCharacters
-        result["totalPages"] = movie.totalPages
-        result["totalScenes"] = movie.totalScenes
-        result["totalPlaces"] = movie.totalPlaces
+        result["total-characters"] = movie.total_characters
+        result["total-pages"] = movie.total_pages
+        result["total-scenes"] = movie.total_scenes
+        result["total-places"] = movie.total_places
 
         return result
