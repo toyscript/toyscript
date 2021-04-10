@@ -3,6 +3,7 @@ import { Container, Tab, Tabs } from "react-bootstrap";
 
 import "../contents.css"
 import Place from "./Place";
+import Time from "./Time";
 
 function ControlledTabs() {
   const [key, setKey] = useState('home');
@@ -25,7 +26,7 @@ function ControlledTabs() {
           <Place />
         </Tab>
         <Tab id="time" eventKey="time" title="Time">
-          <p style={{backgroundColor:"rgb(246, 238, 204)"}}>time page</p>
+          <Time />
         </Tab>
       </Tabs>
     </Container>
