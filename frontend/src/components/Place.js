@@ -1,62 +1,18 @@
-import React from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { Container } from "react-bootstrap";
 import { Bar, Doughnut } from "react-chartjs-2";
-import 'bootstrap/dist/css/bootstrap.min.css';
+import "bootstrap/dist/css/bootstrap.min.css";
+import axios from "axios";
+// import * as palette from 'google-palette';
 
 const Place = () => {
-  const style = {
-    backgroundColor: "rgb(246, 233, 180)",
-  };
+  const allPlacesApiUrl =
+    "https://dd8d3c9d-88a6-468e-971c-ac0ffa96644f.mock.pstmn.io/api/place/frequency/1113";
+  const [allPlacesData, setAllPlacesData] = useState({});
 
   const chartBackgroundColor = {
     backgroundColor: "white",
     borderRadius: "20px",
-  };
-
-  const placeState = {
-    labels: [
-      "CATERPILLAR ROOM",
-      "PLAYGROUND",
-      "ANDY'S ROOM",
-      "HALLWAY",
-      "OFFICE",
-      "GARBAGE TRUCK",
-      "CATERPILLAR CLASSROOM",
-      "BONNIE'S BEDROOM",
-      "KEN'S DREAM HOUSE, BUTTERFLY ROOM",
-      "BATHROOM",
-    ],
-    datasets: [
-      {
-        label: "빈도",
-        backgroundColor: [
-          "#FFAACC",
-          "#FFAADD",
-          "#FFBBCC",
-          "#FFCCCC",
-          "#FFCCDD",
-          "#FFDDCC",
-          "#FFEECC",
-          "#FFFFCC",
-          "#FFFFDD",
-          "#FFFFEE",
-        ],
-        borderColor: [
-          "#FFAACC",
-          "#FFAABB",
-          "#FFBBCC",
-          "#FFCCCC",
-          "#FFCCDD",
-          "#FFDDCC",
-          "#FFEECC",
-          "#FFFFCC",
-          "#FFFFDD",
-          "#FFFFEE",
-        ],
-        borderWidth: 2,
-        data: [18, 11, 8, 8, 6, 6, 5, 4, 3, 3],
-      },
-    ],
   };
 
   const topPlaceState = {
@@ -91,35 +47,37 @@ const Place = () => {
   };
 
   const charatersPerPlaceState = {
-    labels: ["CATERPILLAR ROOM",
-    "PLAYGROUND",
-    "ANDY'S ROOM",
-    "HALLWAY",
-    "OFFICE"],
+    labels: [
+      "CATERPILLAR ROOM",
+      "PLAYGROUND",
+      "ANDY'S ROOM",
+      "HALLWAY",
+      "OFFICE",
+    ],
     datasets: [
       {
-        label: 'woody',
+        label: "woody",
         data: [12, 19, 3, 5, 2, 3],
-        backgroundColor: 'rgb(255, 99, 132)',
+        backgroundColor: "rgb(255, 99, 132)",
       },
       {
-        label: 'buzz',
+        label: "buzz",
         data: [2, 3, 20, 5, 1, 4],
-        backgroundColor: 'rgb(54, 162, 235)',
+        backgroundColor: "rgb(54, 162, 235)",
       },
       {
-        label: 'andy',
+        label: "andy",
         data: [3, 10, 13, 15, 22, 30],
-        backgroundColor: 'rgb(75, 192, 192)',
+        backgroundColor: "rgb(75, 192, 192)",
       },
       {
-        label: 'lotso',
+        label: "lotso",
         data: [5, 7, 9, 11, 13, 15],
-        backgroundColor: 'rgb(75, 192, 192)',
+        backgroundColor: "rgb(75, 192, 192)",
       },
     ],
-  }
-  
+  };
+
   const options = {
     scales: {
       yAxes: [
@@ -136,48 +94,71 @@ const Place = () => {
         },
       ],
     },
-      title: {
-        display: true,
-        text: "장소별 자주 등장하는 캐릭터",
-        fontSize: 20,
-      },
-      legend: {
-        display: true,
-        position: "right",
-      },
-      responsive: true,
-      maintainAspectRatio: true,
-  }
+    title: {
+      display: true,
+      text: "장소별 자주 등장하는 캐릭터",
+      fontSize: 20,
+    },
+    legend: {
+      display: true,
+      position: "right",
+    },
+    responsive: true,
+    maintainAspectRatio: true,
+  };
 
-
+  useEffect(() => {
+    const fetchAllPlacesData = async () => {
+      const allPlacesName = [];
+      const allPlacesFreq = [];
+      let [red, green, blue] = [255, 105, 105];
+      let greenList = [105];
+      let blueList = [105];
+      let rgbList = [];
+      await axios.get(allPlacesApiUrl).then((response) => {
+        for (let dataObj of response.data) {
+          allPlacesName.push(dataObj.placeName);
+          allPlacesFreq.push(dataObj.frequency);
+        }
+        for (let i = 0; i < response.data.length; i++) {
+          if (green <= 255 && blue <= 255) {
+            green += 2;
+            greenList.push(green);
+            blue += 2;
+            blueList.push(blue);
+          }
+        }
+        for (let i = 0; i < greenList.length; i++) {
+          let rgb = `rgb(${red}, ${greenList[i]}, ${blueList[i]})`;
+          rgbList.push(rgb);
+        }
+        // console.log(rgbList);
+      });
+      setAllPlacesData({
+        labels: allPlacesName,
+        datasets: [
+          {
+            label: "빈도",
+            data: allPlacesFreq,
+            backgroundColor: rgbList,
+          },
+        ],
+      });
+    };
+    fetchAllPlacesData();
+  }, []);
 
   return (
-    <Container style={style}>
+    <Container style={{ backgroundColor: "rgb(246, 233, 180)" }}>
       <br />
       <div style={chartBackgroundColor}>
-        {/* <p style={{ padding: "20px"}}>
-          로렘 입숨(lorem ipsum; 줄여서 립숨, lipsum)은 출판이나 그래픽 디자인
-          분야에서 폰트, 타이포그래피, 레이아웃 같은 그래픽 요소나 시각적 연출을
-          보여줄 때 사용하는 표준 채우기 텍스트로, 최종 결과물에 들어가는
-          실제적인 문장 내용이 채워지기 전에 시각 디자인 프로젝트 모형의 채움
-          글로도 이용된다. 이런 용도로 사용할 때 로렘 입숨을
-          그리킹(greeking)이라고도 부르며, 때로 로렘 입숨은 공간만 차지하는
-          무언가를 지칭하는 용어로도 사용된다. 로렘 입숨은 전통 라틴어와 닮은 점
-          때문에 종종 호기심을 유발하기도 하지만 그 이상의 의미를 담지는 않는다.
-          문서에서 텍스트가 보이면 사람들은 전체적인 프레젠테이션보다는 텍스트에
-          담긴 뜻에 집중하는 경향이 있어서 출판사들은 서체나 디자인을 보일 때는
-          프레젠테이션 자체에 초점을 맞추기 위해 로렘 입숨을 사용한다. 로렘
-          입숨은 영어에서 사용하는 문자들의 전형적인 분포에 근접하다고도 하는데,
-          이 점 때문에 프레젠테이션으로 초점을 이동하는 데에도 도움을 준다.
-        </p> */}
-        <div style={{ padding: "20px"}}>
+        <div style={{ padding: "20px" }}>
           <Bar
-            data={placeState}
+            data={allPlacesData}
             options={{
               title: {
                 display: true,
-                text:
-                  "가장 자주 등장하는 장소 TOP 10이 아니고 전체로 해야 하네",
+                text: "영화에 나오는 전체 장소",
                 fontSize: 20,
               },
               legend: {
@@ -188,6 +169,8 @@ const Place = () => {
               maintainAspectRatio: true,
             }}
           />
+          <br />
+          <hr />
           <br />
           <Doughnut
             data={topPlaceState}
@@ -206,13 +189,12 @@ const Place = () => {
             }}
           />
           <br />
-          <Bar 
-          data = {charatersPerPlaceState}
-          options = {options}
-          />
+          <hr />
+          <br />
+          <Bar data={charatersPerPlaceState} options={options} />
         </div>
       </div>
-    <br />
+      <br />
     </Container>
   );
 };
