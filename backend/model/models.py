@@ -6,6 +6,7 @@ class Place(db.Model):
     movieid = db.Column(db.Integer, db.ForeignKey("movie.id"))
     name = db.Column(db.String(50))
     frequency = db.Column(db.Integer)
+    __table_args__ = {'extend_existing': True}
 
 
 class Character(db.Model):
@@ -13,6 +14,7 @@ class Character(db.Model):
     movieid = db.Column(db.Integer, db.ForeignKey("movie.id"))
     name = db.Column(db.String(50))
     lines = db.Column(db.Integer)
+    __table_args__ = {'extend_existing': True}
 
 
 class Movie(db.Model):
@@ -23,6 +25,7 @@ class Movie(db.Model):
     totalPages = db.Column(db.Integer)
     totalPlaces = db.Column(db.Integer)
     totalScenes = db.Column(db.Integer)
+    __table_args__ = {'extend_existing': True}
 
 
 class Scene(db.Model):
@@ -31,6 +34,7 @@ class Scene(db.Model):
     movieid = db.Column(db.Integer, db.ForeignKey("movie.id"))
     placeid = db.Column(db.Integer, db.ForeignKey("place.id"))
     timeid = db.Column(db.Integer, db.ForeignKey("time.id"))
+    __table_args__ = {'extend_existing': True}
 
 
 class Time(db.Model):
@@ -38,6 +42,7 @@ class Time(db.Model):
     name = db.Column(db.String(50))
     movieid = db.Column(db.Integer, db.ForeignKey("movie.id"))
     frequency = db.Column(db.Integer)
+    __table_args__ = {'extend_existing': True}
 
 
 class TimeCharacter(db.Model):
@@ -46,4 +51,13 @@ class TimeCharacter(db.Model):
     timeid = db.Column(db.Integer, db.ForeignKey("time.id"))
     characterid = db.Column(db.Integer, db.ForeignKey("character.id"))
     frequency = db.Column(db.Integer)
+    __table_args__ = {'extend_existing': True}
 
+
+class PlaceCharacter(db.Model):
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    placeid = db.Column(db.Integer, db.ForeignKey("place.id"))
+    characterid = db.Column(db.Integer, db.ForeignKey("character.id"))
+    character = db.relationship('Character')
+    frequency = db.Column(db.Integer)
+    __table_args__ = {'extend_existing': True}
