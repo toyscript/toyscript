@@ -33,7 +33,9 @@ class Scene(db.Model):
     num = db.Column(db.Integer, unique=True)
     movieid = db.Column(db.Integer, db.ForeignKey("movie.id"))
     placeid = db.Column(db.Integer, db.ForeignKey("place.id"))
+    place = db.relationship('Place')
     timeid = db.Column(db.Integer, db.ForeignKey("time.id"))
+    time = db.relationship('Time')
     __table_args__ = {'extend_existing': True}
 
 

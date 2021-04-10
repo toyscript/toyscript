@@ -3,7 +3,7 @@ from flask import Blueprint
 from resource.place import PlaceFrequency, PlaceScene, PlaceCharacter
 from resource.query_movie import QueryMovie
 from resource.character import CharacterFrequency
-from resource.Time import TimeScene
+from resource.time import TimeScene
 
 toyScriptApi = Blueprint("api", __name__)
 api = Api(toyScriptApi)
