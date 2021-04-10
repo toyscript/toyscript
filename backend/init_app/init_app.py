@@ -1,6 +1,5 @@
 from flask import Flask
 from db.init_db import db, migration
-from flask_restful import Api
 from api.api import toyScriptApi
 
 
