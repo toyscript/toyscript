@@ -1,0 +1,15 @@
+html{
+	scroll-behavior: smooth;
+}
+
+.logo {
+  margin-top: 100px;
+  margin-bottom: 20px;
+  width: 310px;
+  height: 160px;
+
+}
+
+.search {
+  margin-bottom: 300px;
+}
