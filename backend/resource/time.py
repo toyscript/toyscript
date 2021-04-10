@@ -49,3 +49,20 @@ class TimeCharacter(Resource):
             time['characters'].append(character.character.name)
 
         return result[1:]
+
+
+class TimeFrequency(Resource):
+
+    def get(self, movieid):
+
+        times = Time.query.filter(Time.movieid == movieid).all()
+        result = []
+
+        for time in times:
+
+            time_frequency = {}
+            time_frequency['time'] = time.name
+            time_frequency['frequency'] = time.frequency
+            result.append(time_frequency)
+
+        return sorted(result, key= lambda x : x.get('frequency'), reverse=True)
