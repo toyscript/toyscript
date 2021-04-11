@@ -5,6 +5,8 @@ punctuations = """!"$%&'()*+,-/:;<=>?@[\]^_`{|}~"""
 
 place_indicators = ("EXT.", "INT.")
 
+time_modifiers = ("CONTINUOUS", "MOMENTS", "LATER")
+
 script_terms = (
     "CUT TO",
     "JUMP TO",
