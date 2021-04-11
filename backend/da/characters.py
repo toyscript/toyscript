@@ -1,5 +1,7 @@
 from typing import Tuple
 from collections import defaultdict
+from script_lines_from_txt import get_lines_of_script
+from script_sections import get_lines_with_only_capital
 from utils import (
     place_indicators,
     script_terms,
@@ -10,17 +12,10 @@ from utils import (
 
 def count_frequency_of_characters(
     all_capital_lines: Tuple[str],
-    place_indicators: Tuple[str],
-    script_terms: Tuple[str],
-    character_cue_terms: Tuple[str],
-) -> Tuple[str, int]:
+) -> Tuple[Tuple[str, int]]:
     """
     캐릭터별 등장 빈도 수를 구합니다.
-    :params
-        all_capital_lines,
-        place_indicators,
-        script_terms,
-        character_cue_terms:
+    :params all_capital_lines:
     :return character_frequencies:
     """
     character_counts = {}
@@ -102,7 +97,7 @@ def get_dialogues_by_characters(
     script_lines: Tuple[str],
     characters: Tuple[str],
     num_of_blank_lines: int,
-) -> Tuple[str, Tuple[str]]:
+) -> Tuple[Tuple[str, Tuple[str]]]:
     """
     캐릭터별 대화 목록을 구합니다.
     :params
@@ -160,5 +155,20 @@ def get_dialogues_by_characters(
 
     character_dialogues = []
     for character, dialogues in chunks.items():
-        character_dialogues.append((character, dialogues))
+        character_dialogues.append((character, tuple(dialogues)))
     return tuple(character_dialogues)
+
+
+script_lines = get_lines_of_script()
+
+character_frequencies = count_frequency_of_characters(
+    get_lines_with_only_capital(script_lines)
+)
+
+characters = get_character_list(character_frequencies)
+
+num_of_blank_lines = count_number_of_blank_lines(script_lines, character_frequencies)
+
+character_dialogues = get_dialogues_by_characters(
+    script_lines, characters, num_of_blank_lines
+)
