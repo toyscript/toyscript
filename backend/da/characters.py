@@ -10,6 +10,23 @@ from utils import (
 )
 
 
+def remove_terms_on_name(name: str) -> str:
+    """
+    이름에서 캐릭터 큐 용어를 제외합니다.
+    :params name:
+    :return name:
+    """
+    for cue_term in character_cue_terms:
+        name = name.replace(f" {cue_term}", "")
+
+        start_of_as = name.find("(AS")
+        end_of_as = name.find(")")
+        if start_of_as != -1:
+            name = name.replace(f" {name[start_of_as:end_of_as+1]}", "")
+
+    return name.strip()
+
+
 def count_frequency_of_characters(
     all_capital_lines: Tuple[str],
 ) -> Tuple[Tuple[str, int]]:
@@ -25,20 +42,11 @@ def count_frequency_of_characters(
 
         if word.find("!") != -1:
             continue
-
         for script_term in script_terms:
             if word.startswith(script_term):
                 break
         else:
-            for cue_term in character_cue_terms:
-                word = word.replace(f" {cue_term}", "")
-
-            start_of_as = word.find("(AS")
-            end_of_as = word.find(")")
-            if start_of_as != -1:
-                word = word.replace(f" {word[start_of_as:end_of_as+1]}", "")
-
-            word = word.strip()
+            word = remove_terms_on_name(word)
 
             if word[0] == "(" or word[-1] in "):-":
                 continue
