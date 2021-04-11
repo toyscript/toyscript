@@ -83,12 +83,11 @@ def count_frequency_of_characters_by_place(
     for place, scene_numbers in place_scenes:
         for num in scene_numbers:
             for word in scene_contents[num - 1][1]:
-                for character in characters:
-                    if character in word:
-                        word = remove_terms_on_name(word)
-                        place_characters_dict[place][word] = (
-                            place_characters_dict[place].get(word, 0) + 1
-                        )
+                word = remove_terms_on_name(word)
+                if word in characters:
+                    place_characters_dict[place][word] = (
+                        place_characters_dict[place].get(word, 0) + 1
+                    )
 
     place_characters = []
     for place, character_freq in place_characters_dict.items():
