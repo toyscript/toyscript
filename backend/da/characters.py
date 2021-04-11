@@ -27,7 +27,7 @@ def count_frequency_of_characters(
             continue
 
         for script_term in script_terms:
-            if word.find(script_term) != -1:
+            if word.startswith(script_term):
                 break
         else:
             for cue_term in character_cue_terms:
