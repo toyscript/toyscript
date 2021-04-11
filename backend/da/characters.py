@@ -1,5 +1,7 @@
 from typing import Tuple
 from collections import defaultdict
+from script_lines_from_txt import get_lines_of_script
+from script_sections import get_lines_with_only_capital
 from utils import (
     place_indicators,
     script_terms,
@@ -8,19 +10,29 @@ from utils import (
 )
 
 
+def remove_terms_on_name(name: str) -> str:
+    """
+    이름에서 캐릭터 큐 용어를 제외합니다.
+    :params name:
+    :return name:
+    """
+    for cue_term in character_cue_terms:
+        name = name.replace(f" {cue_term}", "")
+
+        start_of_as = name.find("(AS")
+        end_of_as = name.find(")")
+        if start_of_as != -1:
+            name = name.replace(f" {name[start_of_as:end_of_as+1]}", "")
+
+    return name.strip()
+
+
 def count_frequency_of_characters(
     all_capital_lines: Tuple[str],
-    place_indicators: Tuple[str],
-    script_terms: Tuple[str],
-    character_cue_terms: Tuple[str],
-) -> Tuple[str, int]:
+) -> Tuple[Tuple[str, int]]:
     """
     캐릭터별 등장 빈도 수를 구합니다.
-    :params
-        all_capital_lines,
-        place_indicators,
-        script_terms,
-        character_cue_terms:
+    :params all_capital_lines:
     :return character_frequencies:
     """
     character_counts = {}
@@ -30,20 +42,11 @@ def count_frequency_of_characters(
 
         if word.find("!") != -1:
             continue
-
         for script_term in script_terms:
-            if word.find(script_term) != -1:
+            if word.startswith(script_term):
                 break
         else:
-            for cue_term in character_cue_terms:
-                word = word.replace(f" {cue_term}", "")
-
-            start_of_as = word.find("(AS")
-            end_of_as = word.find(")")
-            if start_of_as != -1:
-                word = word.replace(f" {word[start_of_as:end_of_as+1]}", "")
-
-            word = word.strip()
+            word = remove_terms_on_name(word)
 
             if word[0] == "(" or word[-1] in "):-":
                 continue
@@ -102,7 +105,7 @@ def get_dialogues_by_characters(
     script_lines: Tuple[str],
     characters: Tuple[str],
     num_of_blank_lines: int,
-) -> Tuple[str, Tuple[str]]:
+) -> Tuple[Tuple[str, Tuple[str]]]:
     """
     캐릭터별 대화 목록을 구합니다.
     :params
@@ -160,5 +163,20 @@ def get_dialogues_by_characters(
 
     character_dialogues = []
     for character, dialogues in chunks.items():
-        character_dialogues.append((character, dialogues))
+        character_dialogues.append((character, tuple(dialogues)))
     return tuple(character_dialogues)
+
+
+script_lines = get_lines_of_script()
+
+character_frequencies = count_frequency_of_characters(
+    get_lines_with_only_capital(script_lines)
+)
+
+characters = get_character_list(character_frequencies)
+
+num_of_blank_lines = count_number_of_blank_lines(script_lines, character_frequencies)
+
+character_dialogues = get_dialogues_by_characters(
+    script_lines, characters, num_of_blank_lines
+)
