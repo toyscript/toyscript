@@ -1,80 +1,164 @@
+from typing import Tuple
+from collections import defaultdict
 from utils import (
     place_indicators,
-    scriptTerms,
-    punctuations,
-    MAX_SPLIT_LENGTH_IN_CHARACTER_NAME,
+    script_terms,
+    character_cue_terms,
+    MAX_BLANK_LINES_BETWEEN_CHARACTER_AND_SPEECH,
 )
-from collections import Counter
-from script_lines_from_txt import get_lines_of_script
 
 
-def getAllCharacters(script_lines):
-    characters = []
-    for token in script_lines:
-        if token[:4] in place_indicators:
-            continue  # 'EXT.' 또는 'INT.'로 시작하면 continue
-        for term in scriptTerms:
-            if token.find(term) != -1:
-                break  # 장면 전환 등의 시나리오 용어라면 break
+def count_frequency_of_characters(
+    all_capital_lines: Tuple[str],
+    place_indicators: Tuple[str],
+    script_terms: Tuple[str],
+    character_cue_terms: Tuple[str],
+) -> Tuple[str, int]:
+    """
+    캐릭터별 등장 빈도 수를 구합니다.
+    :params
+        all_capital_lines,
+        place_indicators,
+        script_terms,
+        character_cue_terms:
+    :return character_frequencies:
+    """
+    character_counts = {}
+    for word in all_capital_lines:
+        if word[:4] in place_indicators:
+            continue
+
+        if word.find("!") != -1:
+            continue
+
+        for script_term in script_terms:
+            if word.find(script_term) != -1:
+                break
         else:
-            if token.isupper():  # 모든 문자가 대문자이고, 공백으로 시작하면
-                # TODO 함수로 구현하기
-                # continued를 의미하는 (CONT’D) 또는 (CONT'D) 제거
-                token = token.replace(" (CONT'D)", "")
-                token = token.replace(" (CONT’D)", "")
+            for cue_term in character_cue_terms:
+                word = word.replace(f" {cue_term}", "")
 
-                # (V.O.) 또는 (V.O)제거
-                # Voice Over: 인물이 출연은 하지만 말은 안하고, 속마음을 얘기하는 경우
-                token = token.replace(" (V.O.)", "")
-                token = token.replace(" (V.O)", "")
+            start_of_as = word.find("(AS")
+            end_of_as = word.find(")")
+            if start_of_as != -1:
+                word = word.replace(f" {word[start_of_as:end_of_as+1]}", "")
 
-                # (O.C.) 제거 (Off Camera)
-                token = token.replace(" (O.C.)", "")
+            word = word.strip()
 
-                # (O.S.) 제거 (Off Screen, 인물은 안 보이고 그 인물의 소리만 들리는 경우, 환청 등)
-                token = token.replace(" (O.S.)", "")
+            if word[0] == "(" or word[-1] in "):-":
+                continue
 
-                token = token.replace(" (VOICE BOX)", "")
+            character_counts[word] = character_counts.get(word, 0) + 1
 
-                token = token.replace(" (ON PHONE)", "")
+    character_frequencies = []
+    for character, count in character_counts.items():
+        character_frequencies.append((character, count))
+    return tuple(character_frequencies)
 
-                splitted = token.split()
-                wordWithAs = ""
-                for i in range(len(splitted)):
-                    word = splitted[i]
-                    if word.startswith("(AS"):
-                        wordWithAs = " ".join(splitted[i:])
 
-                # TODO 지엽적인 것 -> 일반화 어떻게 할지 논의 필요
-                if wordWithAs:
-                    token = token.replace(f" {wordWithAs}", "")
+def get_character_list(character_frequencies: Tuple[str, int]) -> Tuple[str]:
+    """
+    캐릭터 이름 목록을 구합니다.
+    :params character_frequencies
+    :return characters:
+    """
+    characters = [chracter_freq[0] for chracter_freq in character_frequencies]
+    return tuple(characters)
+
+
+def count_number_of_blank_lines(
+    script_lines: Tuple[str], character_frequencies: Tuple[str]
+) -> int:
+    """
+    10번 이상 등장한 특정 캐릭터와 대사 사이의 공백 줄 개수를 구합니다.
+    :params
+        script_lines,
+        character_frequencies:
+    :return number_of_blank_lines:
+    """
+    character = ""
+    for character, frequency in character_frequencies:
+        if frequency >= 10:
+            character = character
+            break
+
+    num_of_blank_lines = 0
+    is_character_found = False
+    for i in range(len(script_lines)):
+        if not is_character_found:
+            line = script_lines[i]
+            if line.startswith(" ") and character in line:
+                for j in range(i + 1, i + MAX_BLANK_LINES_BETWEEN_CHARACTER_AND_SPEECH):
+                    is_character_found = True
+                    if script_lines[j]:
+                        break
+                    num_of_blank_lines += 1
+        else:
+            break
+    return num_of_blank_lines
+
+
+def get_dialogues_by_characters(
+    script_lines: Tuple[str],
+    characters: Tuple[str],
+    num_of_blank_lines: int,
+) -> Tuple[str, Tuple[str]]:
+    """
+    캐릭터별 대화 목록을 구합니다.
+    :params
+        script_lines,
+        characters,
+        num_of_blank_lines:
+    :return character_dialogues:
+    """
+    chunks = defaultdict(list)
+    for i in range(len(script_lines)):
+        line = script_lines[i]
+        if line.startswith(" "):
+            for character in characters:
+                tokens = line.strip().split()
+                character_names = character.split()
+                len_of_tokens = len(tokens)
+                len_of_character_names = len(character_names)
 
                 if (
-                    len(token.split()) > MAX_SPLIT_LENGTH_IN_CHARACTER_NAME
-                ):  # split 이후 길이가 MAX 길이보다 크면 break
-                    continue
+                    (
+                        len_of_tokens == 1
+                        and len_of_character_names == 1
+                        and tokens[0] == character_names[0]
+                    )
+                    # tokens, character_names 길이가 모두 1보다 클 때 둘의 각 0번째 이름, 각 1번째 이름, 각 마지막 이름이 일치하거나
+                    # (예_ 'DR. STONER'와 'DR. SALLY FRIEDMAN'를 다른 인물로 구분하기 위함)
+                    or (
+                        len_of_tokens > 1
+                        and len_of_character_names > 1
+                        and tokens[0] == character_names[0]
+                        and tokens[1] == character_names[1]
+                        and tokens[-1] == character_names[-1]
+                    )
+                    # tokens 길이가 1보다 크고 character_names 길이가 1일 때,
+                    # 둘의 0번째 이름이 일치하나 tokens의 마지막 요소가 '#'로 시작하지 않을 때
+                    # (예_ tokens가 'ALIEN #1' 이고 character_names가 'ALIEN'인 경우, 둘을 다르게 구분하기 위함)
+                    or (
+                        len_of_tokens > 1
+                        and len_of_character_names == 1
+                        and tokens[0] == character_names[0]
+                        and not tokens[-1].startswith("#")
+                    )
+                ):
+                    blank_count = 0
+                    for j in range(i + 1, len(script_lines)):
+                        token = script_lines[j].strip()
+                        if blank_count > num_of_blank_lines:
+                            break
 
-                for char in token:
-                    if char in punctuations + ".":  # 특수 문자가 포함되면 break
-                        break
-                else:
-                    characters.append(token.strip())
-    return characters
+                        if token:
+                            blank_count = 0
+                            chunks[character].append(token)
+                        else:
+                            blank_count += 1
 
-
-script_lines = get_lines_of_script()
-
-# 캐릭터 목록 출력
-charactersSet = set(getAllCharacters(script_lines))
-# print(sorted(list(charactersSet)))
-
-# 총 캐릭터 수 출력
-numOfCharacters = len(charactersSet)
-# print(numOfCharacters)
-
-
-# 캐릭터별 대사 개수 출력
-charactersCount = Counter(getAllCharacters(script_lines)).most_common()
-# print(charactersCount)
-# for name, count in charactersCount:
-#     print(f'{name}, {count}')
+    character_dialogues = []
+    for character, dialogues in chunks.items():
+        character_dialogues.append((character, dialogues))
+    return tuple(character_dialogues)
