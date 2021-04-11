@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Container } from "react-bootstrap";
 import { Bar, Doughnut } from "react-chartjs-2";
 import "bootstrap/dist/css/bootstrap.min.css";
