@@ -1,7 +1,9 @@
 from collections import Counter, defaultdict
-from scriptLinesFromTxt import scriptLines
+from script_lines_from_txt import get_lines_of_script
 from sceneNoContents import sceneNoContents
 
+
+script_lines = get_lines_of_script()
 
 ## 시간대별 씬 번호 목록
 timeScenes = defaultdict(list)
