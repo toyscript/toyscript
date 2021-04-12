@@ -22,6 +22,13 @@ api.add_resource(TimeFrequency, "/<int:movie_id>/times/frequencys")
 api.add_resource(Summary, "/movies/<int:movie_id>")
 api.add_resource(QueryMovie, "/movies")
 
+def not_found_error(error):
+
+    payload = dict()
+    payload['message'] = "해당 url은 지원하지 않음."
+
+    return jsonify(payload), 404
+
 @toyScriptApi.errorhandler(MovieDoesNotExist)
 def movie_error_handling(error):
 
