@@ -57,7 +57,7 @@ def group_contents_by_scene_number(
     while line_num < num_of_all_lines:
         line = script_lines[line_num].lstrip()
 
-        if contains_place_indicator(line):
+        if contains_place_indicator(line) and line.isupper():
             scene_num += 1
 
             continued_num = 0

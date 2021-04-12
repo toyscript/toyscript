@@ -7,6 +7,7 @@ from utils import (
     script_terms,
     character_cue_terms,
     MAX_BLANK_LINES_BETWEEN_CHARACTER_AND_DIALOGUE,
+    MAX_SPLIT_LENGTH_OF_CHARACTER_NAME,
 )
 
 
@@ -37,6 +38,9 @@ def count_frequency_of_characters_and_slugs(
     """
     character_slug_counts_dict = {}
     for line in all_capital_lines:
+        if len(line.split()) >= MAX_SPLIT_LENGTH_OF_CHARACTER_NAME:
+            continue
+
         if line[:4] in place_indicators:
             continue
 
@@ -124,7 +128,14 @@ def get_dialogues_by_characters(
     chunks = defaultdict(list)
     for i in range(len(script_lines)):
         line = script_lines[i]
-        if line.startswith(" "):
+
+        if not line.startswith(" "):
+            continue
+
+        for word in line.split():
+            if word.islower():
+                break
+        else:
             for character in character_slug_keys:
                 tokens = line.strip().split()
                 character_names = character.split()
@@ -132,6 +143,16 @@ def get_dialogues_by_characters(
                 len_of_character_names = len(character_names)
 
                 if (
+                    len_of_tokens > 1
+                    and len_of_character_names == 1
+                    and len(tokens[0]) == 1
+                    and len(character_names[0]) == 1
+                    and tokens[0] == character_names[0]
+                ):
+                    # 'A U'와 'A'를 구분하기 위함
+                    continue
+
+                elif (
                     (
                         len_of_tokens == 1
                         and len_of_character_names == 1
@@ -193,7 +214,7 @@ def get_character_frequencies(
     character_slug_frequencies: Tuple[str, int], characters: Tuple[str]
 ) -> Tuple[Tuple[str, int]]:
     """
-    캐릭터 또는 슬러그 라인별 빈도 데이터에서 키 값(0번째 인덱스 값)을 구합니다.
+    캐릭터 또는 슬러그 라인별 빈도 데이터에서 캐릭터별로 등장 빈도 수를 계산합니다.
     :params character_slug_frequencies
     :return character_frequencies:
     """

@@ -1,9 +1,26 @@
 from typing import Tuple
-from utils import place_indicators
+from utils import place_indicators, ambiguous_place_indicators
 from collections import defaultdict
 from characters import characters, remove_terms_on_name
 from script_sections import headings, scene_contents
 from script_lines_from_txt import get_lines_of_script
+
+
+def check_ambiguous_place(place: str) -> bool:
+    """
+    Place Indicator가 SAME 등의
+    모호한 장소 표현인지 확인합니다.
+    :params place, place_indicator:
+    :return: bool
+    """
+    if not place:
+        return True
+
+    place = place.strip()
+    for indicator in ambiguous_place_indicators:
+        if place == indicator:
+            return True
+    return False
 
 
 def count_frequency_of_places(headings: Tuple[str]) -> Tuple[Tuple[str, int]]:
@@ -13,8 +30,18 @@ def count_frequency_of_places(headings: Tuple[str]) -> Tuple[Tuple[str, int]]:
     :return place_frequencies:
     """
     place_counts = {}
-    for heading in headings:
+    for i in range(len(headings)):
+        heading = headings[i]
         place = get_place_from_heading(heading)
+
+        current_num = i
+        while check_ambiguous_place(place) and current_num > 0:
+            current_num -= 1
+            place = get_place_from_heading(headings[current_num])
+
+        if not place:
+            place = "NOT INFERRED"
+
         place_counts[place] = place_counts.get(place, 0) + 1
 
     place_frequencies = []
@@ -41,15 +68,23 @@ def get_place_from_heading(heading: str) -> str:
     """
     place = ""
     for word in heading.split():
-        if word[-1] in "./":
+        if word[-1] in "." or word == "/":
             continue
 
-        if word == "-":
+        if word == "-" or word == "-DAY":
             place = place.strip()
             break
 
         if word[-1] == "-":
             place += word[:-1]
+            break
+
+        if word[-4:] == "-DAY":
+            place += word[:-4]
+            break
+
+        if word[-11:] == "-CONTINUOUS":
+            place += word[:-11]
             break
 
         place += word + " "
@@ -67,6 +102,15 @@ def group_scene_numbers_by_place(
     place_scenes_dict = defaultdict(list)
     for scene_num, contents in scene_contents:
         place = get_place_from_heading(contents[0])
+
+        current_num = scene_num
+        while check_ambiguous_place(place) and current_num > 0:
+            current_num -= 1
+            place = get_place_from_heading(headings[current_num])
+
+        if not place:
+            place = "NOT INFERRED"
+
         place_scenes_dict[place].append(scene_num)
 
     place_scenes = []
