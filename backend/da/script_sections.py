@@ -15,15 +15,27 @@ def get_lines_with_only_capital(script_lines: Tuple[str]) -> Tuple[str]:
     return tuple(all_capital_lines)
 
 
+def contains_place_indicator(line: str) -> bool:
+    """
+    문장안에 EXT. 또는 INT., EXT/ 또는 INT/을 포함하는지 여부를 체크합니다.
+    :params line:
+    :return: bool
+    """
+    for indicator in place_indicators:
+        if line.find(indicator) != -1:
+            return True
+    return False
+
+
 def get_all_headings(all_capital_lines: Tuple[str]) -> Tuple[str]:
     """
-    EXT. 또는 INT.로 시작하는 각 장면의 제목 목록을 구합니다.
+    EXT 또는 INT로 시작하는 각 장면의 제목 목록을 구합니다.
     :params all_capital_lines:
     :return headings:
     """
     headings = []
     for line in all_capital_lines:
-        if line[:4] in place_indicators:
+        if contains_place_indicator(line):
             headings.append(line)
     return tuple(headings)
 
@@ -45,7 +57,7 @@ def group_contents_by_scene_number(
     while line_num < num_of_all_lines:
         line = script_lines[line_num].lstrip()
 
-        if line[:4] in place_indicators:
+        if contains_place_indicator(line):
             scene_num += 1
 
             continued_num = 0
@@ -57,7 +69,7 @@ def group_contents_by_scene_number(
                 if not next_line:
                     continue
 
-                if next_line[:4] in place_indicators:
+                if contains_place_indicator(next_line):
                     break
 
                 scene_contents_dict[scene_num].append(next_line)
