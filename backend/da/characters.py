@@ -6,7 +6,7 @@ from utils import (
     place_indicators,
     script_terms,
     character_cue_terms,
-    MAX_BLANK_LINES_BETWEEN_CHARACTER_AND_DIALOGUE
+    MAX_BLANK_LINES_BETWEEN_CHARACTER_AND_DIALOGUE,
 )
 
 
@@ -36,24 +36,24 @@ def count_frequency_of_characters_and_slugs(
     :return character_slugs_frequencies:
     """
     character_slug_counts_dict = {}
-    for word in all_capital_lines:
-        if word[:4] in place_indicators:
+    for line in all_capital_lines:
+        if line[:4] in place_indicators:
             continue
 
-        if word.find("!") != -1:
+        if line.find("!") != -1 or line.find('"') != -1:
             continue
 
         for script_term in script_terms:
-            if word.startswith(script_term):
+            if line.startswith(script_term):
                 break
         else:
-            word = remove_terms_on_name(word)
+            line = remove_terms_on_name(line)
 
-            if word[0] == "(" or word[-1] in "):-":
+            if line[0] == "(" or line[-1] in "):-.":
                 continue
 
-            character_slug_counts_dict[word] = (
-                character_slug_counts_dict.get(word, 0) + 1
+            character_slug_counts_dict[line] = (
+                character_slug_counts_dict.get(line, 0) + 1
             )
 
     character_slug_frequencies = []
@@ -121,7 +121,9 @@ def count_number_of_blank_lines(
         if not is_character_found:
             line = script_lines[i]
             if line.startswith(" ") and character in line:
-                for j in range(i + 1, i + MAX_BLANK_LINES_BETWEEN_CHARACTER_AND_DIALOGUE):
+                for j in range(
+                    i + 1, i + MAX_BLANK_LINES_BETWEEN_CHARACTER_AND_DIALOGUE
+                ):
                     is_character_found = True
                     if script_lines[j]:
                         break
