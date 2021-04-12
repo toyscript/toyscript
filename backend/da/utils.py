@@ -50,16 +50,21 @@ script_terms = (
 )
 
 character_cue_terms = (
+    "(CONT)",
     "(CONT'D)",
     "(CONT’D)",
     "(V.O.)",
     "(V.O)",
     "VO",
+    "V/O",
+    "V/0",
     "(O.C.)",
     "(O.S.)",
+    "O.S",
     "(VOICE BOX)",
     "(ON PHONE)",
     "*",
+    "..",
 )
 
 time_modifiers = (
