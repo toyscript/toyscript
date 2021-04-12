@@ -6,7 +6,7 @@ from utils import (
     place_indicators,
     script_terms,
     character_cue_terms,
-    MAX_BLANK_LINES_BETWEEN_CHARACTER_AND_SPEECH,
+    MAX_BLANK_LINES_BETWEEN_CHARACTER_AND_DIALOGUE
 )
 
 
@@ -27,15 +27,15 @@ def remove_terms_on_name(name: str) -> str:
     return name.strip()
 
 
-def count_frequency_of_characters(
+def count_frequency_of_characters_and_slugs(
     all_capital_lines: Tuple[str],
 ) -> Tuple[Tuple[str, int]]:
     """
-    캐릭터별 등장 빈도 수를 구합니다.
+    캐릭터 또는 슬러그 라인별 등장 빈도 수를 계산합니다.
     :params all_capital_lines:
-    :return character_frequencies:
+    :return character_slugs_frequencies:
     """
-    character_counts = {}
+    character_slug_counts_dict = {}
     for word in all_capital_lines:
         if word[:4] in place_indicators:
             continue
@@ -52,22 +52,41 @@ def count_frequency_of_characters(
             if word[0] == "(" or word[-1] in "):-":
                 continue
 
-            character_counts[word] = character_counts.get(word, 0) + 1
+            character_slug_counts_dict[word] = (
+                character_slug_counts_dict.get(word, 0) + 1
+            )
 
+    character_slug_frequencies = []
+    for character, count in character_slug_counts_dict.items():
+        character_slug_frequencies.append((character, count))
+    return tuple(character_slug_frequencies)
+
+
+def get_character_slug_keys(character_slug_frequencies: Tuple[str, int]) -> Tuple[str]:
+    """
+    캐릭터 또는 슬러그 라인별 빈도 데이터에서 키 값(0번째 인덱스 값)을 구합니다.
+    :params character_slug_frequencies
+    :return characters_slug_keys:
+    """
+    characters_slug_keys = [
+        chracter_slug_freq[0] for chracter_slug_freq in character_slug_frequencies
+    ]
+    return tuple(characters_slug_keys)
+
+
+def get_character_frequencies(
+    character_slug_frequencies: Tuple[str, int], characters: Tuple[str]
+) -> Tuple[Tuple[str, int]]:
+    """
+    캐릭터 또는 슬러그 라인별 빈도 데이터에서 키 값(0번째 인덱스 값)을 구합니다.
+    :params character_slug_frequencies
+    :return character_frequencies:
+    """
     character_frequencies = []
-    for character, count in character_counts.items():
-        character_frequencies.append((character, count))
+    for character, frequency in character_slug_frequencies:
+        if character in characters:
+            character_frequencies.append((character, frequency))
     return tuple(character_frequencies)
-
-
-def get_character_freq_keys(character_frequencies: Tuple[str, int]) -> Tuple[str]:
-    """
-    캐릭터별 빈도 분석에서 캐릭터 키 값을 구합니다.
-    :params character_frequencies
-    :return characters_freq_keys:
-    """
-    characters_freq_keys = [chracter_freq[0] for chracter_freq in character_frequencies]
-    return tuple(characters_freq_keys)
 
 
 def get_character_list(character_dialogues: Tuple[str, Tuple[str]]) -> Tuple[str]:
@@ -81,17 +100,17 @@ def get_character_list(character_dialogues: Tuple[str, Tuple[str]]) -> Tuple[str
 
 
 def count_number_of_blank_lines(
-    script_lines: Tuple[str], character_frequencies: Tuple[str]
+    script_lines: Tuple[str], character_slug_frequencies: Tuple[str]
 ) -> int:
     """
     10번 이상 등장한 특정 캐릭터와 대사 사이의 공백 줄 개수를 구합니다.
     :params
         script_lines,
-        character_frequencies:
+        character_slug_frequencies:
     :return number_of_blank_lines:
     """
     character = ""
-    for character, frequency in character_frequencies:
+    for character, frequency in character_slug_frequencies:
         if frequency >= 10:
             character = character
             break
@@ -102,7 +121,7 @@ def count_number_of_blank_lines(
         if not is_character_found:
             line = script_lines[i]
             if line.startswith(" ") and character in line:
-                for j in range(i + 1, i + MAX_BLANK_LINES_BETWEEN_CHARACTER_AND_SPEECH):
+                for j in range(i + 1, i + MAX_BLANK_LINES_BETWEEN_CHARACTER_AND_DIALOGUE):
                     is_character_found = True
                     if script_lines[j]:
                         break
@@ -118,7 +137,7 @@ def get_dialogues_by_characters(
     num_of_blank_lines: int,
 ) -> Tuple[Tuple[str, Tuple[str]]]:
     """
-    캐릭터별 대화 목록을 구합니다.
+    캐릭터별 대사 목록을 구합니다.
     :params
         script_lines,
         characters,
@@ -180,16 +199,22 @@ def get_dialogues_by_characters(
 
 script_lines = get_lines_of_script()
 
-character_frequencies = count_frequency_of_characters(
+character_slug_frequencies = count_frequency_of_characters_and_slugs(
     get_lines_with_only_capital(script_lines)
 )
 
-character_keys = get_character_list(character_frequencies)
+character_slug_keys = get_character_slug_keys(character_slug_frequencies)
 
-num_of_blank_lines = count_number_of_blank_lines(script_lines, character_frequencies)
+num_of_blank_lines = count_number_of_blank_lines(
+    script_lines, character_slug_frequencies
+)
 
 character_dialogues = get_dialogues_by_characters(
-    script_lines, character_keys, num_of_blank_lines
+    script_lines, character_slug_keys, num_of_blank_lines
 )
 
 characters = get_character_list(character_dialogues)
+
+character_frequencies = get_character_frequencies(
+    character_slug_frequencies, characters
+)

@@ -1,5 +1,5 @@
 from typing import Tuple
-from utils import time_modifiers
+from utils import ambiguous_time_modifiers
 from collections import Counter, defaultdict
 from script_sections import headings, scene_contents
 from characters import characters, remove_terms_on_name
@@ -43,7 +43,7 @@ def check_ambiguous_time(time: str) -> bool:
     if not time:
         return True
 
-    for modifier in time_modifiers:
+    for modifier in ambiguous_time_modifiers:
         if time.startswith(modifier):
             return True
     return False
@@ -142,3 +142,7 @@ time_scenes = group_scene_numbers_by_time(scene_contents)
 time_characters = count_frequency_of_characters_by_time(
     time_scenes, scene_contents, characters
 )
+
+
+for k, v in time_scenes:
+    print(k, ":", v)
