@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Container } from "react-bootstrap";
 import { Bar, Doughnut } from "react-chartjs-2";
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -7,43 +7,16 @@ import axios from "axios";
 
 const Place = () => {
   const allPlacesApiUrl =
-    "https://dd8d3c9d-88a6-468e-971c-ac0ffa96644f.mock.pstmn.io/api/place/frequency/1113";
+    "http://elice-kdt-ai-track-vm-da-04.koreacentral.cloudapp.azure.com:5000/api/1212/places/frequencys";
+  const scenesPerPlaceApiUrl =
+    "http://elice-kdt-ai-track-vm-da-04.koreacentral.cloudapp.azure.com:5000/api/1212/places/scenes";
   const [allPlacesData, setAllPlacesData] = useState({});
+  const [topPlacesData, setTopPlacesData] = useState({});
+  const [allScenesPerPlaceData, setAllScenesPerPlacesData] = useState([]);
 
   const chartBackgroundColor = {
     backgroundColor: "white",
     borderRadius: "20px",
-  };
-
-  const topPlaceState = {
-    labels: [
-      "CATERPILLAR ROOM",
-      "PLAYGROUND",
-      "ANDY'S ROOM",
-      "HALLWAY",
-      "OFFICE",
-    ],
-    datasets: [
-      {
-        label: "비율",
-        data: [36, 22, 18, 12, 12],
-        backgroundColor: [
-          "rgba(0, 83, 98, 0.7)",
-          "rgba(18, 121, 131, 0.7)",
-          "rgba(56, 160, 166, 0.7)",
-          "rgba(106, 188, 190, 0.7)",
-          "rgba(146, 213, 208, 0.7)",
-        ],
-        borderColor: [
-          "rgba(0, 83, 98, 0.7)",
-          "rgba(18, 121, 131, 0.7)",
-          "rgba(56, 160, 166, 0.7)",
-          "rgba(106, 188, 190, 0.7)",
-          "rgba(146, 213, 208, 0.7)",
-        ],
-        borderWidth: 1,
-      },
-    ],
   };
 
   const charatersPerPlaceState = {
@@ -56,24 +29,128 @@ const Place = () => {
     ],
     datasets: [
       {
-        label: "woody",
-        data: [12, 19, 3, 5, 2, 3],
-        backgroundColor: "rgb(255, 99, 132)",
+        label: "WOODY",
+        data: [1, 1, 1, 1, 1]
       },
       {
-        label: "buzz",
-        data: [2, 3, 20, 5, 1, 4],
-        backgroundColor: "rgb(54, 162, 235)",
+        label: "BUZZ",
+        data: [1, 1, 1, 1, 1]
       },
       {
-        label: "andy",
-        data: [3, 10, 13, 15, 22, 30],
-        backgroundColor: "rgb(75, 192, 192)",
+        label: "JESSIE",
+        data: [1, 1, 1, 1, 1]
       },
       {
-        label: "lotso",
-        data: [5, 7, 9, 11, 13, 15],
-        backgroundColor: "rgb(75, 192, 192)",
+        label: "LOTSO",
+        data: [1, 0, 0, 1, 1]
+      },
+      {
+        label: "KEN",
+        data: [1, 0, 0, 1, 1]
+      },
+      {
+        label: "MR. POTATO HEAD",
+        data: [1, 1, 1, 1, 1]
+      },
+      {
+        label: "REX",
+        data: [1, 1, 1, 1, 1]
+      },
+      {
+        label: "HAMM",
+        data: [1, 1, 1, 1, 1]
+      },
+      {
+        label: "MRS. POTATO HEAD",
+        data: [1, 1, 1, 1, 0]
+      },
+      {
+        label: "BARBIE",
+        data: [1, 0, 0, 1, 1]
+      },
+      {
+        label: "SLINKY",
+        data: [1, 0, 0, 1, 1]
+      },
+      {
+        label: "LIFER",
+        data: [1, 0, 0, 0, 1]
+      },
+      {
+        label: "SPANISH BUZZ",
+        data: [1, 0, 0, 0, 1]
+      },
+      {
+        label: "BONNIE'S MOM",
+        data: [1, 0, 0, 0, 0]
+      },
+      {
+        label: "STRETCH",
+        data: [1, 0, 0, 0, 0]
+      },
+      {
+        label: "KEN & BARBIE",
+        data: [1, 0, 0, 0, 0]
+      },
+      {
+        label: "TEACHER",
+        data: [1, 0, 0, 0, 0]
+      },
+      {
+        label: "ANDY",
+        data: [0, 1, 1, 0, 0]
+      },
+      {
+        label: "MOM",
+        data: [0, 1, 1, 0, 0]
+      },
+      {
+        label: "ALIENS",
+        data: [0, 1, 0, 1, 0]
+      },
+      {
+        label: "SARGE",
+        data: [0, 1, 0, 0, 0]
+      },
+      {
+        label: "THE TOY CHEST",
+        data: [0, 1, 0, 0, 0]
+      },
+      {
+        label: "SOLDIER ONE",
+        data: [0, 1, 0, 0, 0]
+      },
+      {
+        label: "SOLDIER TWO",
+        data: [0, 1, 0, 0, 0]
+      },
+      {
+        label: "MOLLY",
+        data: [0, 0, 1, 0, 0]
+      },
+      {
+        label: "YOUNG ANDY",
+        data: [0, 0, 1, 0, 0]
+      },
+      {
+        label: "TOYS",
+        data: [0, 0, 1, 0, 1]
+      },
+      {
+        label: "THE TOYS",
+        data: [0, 0, 1, 0, 0]
+      },
+      {
+        label: "ANDY'S ROOM",
+        data: [0, 0, 1, 0, 0]
+      },
+      {
+        label: "BUTTERFLY ROOM TEACHER",
+        data: [0, 0, 0, 1, 0]
+      },
+      {
+        label: "BIG BABY",
+        data: [0, 0, 0, 0, 1]
       },
     ],
   };
@@ -116,8 +193,9 @@ const Place = () => {
       let blueList = [105];
       let rgbList = [];
       await axios.get(allPlacesApiUrl).then((response) => {
+        // console.log(response);
         for (let dataObj of response.data) {
-          allPlacesName.push(dataObj.placeName);
+          allPlacesName.push(dataObj.place);
           allPlacesFreq.push(dataObj.frequency);
         }
         for (let i = 0; i < response.data.length; i++) {
@@ -132,8 +210,8 @@ const Place = () => {
           let rgb = `rgb(${red}, ${greenList[i]}, ${blueList[i]})`;
           rgbList.push(rgb);
         }
-        // console.log(rgbList);
       });
+      // console.log(allPlacesName);
       setAllPlacesData({
         labels: allPlacesName,
         datasets: [
@@ -144,8 +222,44 @@ const Place = () => {
           },
         ],
       });
+      const topPlacesName = allPlacesName.slice(0, 5);
+      const topPlacesFreq = allPlacesFreq.slice(0, 5);
+      // console.log(topPlacesName, topPlacesFreq);
+      setTopPlacesData({
+        labels: topPlacesName,
+        datasets: [
+          {
+            label: "빈도",
+            data: topPlacesFreq,
+            backgroundColor: [
+              "rgba(45, 135, 187, 0.6)",
+              "rgba(100, 194, 166, 0.6)",
+              "rgba(170, 222, 167, 0.6)",
+              "rgba(230, 246, 157, 0.6)",
+              "rgba(255, 255, 157, 0.6)",
+            ],
+          },
+        ],
+      });
     };
     fetchAllPlacesData();
+  }, []);
+
+  useEffect(() => {
+    const fetchAllScenesData = async () => {
+      const result = [];
+      await axios.get(scenesPerPlaceApiUrl).then((response) => {
+        // console.log(response)
+        for (let dataObj of response.data) {
+          result.push(dataObj);
+        }
+      // console.log(result)
+      })
+      const topResult = result.slice(0, 5);
+      setAllScenesPerPlacesData(topResult);
+      // console.log(allScenesPerPlaceData)
+    }
+    fetchAllScenesData();
   }, []);
 
   return (
@@ -163,7 +277,7 @@ const Place = () => {
               },
               legend: {
                 display: true,
-                position: "right",
+                position: "top",
               },
               responsive: true,
               maintainAspectRatio: true,
@@ -173,7 +287,7 @@ const Place = () => {
           <hr />
           <br />
           <Doughnut
-            data={topPlaceState}
+            data={topPlacesData}
             options={{
               title: {
                 display: true,
@@ -182,16 +296,37 @@ const Place = () => {
               },
               legend: {
                 display: true,
-                position: "right",
+                position: "top",
               },
               responsive: true,
               maintainAspectRatio: true,
             }}
           />
           <br />
+          {allScenesPerPlaceData.map((scenes, index) => {
+            // console.log(scenes);
+            // console.log(scenes.scenes)
+            let scenesList = [];
+            for (let i = 0; i < scenes.scenes.length; i++) {
+              let scene = `${scenes.scenes[i]}, `;
+              scenesList.push(scene);
+              if (i === scenes.scenes.length - 1) {
+                let scene = `${scenes.scenes[i]}`;
+              scenesList.push(scene);
+              }
+            }
+            // console.log(scenesList)
+            return (
+              <>
+              <li key={index} style={{listStyle: "none"}}>
+                장소 <b>{scenes.place}</b>에 포함되는 씬은 <b>[{scenesList}]</b> 입니다.
+              </li>
+              </>
+            )
+          })}
+          <br />
           <hr />
           <br />
-          <Bar data={charatersPerPlaceState} options={options} />
         </div>
       </div>
       <br />

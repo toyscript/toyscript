@@ -16,7 +16,11 @@ class QueryMovie(Resource):
         movie_list = []
 
         for m in movies:
-            movie_list.append(m.title)
+
+            movie = {}
+            movie['title'] = m.title
+            movie['movie_id'] = m.id
+            movie_list.append(movie)
 
         return movie_list
 

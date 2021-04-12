@@ -1,8 +1,11 @@
 from flask_restful import Resource
 from model.models import Character
+from api.utils import movie_exist
 
 
 class CharacterFrequency(Resource):
+    method_decorators = [movie_exist]
+
     def get(self, movie_id):
 
         characterFrequency = []
