@@ -42,6 +42,7 @@ def count_frequency_of_characters(
 
         if word.find("!") != -1:
             continue
+
         for script_term in script_terms:
             if word.startswith(script_term):
                 break
@@ -59,13 +60,23 @@ def count_frequency_of_characters(
     return tuple(character_frequencies)
 
 
-def get_character_list(character_frequencies: Tuple[str, int]) -> Tuple[str]:
+def get_character_freq_keys(character_frequencies: Tuple[str, int]) -> Tuple[str]:
     """
-    캐릭터 이름 목록을 구합니다.
+    캐릭터별 빈도 분석에서 캐릭터 키 값을 구합니다.
     :params character_frequencies
+    :return characters_freq_keys:
+    """
+    characters_freq_keys = [chracter_freq[0] for chracter_freq in character_frequencies]
+    return tuple(characters_freq_keys)
+
+
+def get_character_list(character_dialogues: Tuple[str, Tuple[str]]) -> Tuple[str]:
+    """
+    대사가 있는 캐릭터 이름 목록을 구합니다.
+    :params character_dialogues:
     :return characters:
     """
-    characters = [chracter_freq[0] for chracter_freq in character_frequencies]
+    characters = [character_dialogue[0] for character_dialogue in character_dialogues]
     return tuple(characters)
 
 
@@ -173,10 +184,12 @@ character_frequencies = count_frequency_of_characters(
     get_lines_with_only_capital(script_lines)
 )
 
-characters = get_character_list(character_frequencies)
+character_keys = get_character_list(character_frequencies)
 
 num_of_blank_lines = count_number_of_blank_lines(script_lines, character_frequencies)
 
 character_dialogues = get_dialogues_by_characters(
-    script_lines, characters, num_of_blank_lines
+    script_lines, character_keys, num_of_blank_lines
 )
+
+characters = get_character_list(character_dialogues)
