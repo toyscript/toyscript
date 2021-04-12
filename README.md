@@ -8,10 +8,10 @@
 3. 사용자에게 대본(txt) 파일을 입력받아 분석한 결과를 보여줍니다.
       
 #### 기술 스택
-![001](backend/readme/img/001.jpg)
+![001](uploads/00940d3be490ac3a56e2c278cd94c916/001.jpg)
 
 #### 사용된 라이브러리
-![002](backend/readme/img/002.jpg))
+![002](uploads/683d3c144401d30268723880da89e300/002.jpg)
 
 #### 웹서비스에 대한 자세한 개요
 
@@ -56,7 +56,7 @@
 
 ## 4. 프로젝트 구성도
 
-![image](backend/readme/img/storyboard.png)
+![image](uploads/47e096a41b3fbab3971791ba5dabd7dd/image.png)
 
 ## 5. 프로젝트 팀원 역할 분담
 
