@@ -46,4 +46,21 @@ character_cue_terms = (
     "(O.S.)",
     "(VOICE BOX)",
     "(ON PHONE)",
+    "*",
+)
+
+time_modifiers = (
+    "DAWN",
+    "SUNRISE",
+    "SUNSET",
+    "MORNING",
+    "FORENOON",
+    "MIDNOON",
+    "AFTERNOON",
+    "NOON",
+    "DUSK",
+    "EVENING",
+    "MIDNIGHT",
+    "DAY",
+    "NIGHT",
 )
