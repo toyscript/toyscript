@@ -11,6 +11,7 @@ ambiguous_place_indicators = ("SAME",)
 
 ambiguous_time_modifiers = (
     "CONTINUOUS",
+    "MOMENT",
     "MOMENTS",
     "MINUTES",
     "HOURS",
