@@ -7,12 +7,12 @@ import axios from "axios";
 
 const Place = () => {
   const allPlacesApiUrl =
-    "https://dd8d3c9d-88a6-468e-971c-ac0ffa96644f.mock.pstmn.io/api/1113/places/frequencys";
-  const charPerPlaceApiUrl =
-    "https://dd8d3c9d-88a6-468e-971c-ac0ffa96644f.mock.pstmn.io/api/1113/places/characters";
+    "http://elice-kdt-ai-track-vm-da-04.koreacentral.cloudapp.azure.com:5000/api/1212/places/frequencys";
+  const scenesPerPlaceApiUrl =
+    "http://elice-kdt-ai-track-vm-da-04.koreacentral.cloudapp.azure.com:5000/api/1212/places/scenes";
   const [allPlacesData, setAllPlacesData] = useState({});
   const [topPlacesData, setTopPlacesData] = useState({});
-  const [characterPerPlace, setCharacterPerPlace] = useState({});
+  const [allScenesPerPlaceData, setAllScenesPerPlacesData] = useState([]);
 
   const chartBackgroundColor = {
     backgroundColor: "white",
@@ -193,6 +193,7 @@ const Place = () => {
       let blueList = [105];
       let rgbList = [];
       await axios.get(allPlacesApiUrl).then((response) => {
+        // console.log(response);
         for (let dataObj of response.data) {
           allPlacesName.push(dataObj.place);
           allPlacesFreq.push(dataObj.frequency);
@@ -209,8 +210,8 @@ const Place = () => {
           let rgb = `rgb(${red}, ${greenList[i]}, ${blueList[i]})`;
           rgbList.push(rgb);
         }
-        // console.log(rgbList);
       });
+      // console.log(allPlacesName);
       setAllPlacesData({
         labels: allPlacesName,
         datasets: [
@@ -221,25 +222,9 @@ const Place = () => {
           },
         ],
       });
-    };
-    fetchAllPlacesData();
-  }, []);
-
-  useEffect(() => {
-    const fetchTopPlacesData = async () => {
-      const placesName = [];
-      const placesFreq = [];
-      await axios.get(allPlacesApiUrl).then((response) => {
-        // console.log(response);
-        for (let dataObj of response.data) {
-          placesName.push(dataObj.place);
-          placesFreq.push(dataObj.frequency);
-        } 
-      });
-      const topPlacesName = placesName.slice(0, 5);
-      const topPlacesFreq = placesFreq.slice(0, 5);
+      const topPlacesName = allPlacesName.slice(0, 5);
+      const topPlacesFreq = allPlacesFreq.slice(0, 5);
       // console.log(topPlacesName, topPlacesFreq);
-
       setTopPlacesData({
         labels: topPlacesName,
         datasets: [
@@ -257,37 +242,25 @@ const Place = () => {
         ],
       });
     };
-    fetchTopPlacesData();
+    fetchAllPlacesData();
   }, []);
 
   useEffect(() => {
-    const fetchCharPerPlaceData = async () => {
-      const placesName = [];
-      const characters = [];
-      await axios.get(charPerPlaceApiUrl).then((response) => {
-        // console.log(response);
+    const fetchAllScenesData = async () => {
+      const result = [];
+      await axios.get(scenesPerPlaceApiUrl).then((response) => {
+        // console.log(response)
         for (let dataObj of response.data) {
-          placesName.push(dataObj.place);
-          characters.push(dataObj.characters);
+          result.push(dataObj);
         }
-        // console.log(placesName);
-        // console.log(characters);
+      // console.log(result)
       })
-      const topPlacesName = placesName.slice(0, 5);
-      const charPerTopPlaces = characters.slice(0, 5);
-      const yAxis = charPerTopPlaces[0];
-      // ["WOODY", "BUZZ", "JESSIE", "LOTSO", "KEN", "MR. POTATO HEAD", "REX", "HAMM", "MRS. POTATO HEAD", "BARBIE", "SLINKY", "LIFER", "SPANISH BUZZ", "BONNIE’S MOM", "STRETCH", "KEN & BARBIE", "TEACHER"]
-
-      console.log(topPlacesName, charPerTopPlaces, yAxis)
-      setCharacterPerPlace({
-        labels: topPlacesName,
-        datasets: characters
-      })
+      const topResult = result.slice(0, 5);
+      setAllScenesPerPlacesData(topResult);
+      // console.log(allScenesPerPlaceData)
     }
-    fetchCharPerPlaceData();
+    fetchAllScenesData();
   }, []);
-
-  
 
   return (
     <Container style={{ backgroundColor: "rgb(246, 233, 180)" }}>
@@ -304,7 +277,7 @@ const Place = () => {
               },
               legend: {
                 display: true,
-                position: "right",
+                position: "top",
               },
               responsive: true,
               maintainAspectRatio: true,
@@ -323,16 +296,37 @@ const Place = () => {
               },
               legend: {
                 display: true,
-                position: "right",
+                position: "top",
               },
               responsive: true,
               maintainAspectRatio: true,
             }}
           />
           <br />
+          {allScenesPerPlaceData.map((scenes, index) => {
+            // console.log(scenes);
+            // console.log(scenes.scenes)
+            let scenesList = [];
+            for (let i = 0; i < scenes.scenes.length; i++) {
+              let scene = `${scenes.scenes[i]}, `;
+              scenesList.push(scene);
+              if (i === scenes.scenes.length - 1) {
+                let scene = `${scenes.scenes[i]}`;
+              scenesList.push(scene);
+              }
+            }
+            // console.log(scenesList)
+            return (
+              <>
+              <li key={index} style={{listStyle: "none"}}>
+                장소 <b>{scenes.place}</b>에 포함되는 씬은 <b>[{scenesList}]</b> 입니다.
+              </li>
+              </>
+            )
+          })}
+          <br />
           <hr />
           <br />
-          <Bar data={charatersPerPlaceState} options={options} />
         </div>
       </div>
       <br />
