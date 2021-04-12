@@ -9,7 +9,14 @@ place_indicators = ("EXT.", "INT.", "EXT/", "INT/")
 
 ambiguous_place_indicators = ("SAME",)
 
-ambiguous_time_modifiers = ("CONTINUOUS", "MOMENTS", "MINUTES", "HOURS", "LATER", "SAME")
+ambiguous_time_modifiers = (
+    "CONTINUOUS",
+    "MOMENTS",
+    "MINUTES",
+    "HOURS",
+    "LATER",
+    "SAME",
+)
 
 script_terms = (
     "CUT TO",
