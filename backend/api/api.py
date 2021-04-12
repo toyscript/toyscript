@@ -30,6 +30,7 @@ def not_found_error(error):
 
     return jsonify(payload), 400
 
+
 @toyScriptApi.errorhandler(MovieDoesNotExist)
 def movie_error_handling(error):
 
@@ -47,9 +48,10 @@ def is_movie_exist():
 
     movie_id = request.view_args.get('movie_id')
 
-    from model.models import Movie
+    if movie_id is not None :
 
-    movie = Movie.query.get(movie_id)
+        from model.models import Movie
+        movie = Movie.query.get(movie_id)
 
-    if movie is None:
-        raise MovieDoesNotExist
+        if movie is None:
+            raise MovieDoesNotExist
