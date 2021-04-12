@@ -7,6 +7,7 @@ from utils import (
     script_terms,
     character_cue_terms,
     MAX_BLANK_LINES_BETWEEN_CHARACTER_AND_DIALOGUE,
+    MAX_SPLIT_LENGTH_OF_CHARACTER_NAME,
 )
 
 
@@ -37,6 +38,9 @@ def count_frequency_of_characters_and_slugs(
     """
     character_slug_counts_dict = {}
     for line in all_capital_lines:
+        if len(line.split()) >= MAX_SPLIT_LENGTH_OF_CHARACTER_NAME:
+            continue
+
         if line[:4] in place_indicators:
             continue
 
@@ -124,7 +128,14 @@ def get_dialogues_by_characters(
     chunks = defaultdict(list)
     for i in range(len(script_lines)):
         line = script_lines[i]
-        if line.startswith(" "):
+
+        if not line.startswith(" "):
+            continue
+
+        for word in line.split():
+            if word.islower():
+                break
+        else:
             for character in character_slug_keys:
                 tokens = line.strip().split()
                 character_names = character.split()

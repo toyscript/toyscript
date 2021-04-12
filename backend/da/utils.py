@@ -1,8 +1,13 @@
 MAX_BLANK_LINES_BETWEEN_CHARACTER_AND_DIALOGUE = 20
 
+MAX_SPLIT_LENGTH_OF_CHARACTER_NAME = 5
+
+
 punctuations = """!"$%&'()*+,-/:;<=>?@[\]^_`{|}~"""
 
 place_indicators = ("EXT.", "INT.", "EXT/", "INT/")
+
+ambiguous_place_indicators = ("SAME",)
 
 ambiguous_time_modifiers = ("CONTINUOUS", "MOMENTS", "LATER", "SAME")
 
@@ -34,6 +39,7 @@ script_terms = (
     "CRANE",
     "TOY STORY 3",  # TODO 제목 -> 제목만 따로 추출해서 나중에 조건문에 추가하기
     "FINAL DRAFT",
+    "SHOOTING SCRIPT",
 )
 
 character_cue_terms = (

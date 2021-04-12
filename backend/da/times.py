@@ -50,8 +50,8 @@ def count_frequency_of_times(headings: Tuple[str]) -> Tuple[Tuple[str, int]]:
 
         current_num = i
         while check_ambiguous_time(time) and current_num > 0:
-            time = get_time_from_heading(headings[current_num - 1])
             current_num -= 1
+            time = get_time_from_heading(headings[current_num])
 
         if not time:
             time = "NOT INFERRED"
