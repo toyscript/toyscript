@@ -2,7 +2,6 @@ from characters import characters
 from script_sections import scene_contents
 import networkx as nx
 import matplotlib.pyplot as plt
-import re
 
 graph = nx.Graph()
 for scene in scene_contents : 
