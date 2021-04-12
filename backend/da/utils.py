@@ -2,9 +2,9 @@ MAX_BLANK_LINES_BETWEEN_CHARACTER_AND_DIALOGUE = 20
 
 punctuations = """!"$%&'()*+,-/:;<=>?@[\]^_`{|}~"""
 
-place_indicators = ("EXT.", "INT.")
+place_indicators = ("EXT.", "INT.", "EXT/", "INT/")
 
-ambiguous_time_modifiers = ("CONTINUOUS", "MOMENTS", "LATER")
+ambiguous_time_modifiers = ("CONTINUOUS", "MOMENTS", "LATER", "SAME")
 
 script_terms = (
     "CUT TO",
@@ -57,9 +57,11 @@ time_modifiers = (
     "MIDNOON",
     "AFTERNOON",
     "NOON",
+    "BRUNCH",
     "DUSK",
+    "TWILIGHT",
     "EVENING",
     "MIDNIGHT",
-    "DAY",
     "NIGHT",
+    "DAY",
 )

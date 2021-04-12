@@ -309,11 +309,12 @@ const Place = () => {
             let scenesList = [];
             for (let i = 0; i < scenes.scenes.length; i++) {
               let scene = `${scenes.scenes[i]}, `;
-              scenesList.push(scene);
               if (i === scenes.scenes.length - 1) {
                 let scene = `${scenes.scenes[i]}`;
               scenesList.push(scene);
+              break;
               }
+              scenesList.push(scene);
             }
             // console.log(scenesList)
             return (
