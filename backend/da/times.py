@@ -1,5 +1,5 @@
 from typing import Tuple
-from utils import time_modifiers
+from utils import ambiguous_time_modifiers, time_modifiers
 from collections import Counter, defaultdict
 from script_sections import headings, scene_contents
 from characters import characters, remove_terms_on_name
@@ -13,23 +13,10 @@ def get_time_from_heading(heading: str) -> str:
     :return time:
     """
     time = ""
-    splitted_heading = heading.split()
-    is_time_found = False
-
-    for i in range(len(splitted_heading)):
-        word = splitted_heading[i]
-        if is_time_found:
+    for modifier in time_modifiers:
+        if heading.find(modifier) != -1:
+            time = modifier
             break
-
-        if word == "-":
-            is_time_found = True
-
-            for j in range(i + 1, len(splitted_heading)):
-                next_word = splitted_heading[j]
-                if next_word == "-":
-                    break
-                time += next_word + " "
-
     return time
 
 
@@ -43,8 +30,8 @@ def check_ambiguous_time(time: str) -> bool:
     if not time:
         return True
 
-    for modifier in time_modifiers:
-        if time.startswith(modifier):
+    for modifier in ambiguous_time_modifiers:
+        if time.find(modifier) != -1:
             return True
     return False
 
@@ -132,8 +119,6 @@ def count_frequency_of_characters_by_time(
         time_characters.append((time, tuple(character_frequencies)))
     return time_characters
 
-
-script_lines = get_lines_of_script()
 
 time_frequencies = count_frequency_of_times(headings)
 
