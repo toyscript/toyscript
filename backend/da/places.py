@@ -88,7 +88,7 @@ def get_place_from_heading(heading: str) -> str:
             break
 
         place += word + " "
-    return place
+    return place.strip()
 
 
 def group_scene_numbers_by_place(
