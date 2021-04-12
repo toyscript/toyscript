@@ -54,6 +54,7 @@ character_cue_terms = (
     "(CONT’D)",
     "(V.O.)",
     "(V.O)",
+    "VO",
     "(O.C.)",
     "(O.S.)",
     "(VOICE BOX)",
