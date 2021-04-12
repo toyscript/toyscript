@@ -1,9 +1,10 @@
-MAX_BLANK_LINES_BETWEEN_CHARACTER_AND_SPEECH = 20
-MAX_SPLIT_LENGTH_IN_CHARACTER_NAME = 5
+MAX_BLANK_LINES_BETWEEN_CHARACTER_AND_DIALOGUE = 20
 
 punctuations = """!"$%&'()*+,-/:;<=>?@[\]^_`{|}~"""
 
 place_indicators = ("EXT.", "INT.")
+
+ambiguous_time_modifiers = ("CONTINUOUS", "MOMENTS", "LATER")
 
 script_terms = (
     "CUT TO",
@@ -45,4 +46,21 @@ character_cue_terms = (
     "(O.S.)",
     "(VOICE BOX)",
     "(ON PHONE)",
+    "*",
+)
+
+time_modifiers = (
+    "DAWN",
+    "SUNRISE",
+    "SUNSET",
+    "MORNING",
+    "FORENOON",
+    "MIDNOON",
+    "AFTERNOON",
+    "NOON",
+    "DUSK",
+    "EVENING",
+    "MIDNIGHT",
+    "DAY",
+    "NIGHT",
 )

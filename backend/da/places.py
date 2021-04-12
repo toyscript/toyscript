@@ -43,9 +43,15 @@ def get_place_from_heading(heading: str) -> str:
     for word in heading.split():
         if word[-1] in "./":
             continue
+
         if word == "-":
             place = place.strip()
             break
+
+        if word[-1] == "-":
+            place += word[:-1]
+            break
+
         place += word + " "
     return place
 
