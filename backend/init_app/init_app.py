@@ -1,7 +1,7 @@
 from flask import Flask
 from db.init_db import db, migration
 from api.api import toyScriptApi, not_found_error
-from flask_cors import CORS, cross_origin
+from flask_cors import CORS
 
 def create_app():
 
