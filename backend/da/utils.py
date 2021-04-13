@@ -2,9 +2,6 @@ MAX_BLANK_LINES_BETWEEN_CHARACTER_AND_DIALOGUE = 20
 
 MAX_SPLIT_LENGTH_OF_CHARACTER_NAME = 5
 
-
-punctuations = """!"$%&'()*+,-/:;<=>?@[\]^_`{|}~"""
-
 place_indicators = ("EXT.", "INT.", "EXT/", "INT/")
 
 ambiguous_place_indicators = ("SAME",)
@@ -84,4 +81,43 @@ time_modifiers = (
     "MIDNIGHT",
     "NIGHT",
     "DAY",
+)
+punctuations = (
+    "!",
+    '"',
+    "”",
+    "$",
+    "%",
+    "&",
+    "'",
+    "(",
+    ")",
+    "*",
+    "+",
+    ",",
+    "--",
+    "/",
+    ":",
+    ";",
+    "<",
+    "=",
+    ">",
+    "?",
+    "@",
+    "[",
+    "\\",
+    "]",
+    "^",
+    "_",
+    "`",
+    "{",
+    "|",
+    "}",
+    "~",
+    ".",
+    "‘",
+    "’",
+    "“",
+    "...",
+    "....",
 )
