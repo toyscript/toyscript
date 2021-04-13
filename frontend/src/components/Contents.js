@@ -18,9 +18,7 @@ function ControlledTabs() {
         onSelect={(k) => setKey(k)}
       >
         <Tab id="summary" eventKey="summary" title="Summary">
-          <Container style={{backgroundColor:"rgb(246, 238, 204)"}}>
-            <Summary />
-          </Container>
+          <Summary />
         </Tab>
         <Tab id="character" eventKey="character" title="Character">
           <Container>
