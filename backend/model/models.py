@@ -11,7 +11,7 @@ class Place(db.Model):
 
 class Character(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    movie_id = db.Column(db.Integer, db.ForeignKey("movie.id"))
+    movie_id = db.Column(db.Integer, db.ForeignKey("movie.id", onupdate='cascade'))
     name = db.Column(db.String(50))
     lines = db.Column(db.Integer)
     __table_args__ = {"extend_existing": True}
@@ -41,7 +41,7 @@ class Scene(db.Model):
 
 class Line(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    character_id = db.Column(db.Integer, db.ForeignKey("character.id"))
+    character_id = db.Column(db.Integer, db.ForeignKey("character.id", onupdate='cascade', ondelete='no action'))
     character = db.relationship("Character")
     line = db.Column(db.Text)
 
@@ -87,7 +87,7 @@ class Sentiment(db.Model):
     surprise = db.Column(db.Integer)
     disgust = db.Column(db.Integer)
 
-class Network(db.Model):
+class Relation(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     charac_one_id = db.Column(db.Integer, db.ForeignKey("character.id"))
     charac_two_id = db.Column(db.Integer, db.ForeignKey("character.id"))
