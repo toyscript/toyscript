@@ -55,7 +55,7 @@ class TimeCharacter(Resource):
                 time["characters"] = []
 
             frequency = {}
-            frequency['character-name'] = character.character.name
+            frequency['characterName'] = character.character.name
             frequency['frequency'] = character.frequency
             time["characters"].append(frequency)
 

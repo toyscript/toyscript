@@ -39,6 +39,12 @@ class Scene(db.Model):
     __table_args__ = {"extend_existing": True}
 
 
+class Line(db.Model):
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    character_id = db.Column(db.Integer, db.ForeignKey("character.id"))
+    character = db.relationship("Character")
+    line = db.Column(db.Text)
+
 class Time(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     name = db.Column(db.String(50))
@@ -65,3 +71,24 @@ class PlaceCharacter(db.Model):
     character = db.relationship("Character")
     frequency = db.Column(db.Integer)
     __table_args__ = {"extend_existing": True}
+
+class Sentiment(db.Model):
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    character_id = db.Column(db.Integer, db.ForeignKey("character.id"))
+    character = db.relationship("Character")
+    positive = db.Column(db.Integer)
+    anticipation = db.Column(db.Integer)
+    trust = db.Column(db.Integer)
+    negative = db.Column(db.Integer)
+    joy = db.Column(db.Integer)
+    fear = db.Column(db.Integer)
+    sadness = db.Column(db.Integer)
+    anger = db.Column(db.Integer)
+    surprise = db.Column(db.Integer)
+    disgust = db.Column(db.Integer)
+
+class Network(db.Model):
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    charac_one_id = db.Column(db.Integer, db.ForeignKey("character.id"))
+    charac_two_id = db.Column(db.Integer, db.ForeignKey("character.id"))
+    value = db.Column(db.Integer)
