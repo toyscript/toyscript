@@ -2,15 +2,13 @@ MAX_BLANK_LINES_BETWEEN_CHARACTER_AND_DIALOGUE = 20
 
 MAX_SPLIT_LENGTH_OF_CHARACTER_NAME = 5
 
-
-punctuations = """!"$%&'()*+,-/:;<=>?@[\]^_`{|}~"""
-
 place_indicators = ("EXT.", "INT.", "EXT/", "INT/")
 
 ambiguous_place_indicators = ("SAME",)
 
 ambiguous_time_modifiers = (
     "CONTINUOUS",
+    "MOMENT",
     "MOMENTS",
     "MINUTES",
     "HOURS",
@@ -49,15 +47,21 @@ script_terms = (
 )
 
 character_cue_terms = (
+    "(CONT)",
     "(CONT'D)",
     "(CONT’D)",
     "(V.O.)",
     "(V.O)",
+    "VO",
+    "V/O",
+    "V/0",
     "(O.C.)",
     "(O.S.)",
+    "O.S",
     "(VOICE BOX)",
     "(ON PHONE)",
     "*",
+    "..",
 )
 
 time_modifiers = (
@@ -77,4 +81,43 @@ time_modifiers = (
     "MIDNIGHT",
     "NIGHT",
     "DAY",
+)
+punctuations = (
+    "!",
+    '"',
+    "”",
+    "$",
+    "%",
+    "&",
+    "'",
+    "(",
+    ")",
+    "*",
+    "+",
+    ",",
+    "--",
+    "/",
+    ":",
+    ";",
+    "<",
+    "=",
+    ">",
+    "?",
+    "@",
+    "[",
+    "\\",
+    "]",
+    "^",
+    "_",
+    "`",
+    "{",
+    "|",
+    "}",
+    "~",
+    ".",
+    "‘",
+    "’",
+    "“",
+    "...",
+    "....",
 )

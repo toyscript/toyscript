@@ -71,7 +71,7 @@ def get_place_from_heading(heading: str) -> str:
         if word[-1] in "." or word == "/":
             continue
 
-        if word == "-" or word == "-DAY":
+        if word == "-" or word == "--" or word == "-DAY":
             place = place.strip()
             break
 
@@ -88,7 +88,7 @@ def get_place_from_heading(heading: str) -> str:
             break
 
         place += word + " "
-    return place
+    return place.strip()
 
 
 def group_scene_numbers_by_place(

@@ -132,6 +132,9 @@ def get_dialogues_by_characters(
         if not line.startswith(" "):
             continue
 
+        if line.strip() == "OR":
+            continue
+
         for word in line.split():
             if word.islower():
                 break
