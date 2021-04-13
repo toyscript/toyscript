@@ -228,6 +228,43 @@ def get_character_frequencies(
     return tuple(character_frequencies)
 
 
+def get_most_frequent_characters(
+    number: int, character_frequencies: Tuple[str, int]
+) -> Tuple[Tuple[str, int]]:
+    """
+    캐릭터 중 대사 개수가 가장 많은 캐릭터를 number만큼 구합니다.
+    :params character_frequencies:
+    :return most_frequent_characters:
+    """
+    if number >= len(character_frequencies):
+        return ()
+    sorted_character_frequencies = sorted(
+        character_frequencies, key=lambda x: x[1], reverse=True
+    )[:number]
+    most_frequent_characters = [
+        character_freq[0] for character_freq in sorted_character_frequencies
+    ]
+    return tuple(most_frequent_characters)
+
+
+def get_most_frequent_character_dialogues(
+    most_frequent_characters: Tuple[str], character_dialogues: Tuple[str, int]
+) -> Tuple[str]:
+    """
+    캐릭터 중 대사 개수가 가장 많은 5명을 구합니다.
+    :params most_frequent_characters, character_dialogues:
+    :return top_five_character_dialogues:
+    """
+
+    top_five_character_dialogues = []
+    for character, dialogues in character_dialogues:
+        for top_character in most_frequent_characters:
+            if character == top_character:
+                top_five_character_dialogues.append((top_character, dialogues))
+                break
+    return tuple(top_five_character_dialogues)
+
+
 script_lines = get_lines_of_script()
 
 character_slug_frequencies = count_frequency_of_characters_and_slugs(
@@ -248,4 +285,10 @@ characters = get_character_list(character_dialogues)
 
 character_frequencies = get_character_frequencies(
     character_slug_frequencies, characters
+)
+
+most_frequent_characters = get_most_frequent_characters(5, character_frequencies)
+
+most_frequent_character_dialogues = get_most_frequent_character_dialogues(
+    most_frequent_characters, character_dialogues
 )
