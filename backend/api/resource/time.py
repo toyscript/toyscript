@@ -1,5 +1,5 @@
 from flask_restful import Resource
-from model.models import Time, TimeCharacter as TimeCharacterM, Scene
+from db.models import Time, TimeCharacter as TimeCharacterM, Scene
 
 
 class TimeScene(Resource):

@@ -1,9 +1,10 @@
 from flask_restful import Api
 from flask import Blueprint, jsonify, request
-from resource.place import PlaceFrequency, PlaceScene, PlaceCharacter
-from resource.movie import QueryMovie, Summary
-from resource.character import CharacterFrequency, CharacterRelaction
-from resource.time import TimeScene, TimeCharacter, TimeFrequency
+
+from api.resource.place import PlaceFrequency, PlaceScene, PlaceCharacter
+from api.resource.movie import QueryMovie, Summary
+from api.resource.character import CharacterFrequency, CharacterRelaction
+from api.resource.time import TimeScene, TimeCharacter, TimeFrequency
 from api.errors import *
 
 toyScriptApi = Blueprint("api", __name__)
@@ -51,7 +52,7 @@ def is_movie_exist():
 
     if movie_id is not None :
 
-        from model.models import Movie
+        from db.models import Movie
         movie = Movie.query.get(movie_id)
 
         if movie is None:

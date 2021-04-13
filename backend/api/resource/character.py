@@ -1,5 +1,5 @@
 from flask_restful import Resource
-from model.models import Character, Relation
+from db.models import Character, Relation
 
 
 class CharacterFrequency(Resource):
