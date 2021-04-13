@@ -82,6 +82,7 @@ time_modifiers = (
     "NIGHT",
     "DAY",
 )
+
 punctuations = (
     "!",
     '"',
@@ -109,6 +110,7 @@ punctuations = (
     "]",
     "^",
     "_",
+    "-",
     "`",
     "{",
     "|",
