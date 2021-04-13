@@ -88,7 +88,11 @@ class Sentiment(db.Model):
     disgust = db.Column(db.Integer)
 
 class Relation(db.Model):
+    __table_args__ = {"extend_existing": True}
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    movie_id = db.Column(db.Integer, db.ForeignKey("movie.id"))
     charac_one_id = db.Column(db.Integer, db.ForeignKey("character.id"))
     charac_two_id = db.Column(db.Integer, db.ForeignKey("character.id"))
+    character_one = db.relationship("Character", foreign_keys=[charac_one_id])
+    character_two = db.relationship("Character", foreign_keys=[charac_two_id])
     value = db.Column(db.Integer)

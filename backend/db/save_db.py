@@ -3,9 +3,6 @@ from init_app.init_app import create_app, db
 
 app = create_app()
 
-with app.app_context():
+from da.characterAnalysis import get_emotion_frequencies_by_character
 
-    all_character = Character.query.all()
-    character_ids = {}
-    for ch in all_character:
-        character_ids[ch.name]=ch.id
+result = get_emotion_frequencies_by_character()
