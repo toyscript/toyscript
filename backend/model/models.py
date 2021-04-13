@@ -2,22 +2,26 @@ from db.init_db import db
 
 
 class Place(db.Model):
+    __table_args__ = {"extend_existing": True}
+
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     movie_id = db.Column(db.Integer, db.ForeignKey("movie.id"))
     name = db.Column(db.String(50))
     frequency = db.Column(db.Integer)
-    __table_args__ = {"extend_existing": True}
 
 
 class Character(db.Model):
+    __table_args__ = {"extend_existing": True}
+
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     movie_id = db.Column(db.Integer, db.ForeignKey("movie.id"))
     name = db.Column(db.String(50))
     lines = db.Column(db.Integer)
-    __table_args__ = {"extend_existing": True}
 
 
 class Movie(db.Model):
+    __table_args__ = {"extend_existing": True}
+
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     title = db.Column(db.String(200))
     author = db.Column(db.String(100))
@@ -25,7 +29,6 @@ class Movie(db.Model):
     total_pages = db.Column(db.Integer)
     total_places = db.Column(db.Integer)
     total_scenes = db.Column(db.Integer)
-    __table_args__ = {"extend_existing": True}
 
 
 class Scene(db.Model):
