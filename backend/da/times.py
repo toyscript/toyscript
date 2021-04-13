@@ -1,7 +1,6 @@
 from typing import Tuple
 from utils import ambiguous_time_modifiers, time_modifiers
 from collections import Counter, defaultdict
-from script_lines_from_txt import script_lines
 from script_sections import headings, scene_contents
 from characters import characters, remove_terms_on_name
 from script_lines_from_txt import get_lines_of_script
@@ -50,8 +49,8 @@ def count_frequency_of_times(headings: Tuple[str]) -> Tuple[Tuple[str, int]]:
 
         current_num = i
         while check_ambiguous_time(time) and current_num > 0:
-            time = get_time_from_heading(headings[current_num - 1])
             current_num -= 1
+            time = get_time_from_heading(headings[current_num])
 
         if not time:
             time = "NOT INFERRED"
