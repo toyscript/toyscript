@@ -2,6 +2,8 @@ from typing import Tuple
 from collections import defaultdict
 from script_lines_from_txt import get_lines_of_script
 from script_sections import get_lines_with_only_capital, scene_contents
+import networkx as nx
+import matplotlib.pyplot as plt
 from utils import (
     place_indicators,
     script_terms,
@@ -355,4 +357,4 @@ most_frequent_character_dialogues = get_most_frequent_character_dialogues(
 
 characters_relation = get_interaction_characters(scene_contents, most_frequent_characters, characters)
 
-# print_interaction_graph(characters_relation)
+print_interaction_graph(characters_relation)
