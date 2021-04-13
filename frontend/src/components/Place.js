@@ -10,178 +10,18 @@ const Place = () => {
     "http://elice-kdt-ai-track-vm-da-04.koreacentral.cloudapp.azure.com:5000/api/1212/places/frequencys";
   const scenesPerPlaceApiUrl =
     "http://elice-kdt-ai-track-vm-da-04.koreacentral.cloudapp.azure.com:5000/api/1212/places/scenes";
+  const charactersPerPlaceApiUrl =
+    "http://elice-kdt-ai-track-vm-da-04.koreacentral.cloudapp.azure.com:5000/api/1212/places/characters";
   const [allPlacesData, setAllPlacesData] = useState({});
   const [topPlacesData, setTopPlacesData] = useState({});
   const [allScenesPerPlaceData, setAllScenesPerPlacesData] = useState([]);
+  const [allCharactersData, setAllCharactersData] = useState([]);
+  const [topCharactersData, setTopCharactersData] = useState([]);
+  const [charactersChartData, setCharactersChartData] = useState({});
 
   const chartBackgroundColor = {
     backgroundColor: "white",
     borderRadius: "20px",
-  };
-
-  const charatersPerPlaceState = {
-    labels: [
-      "CATERPILLAR ROOM",
-      "PLAYGROUND",
-      "ANDY'S ROOM",
-      "HALLWAY",
-      "OFFICE",
-    ],
-    datasets: [
-      {
-        label: "WOODY",
-        data: [1, 1, 1, 1, 1]
-      },
-      {
-        label: "BUZZ",
-        data: [1, 1, 1, 1, 1]
-      },
-      {
-        label: "JESSIE",
-        data: [1, 1, 1, 1, 1]
-      },
-      {
-        label: "LOTSO",
-        data: [1, 0, 0, 1, 1]
-      },
-      {
-        label: "KEN",
-        data: [1, 0, 0, 1, 1]
-      },
-      {
-        label: "MR. POTATO HEAD",
-        data: [1, 1, 1, 1, 1]
-      },
-      {
-        label: "REX",
-        data: [1, 1, 1, 1, 1]
-      },
-      {
-        label: "HAMM",
-        data: [1, 1, 1, 1, 1]
-      },
-      {
-        label: "MRS. POTATO HEAD",
-        data: [1, 1, 1, 1, 0]
-      },
-      {
-        label: "BARBIE",
-        data: [1, 0, 0, 1, 1]
-      },
-      {
-        label: "SLINKY",
-        data: [1, 0, 0, 1, 1]
-      },
-      {
-        label: "LIFER",
-        data: [1, 0, 0, 0, 1]
-      },
-      {
-        label: "SPANISH BUZZ",
-        data: [1, 0, 0, 0, 1]
-      },
-      {
-        label: "BONNIE'S MOM",
-        data: [1, 0, 0, 0, 0]
-      },
-      {
-        label: "STRETCH",
-        data: [1, 0, 0, 0, 0]
-      },
-      {
-        label: "KEN & BARBIE",
-        data: [1, 0, 0, 0, 0]
-      },
-      {
-        label: "TEACHER",
-        data: [1, 0, 0, 0, 0]
-      },
-      {
-        label: "ANDY",
-        data: [0, 1, 1, 0, 0]
-      },
-      {
-        label: "MOM",
-        data: [0, 1, 1, 0, 0]
-      },
-      {
-        label: "ALIENS",
-        data: [0, 1, 0, 1, 0]
-      },
-      {
-        label: "SARGE",
-        data: [0, 1, 0, 0, 0]
-      },
-      {
-        label: "THE TOY CHEST",
-        data: [0, 1, 0, 0, 0]
-      },
-      {
-        label: "SOLDIER ONE",
-        data: [0, 1, 0, 0, 0]
-      },
-      {
-        label: "SOLDIER TWO",
-        data: [0, 1, 0, 0, 0]
-      },
-      {
-        label: "MOLLY",
-        data: [0, 0, 1, 0, 0]
-      },
-      {
-        label: "YOUNG ANDY",
-        data: [0, 0, 1, 0, 0]
-      },
-      {
-        label: "TOYS",
-        data: [0, 0, 1, 0, 1]
-      },
-      {
-        label: "THE TOYS",
-        data: [0, 0, 1, 0, 0]
-      },
-      {
-        label: "ANDY'S ROOM",
-        data: [0, 0, 1, 0, 0]
-      },
-      {
-        label: "BUTTERFLY ROOM TEACHER",
-        data: [0, 0, 0, 1, 0]
-      },
-      {
-        label: "BIG BABY",
-        data: [0, 0, 0, 0, 1]
-      },
-    ],
-  };
-
-  const options = {
-    scales: {
-      yAxes: [
-        {
-          stacked: true,
-          ticks: {
-            beginAtZero: true,
-          },
-        },
-      ],
-      xAxes: [
-        {
-          stacked: true,
-        },
-      ],
-    },
-    title: {
-      display: true,
-      text: "장소별 자주 등장하는 캐릭터",
-      fontSize: 20,
-    },
-    legend: {
-      display: true,
-      position: "right",
-    },
-    responsive: true,
-    maintainAspectRatio: true,
   };
 
   useEffect(() => {
@@ -253,13 +93,26 @@ const Place = () => {
         for (let dataObj of response.data) {
           result.push(dataObj);
         }
-      // console.log(result)
-      })
+        // console.log(result)
+      });
       const topResult = result.slice(0, 5);
       setAllScenesPerPlacesData(topResult);
       // console.log(allScenesPerPlaceData)
-    }
+    };
     fetchAllScenesData();
+  }, []);
+
+  useEffect(() => {
+    const fetchAllCharactersData = async () => {
+      await axios.get(charactersPerPlaceApiUrl).then((response) => {
+        setAllCharactersData(response.data);
+      });
+      const topCharacters = allCharactersData.slice(0, 5);
+      setTopCharactersData(topCharacters);
+    };
+    fetchAllCharactersData();
+    // console.log(allCharactersData);
+    // console.log(topCharactersData);
   }, []);
 
   return (
@@ -309,20 +162,88 @@ const Place = () => {
             let scenesList = [];
             for (let i = 0; i < scenes.scenes.length; i++) {
               let scene = `${scenes.scenes[i]}, `;
-              scenesList.push(scene);
               if (i === scenes.scenes.length - 1) {
                 let scene = `${scenes.scenes[i]}`;
-              scenesList.push(scene);
+                scenesList.push(scene);
+                break;
               }
+              scenesList.push(scene);
             }
             // console.log(scenesList)
             return (
               <>
-              <li key={index} style={{listStyle: "none"}}>
-                장소 <b>{scenes.place}</b>에 포함되는 씬은 <b>[{scenesList}]</b> 입니다.
-              </li>
+                <li key={index} style={{ listStyle: "none" }}>
+                  장소 <b>{scenes.place}</b>에 포함되는 씬은{" "}
+                  <b>[{scenesList}]</b> 입니다.
+                </li>
               </>
-            )
+            );
+          })}
+          <br />
+          <hr />
+          <br />
+          {topCharactersData.map((data) => {
+            let label = [data.place];
+            let labels = [];
+            let frequency = [];
+            let redList = [];
+            let greenList = [];
+            let blueList = [];
+            let rgbList = [];
+            for (let i = 0; i < data.characters.length; i++) {
+              labels.push(data.characters[i].characterName);
+              frequency.push(data.characters[i].frequency);
+              const rand_red = Math.floor(Math.random() * 256);
+              const rand_green = Math.floor(Math.random() * 256);
+              const rand_blue = Math.floor(Math.random() * 256);
+              redList.push(rand_red);
+              greenList.push(rand_green);
+              blueList.push(rand_blue);
+            }
+            for (let i = 0; i < greenList.length; i++) {
+              let rgb = `rgba(${redList[i]}, ${greenList[i]}, ${blueList[i]}, 0.4)`;
+              rgbList.push(rgb);
+            }
+
+            return (
+              <>
+                <Bar
+                  data={{
+                    labels: labels,
+                    datasets: [
+                      {
+                        label: label,
+                        data: frequency,
+                        backgroundColor: rgbList
+                      },
+                    ],
+                  }}
+                  options={{
+                    title: {
+                      display: true,
+                      text: label,
+                      fontSize: 20,
+                    },
+                    responsive: true,
+                    maintainAspectRatio: true,
+                    scales: {
+                      yAxes: [
+                        {
+                          ticks: {
+                            beginAtZero: true,
+                          },
+                        },
+                      ],
+                    },
+                    legend: {
+                      display: false
+                  },
+                  }}
+                />
+                <br />
+                <br />
+              </>
+            );
           })}
           <br />
           <hr />

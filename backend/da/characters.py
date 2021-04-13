@@ -1,12 +1,13 @@
 from typing import Tuple
 from collections import defaultdict
 from script_lines_from_txt import get_lines_of_script
-from script_sections import get_lines_with_only_capital
+from script_sections import get_lines_with_only_capital, scene_contents
 from utils import (
     place_indicators,
     script_terms,
     character_cue_terms,
-    MAX_BLANK_LINES_BETWEEN_CHARACTER_AND_DIALOGUE
+    MAX_BLANK_LINES_BETWEEN_CHARACTER_AND_DIALOGUE,
+    MAX_SPLIT_LENGTH_OF_CHARACTER_NAME,
 )
 
 
@@ -36,24 +37,27 @@ def count_frequency_of_characters_and_slugs(
     :return character_slugs_frequencies:
     """
     character_slug_counts_dict = {}
-    for word in all_capital_lines:
-        if word[:4] in place_indicators:
+    for line in all_capital_lines:
+        if len(line.split()) >= MAX_SPLIT_LENGTH_OF_CHARACTER_NAME:
             continue
 
-        if word.find("!") != -1:
+        if line[:4] in place_indicators:
+            continue
+
+        if line.find("!") != -1 or line.find('"') != -1:
             continue
 
         for script_term in script_terms:
-            if word.startswith(script_term):
+            if line.startswith(script_term):
                 break
         else:
-            word = remove_terms_on_name(word)
+            line = remove_terms_on_name(line)
 
-            if word[0] == "(" or word[-1] in "):-":
+            if line[0] == "(" or line[-1] in "):-.;":
                 continue
 
-            character_slug_counts_dict[word] = (
-                character_slug_counts_dict.get(word, 0) + 1
+            character_slug_counts_dict[line] = (
+                character_slug_counts_dict.get(line, 0) + 1
             )
 
     character_slug_frequencies = []
@@ -72,31 +76,6 @@ def get_character_slug_keys(character_slug_frequencies: Tuple[str, int]) -> Tupl
         chracter_slug_freq[0] for chracter_slug_freq in character_slug_frequencies
     ]
     return tuple(characters_slug_keys)
-
-
-def get_character_frequencies(
-    character_slug_frequencies: Tuple[str, int], characters: Tuple[str]
-) -> Tuple[Tuple[str, int]]:
-    """
-    캐릭터 또는 슬러그 라인별 빈도 데이터에서 키 값(0번째 인덱스 값)을 구합니다.
-    :params character_slug_frequencies
-    :return character_frequencies:
-    """
-    character_frequencies = []
-    for character, frequency in character_slug_frequencies:
-        if character in characters:
-            character_frequencies.append((character, frequency))
-    return tuple(character_frequencies)
-
-
-def get_character_list(character_dialogues: Tuple[str, Tuple[str]]) -> Tuple[str]:
-    """
-    대사가 있는 캐릭터 이름 목록을 구합니다.
-    :params character_dialogues:
-    :return characters:
-    """
-    characters = [character_dialogue[0] for character_dialogue in character_dialogues]
-    return tuple(characters)
 
 
 def count_number_of_blank_lines(
@@ -121,7 +100,9 @@ def count_number_of_blank_lines(
         if not is_character_found:
             line = script_lines[i]
             if line.startswith(" ") and character in line:
-                for j in range(i + 1, i + MAX_BLANK_LINES_BETWEEN_CHARACTER_AND_DIALOGUE):
+                for j in range(
+                    i + 1, i + MAX_BLANK_LINES_BETWEEN_CHARACTER_AND_DIALOGUE
+                ):
                     is_character_found = True
                     if script_lines[j]:
                         break
@@ -133,28 +114,48 @@ def count_number_of_blank_lines(
 
 def get_dialogues_by_characters(
     script_lines: Tuple[str],
-    characters: Tuple[str],
+    character_slug_keys: Tuple[str],
     num_of_blank_lines: int,
 ) -> Tuple[Tuple[str, Tuple[str]]]:
     """
     캐릭터별 대사 목록을 구합니다.
     :params
         script_lines,
-        characters,
+        character_slug_keys,
         num_of_blank_lines:
     :return character_dialogues:
     """
     chunks = defaultdict(list)
     for i in range(len(script_lines)):
         line = script_lines[i]
-        if line.startswith(" "):
-            for character in characters:
+
+        if not line.startswith(" "):
+            continue
+
+        if line.strip() == "OR":
+            continue
+
+        for word in line.split():
+            if word.islower():
+                break
+        else:
+            for character in character_slug_keys:
                 tokens = line.strip().split()
                 character_names = character.split()
                 len_of_tokens = len(tokens)
                 len_of_character_names = len(character_names)
 
                 if (
+                    len_of_tokens > 1
+                    and len_of_character_names == 1
+                    and len(tokens[0]) == 1
+                    and len(character_names[0]) == 1
+                    and tokens[0] == character_names[0]
+                ):
+                    # 'A U'와 'A'를 구분하기 위함
+                    continue
+
+                elif (
                     (
                         len_of_tokens == 1
                         and len_of_character_names == 1
@@ -181,6 +182,11 @@ def get_dialogues_by_characters(
                 ):
                     blank_count = 0
                     for j in range(i + 1, len(script_lines)):
+                        token = script_lines[j]
+
+                        if token.startswith("  ") and token.strip()[:-1].isdigit():
+                            break
+
                         token = script_lines[j].strip()
                         if blank_count > num_of_blank_lines:
                             break
@@ -195,6 +201,128 @@ def get_dialogues_by_characters(
     for character, dialogues in chunks.items():
         character_dialogues.append((character, tuple(dialogues)))
     return tuple(character_dialogues)
+
+
+def get_character_list(character_dialogues: Tuple[str, Tuple[str]]) -> Tuple[str]:
+    """
+    대사가 있는 캐릭터 이름 목록을 구합니다.
+    :params character_dialogues:
+    :return characters:
+    """
+    characters = [character_dialogue[0] for character_dialogue in character_dialogues]
+    return tuple(characters)
+
+
+def get_character_frequencies(
+    character_slug_frequencies: Tuple[str, int], characters: Tuple[str]
+) -> Tuple[Tuple[str, int]]:
+    """
+    캐릭터 또는 슬러그 라인별 빈도 데이터에서 캐릭터별로 등장 빈도 수를 계산합니다.
+    :params character_slug_frequencies
+    :return character_frequencies:
+    """
+    character_frequencies = []
+    for character, frequency in character_slug_frequencies:
+        if character in characters:
+            character_frequencies.append((character, frequency))
+    return tuple(character_frequencies)
+
+
+def get_most_frequent_characters(
+    number: int, character_frequencies: Tuple[str, int]
+) -> Tuple[Tuple[str, int]]:
+    """
+    캐릭터 중 대사 개수가 가장 많은 캐릭터를 number만큼 구합니다.
+    :params character_frequencies:
+    :return most_frequent_characters:
+    """
+    if number >= len(character_frequencies):
+        return ()
+    sorted_character_frequencies = sorted(
+        character_frequencies, key=lambda x: x[1], reverse=True
+    )[:number]
+    most_frequent_characters = [
+        character_freq[0] for character_freq in sorted_character_frequencies
+    ]
+    return tuple(most_frequent_characters)
+
+
+def get_most_frequent_character_dialogues(
+    most_frequent_characters: Tuple[str], character_dialogues: Tuple[str, int]
+) -> Tuple[str]:
+    """
+    캐릭터 중 대사 개수가 가장 많은 5명을 구합니다.
+    :params
+        most_frequent_characters
+        character_dialogues:
+    :return top_five_character_dialogues:
+    """
+
+    top_five_character_dialogues = []
+    for character, dialogues in character_dialogues:
+        for top_character in most_frequent_characters:
+            if character == top_character:
+                top_five_character_dialogues.append((top_character, dialogues))
+                break
+    return tuple(top_five_character_dialogues)
+
+
+def get_interaction_characters(
+    scene_contents : Tuple[Tuple[int, Tuple[str]]], 
+    most_frequent_characters : Tuple[str],
+    characters : Tuple[str]) -> Tuple[Tuple[str, Tuple[Tuple[str, int]]]] : 
+    """
+    :params scene_contents, most_frequent_characters
+    :return Tuple[Tuple[str], Tuple[Tuple[str], Tuple[int]]]
+    """
+    char1 = most_frequent_characters[0]
+    characters_relation = defaultdict(dict)
+    for scene in scene_contents : 
+        for sentence_num in range(len(scene[1])) : # 각 씬의 문장 개수만큼 반복
+            for sentence_next_num in range(sentence_num+1, len(scene[1])) :
+                for char1 in characters :
+                    if char1 in scene[1][sentence_num] :
+                        for char2 in most_frequent_characters :
+                            if char2 in scene[1][sentence_next_num] :
+                                if char1 == char2 :
+                                    continue
+                                characters_relation[char1][char2] = (
+                                    characters_relation[char1].get(char2, 0) + 1
+                                )
+
+    character_relations = []
+    for character, relations_dict in characters_relation.items():
+        relations = []
+        for character_name, count in relations_dict.items():
+            relations.append((character_name, count))
+
+        character_relations.append((character, tuple(relations)))
+    return tuple(character_relations)
+
+
+def print_interaction_graph(characters_relation) :
+    """
+    파이썬으로 관계도 네트워크 그리는 함수
+    :params characters_relation
+    :return pltimg
+    """
+    graph = nx.Graph()
+    for i in range(len(characters_relation)) :
+        char1 = characters_relation[i][0]
+        for j in range(len(characters_relation[i][1])) :
+            char2 = characters_relation[i][1][j][0]
+            if not graph.has_edge(char1, char2) :
+                graph.add_edge(char1, char2, weight = 1)
+            else :
+                graph[char1][char2]['weight'] += 1
+
+    edge_weights = [graph[char1][char2]['weight'] for char1,char2 in graph.edges()]
+    pos = nx.kamada_kawai_layout(graph)
+    plt.figure(figsize=(16,8))
+    plt.margins(x=0.1, y=0.02)
+    nx.draw_networkx(graph, pos, with_labels=True, width=edge_weights, 
+    alpha=0.5, node_size=700, node_color=range(len(characters_relation)), font_size=9, font_weight='bold')
+    plt.show()
 
 
 script_lines = get_lines_of_script()
@@ -218,3 +346,13 @@ characters = get_character_list(character_dialogues)
 character_frequencies = get_character_frequencies(
     character_slug_frequencies, characters
 )
+
+most_frequent_characters = get_most_frequent_characters(10, character_frequencies)
+
+most_frequent_character_dialogues = get_most_frequent_character_dialogues(
+    most_frequent_characters, character_dialogues
+)
+
+characters_relation = get_interaction_characters(scene_contents, most_frequent_characters, characters)
+
+# print_interaction_graph(characters_relation)
