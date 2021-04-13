@@ -1,10 +1,20 @@
 MAX_BLANK_LINES_BETWEEN_CHARACTER_AND_DIALOGUE = 20
 
-punctuations = """!"$%&'()*+,-/:;<=>?@[\]^_`{|}~"""
+MAX_SPLIT_LENGTH_OF_CHARACTER_NAME = 5
 
-place_indicators = ("EXT.", "INT.")
+place_indicators = ("EXT.", "INT.", "EXT/", "INT/")
 
-ambiguous_time_modifiers = ("CONTINUOUS", "MOMENTS", "LATER")
+ambiguous_place_indicators = ("SAME",)
+
+ambiguous_time_modifiers = (
+    "CONTINUOUS",
+    "MOMENT",
+    "MOMENTS",
+    "MINUTES",
+    "HOURS",
+    "LATER",
+    "SAME",
+)
 
 script_terms = (
     "CUT TO",
@@ -32,20 +42,26 @@ script_terms = (
     "TIME CUT",
     "THE END",
     "CRANE",
-    "TOY STORY 3",  # TODO 제목 -> 제목만 따로 추출해서 나중에 조건문에 추가하기
     "FINAL DRAFT",
+    "SHOOTING SCRIPT",
 )
 
 character_cue_terms = (
+    "(CONT)",
     "(CONT'D)",
     "(CONT’D)",
     "(V.O.)",
     "(V.O)",
+    "VO",
+    "V/O",
+    "V/0",
     "(O.C.)",
     "(O.S.)",
+    "O.S",
     "(VOICE BOX)",
     "(ON PHONE)",
     "*",
+    "..",
 )
 
 time_modifiers = (
@@ -53,13 +69,55 @@ time_modifiers = (
     "SUNRISE",
     "SUNSET",
     "MORNING",
+    "BRUNCH",
     "FORENOON",
     "MIDNOON",
     "AFTERNOON",
     "NOON",
+    "GOLDEN HOUR",
     "DUSK",
+    "TWILIGHT",
     "EVENING",
     "MIDNIGHT",
-    "DAY",
     "NIGHT",
+    "DAY",
+)
+punctuations = (
+    "!",
+    '"',
+    "”",
+    "$",
+    "%",
+    "&",
+    "'",
+    "(",
+    ")",
+    "*",
+    "+",
+    ",",
+    "--",
+    "/",
+    ":",
+    ";",
+    "<",
+    "=",
+    ">",
+    "?",
+    "@",
+    "[",
+    "\\",
+    "]",
+    "^",
+    "_",
+    "`",
+    "{",
+    "|",
+    "}",
+    "~",
+    ".",
+    "‘",
+    "’",
+    "“",
+    "...",
+    "....",
 )

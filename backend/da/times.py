@@ -47,12 +47,13 @@ def count_frequency_of_times(headings: Tuple[str]) -> Tuple[Tuple[str, int]]:
         heading = headings[i]
         time = get_time_from_heading(heading)
 
-        while check_ambiguous_time(time) and i > 0:
-            time = get_time_from_heading(headings[i - 1])
-            i -= 1
+        current_num = i
+        while check_ambiguous_time(time) and current_num > 0:
+            current_num -= 1
+            time = get_time_from_heading(headings[current_num])
 
         if not time:
-            time = "NONE"
+            time = "NOT INFERRED"
 
         time_frequencies_dict[time] = time_frequencies_dict.get(time, 0) + 1
 
@@ -74,13 +75,13 @@ def group_scene_numbers_by_time(
     for scene_num, contents in scene_contents:
         time = get_time_from_heading(contents[0])
 
-        i = scene_num
-        while check_ambiguous_time(time) and i > 0:
-            time = get_time_from_heading(headings[i - 1])
-            i -= 1
+        current_num = scene_num
+        while check_ambiguous_time(time) and current_num > 0:
+            current_num -= 1
+            time = get_time_from_heading(headings[current_num])
 
         if not time:
-            time = "NONE"
+            time = "NOT INFERRED"
 
         time_scenes_dict[time].append(scene_num)
 
