@@ -187,23 +187,23 @@ const AboutUs = () => {
               <div className="card-header msg_head">
                 <div className="d-flex bd-highlight">
                   <div className="img_cont">
-                    <img src={profile[0]} className="rounded-circle user_img" />
+                    <img src={profile[0]} className="rounded-circle user_img" alt="profile" />
                   </div>
                   <div className="user_info">
                     <span>{members[0]}</span>
                   </div>
                   <div className="video_cam">
-                    <a href={githubUrl[0]} target="_blank">
+                    <a href={githubUrl[0]} target="_blank" rel="noreferrer">
                       <span>
                         <FontAwesomeIcon icon={faGithub} />
                       </span>
                     </a>
-                    <a href={gitlabUrl[0]} target="_blank">
+                    <a href={gitlabUrl[0]} target="_blank" rel="noreferrer">
                       <span>
                         <FontAwesomeIcon icon={faGitlab} />
                       </span>
                     </a>
-                    <a href={blogUrl[0]} target="_blank">
+                    <a href={blogUrl[0]} target="_blank" rel="noreferrer">
                       <span>
                         <FontAwesomeIcon icon={faBlog} />
                       </span>
@@ -233,23 +233,23 @@ const AboutUs = () => {
               <div className="card-header msg_head">
                 <div className="d-flex bd-highlight">
                   <div className="img_cont">
-                    <img src={profile[1]} className="rounded-circle user_img" />
+                    <img src={profile[1]} className="rounded-circle user_img" alt="profile" />
                   </div>
                   <div className="user_info">
                     <span>{members[1]}</span>
                   </div>
                   <div className="video_cam">
-                    <a href={githubUrl[1]} target="_blank">
+                    <a href={githubUrl[1]} target="_blank" rel="noreferrer">
                       <span>
                         <FontAwesomeIcon icon={faGithub} />
                       </span>
                     </a>
-                    <a href={gitlabUrl[1]} target="_blank">
+                    <a href={gitlabUrl[1]} target="_blank" rel="noreferrer">
                       <span>
                         <FontAwesomeIcon icon={faGitlab} />
                       </span>
                     </a>
-                    <a href={blogUrl[1]} target="_blank">
+                    <a href={blogUrl[1]} target="_blank" rel="noreferrer">
                       <span>
                         <FontAwesomeIcon icon={faBlog} />
                       </span>
@@ -275,28 +275,28 @@ const AboutUs = () => {
             </div>
             <div
               className="card"
-              style={{ display: memberPage == 2 ? "block" : "none" }}
+              style={{ display: memberPage === 2 ? "block" : "none" }}
             >
               <div className="card-header msg_head">
                 <div className="d-flex bd-highlight">
                   <div className="img_cont">
-                    <img src={profile[2]} className="rounded-circle user_img" />
+                    <img src={profile[2]} className="rounded-circle user_img" alt="profile" />
                   </div>
                   <div className="user_info">
                     <span>{members[2]}</span>
                   </div>
                   <div className="video_cam">
-                    <a href={githubUrl[2]} target="_blank">
+                    <a href={githubUrl[2]} target="_blank" rel="noreferrer">
                       <span>
                         <FontAwesomeIcon icon={faGithub} />
                       </span>
                     </a>
-                    <a href={gitlabUrl[2]} target="_blank">
+                    <a href={gitlabUrl[2]} target="_blank" rel="noreferrer">
                       <span>
                         <FontAwesomeIcon icon={faGitlab} />
                       </span>
                     </a>
-                    <a href={blogUrl[2]} target="_blank">
+                    <a href={blogUrl[2]} target="_blank" rel="noreferrer">
                       <span>
                         <FontAwesomeIcon icon={faBlog} />
                       </span>
@@ -321,28 +321,28 @@ const AboutUs = () => {
             </div>
             <div
               className="card"
-              style={{ display: memberPage == 3 ? "block" : "none" }}
+              style={{ display: memberPage === 3 ? "block" : "none" }}
             >
               <div className="card-header msg_head">
                 <div className="d-flex bd-highlight">
                   <div className="img_cont">
-                    <img src={profile[3]} className="rounded-circle user_img" />
+                    <img src={profile[3]} className="rounded-circle user_img" alt="profile" />
                   </div>
                   <div className="user_info">
                     <span>{members[3]}</span>
                   </div>
                   <div className="video_cam">
-                    <a href={githubUrl[3]} target="_blank">
+                    <a href={githubUrl[3]} target="_blank" rel="noreferrer">
                       <span>
                         <FontAwesomeIcon icon={faGithub} />
                       </span>
                     </a>
-                    <a href={gitlabUrl[3]} target="_blank">
+                    <a href={gitlabUrl[3]} target="_blank" rel="noreferrer">
                       <span>
                         <FontAwesomeIcon icon={faGitlab} />
                       </span>
                     </a>
-                    <a href={blogUrl[3]} target="_blank">
+                    <a href={blogUrl[3]} target="_blank" rel="noreferrer">
                       <span>
                         <FontAwesomeIcon icon={faBlog} />
                       </span>
@@ -368,28 +368,28 @@ const AboutUs = () => {
             </div>
             <div
               className="card"
-              style={{ display: memberPage == 4 ? "block" : "none" }}
+              style={{ display: memberPage === 4 ? "block" : "none" }}
             >
               <div className="card-header msg_head">
                 <div className="d-flex bd-highlight">
                   <div className="img_cont">
-                    <img src={profile[4]} className="rounded-circle user_img" />
+                    <img src={profile[4]} className="rounded-circle user_img" alt="profile" />
                   </div>
                   <div className="user_info">
                     <span>{members[4]}</span>
                   </div>
                   <div className="video_cam">
-                    <a href={githubUrl[4]} target="_blank">
+                    <a href={githubUrl[4]} target="_blank" rel="noreferrer">
                       <span>
                         <FontAwesomeIcon icon={faGithub} />
                       </span>
                     </a>
-                    <a href={gitlabUrl[4]} target="_blank">
+                    <a href={gitlabUrl[4]} target="_blank" rel="noreferrer">
                       <span>
                         <FontAwesomeIcon icon={faGitlab} />
                       </span>
                     </a>
-                    <a href={blogUrl[4]} target="_blank">
+                    <a href={blogUrl[4]} target="_blank" rel="noreferrer">
                       <span>
                         <FontAwesomeIcon icon={faBlog} />
                       </span>

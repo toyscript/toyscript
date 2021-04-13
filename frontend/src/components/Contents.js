@@ -2,25 +2,30 @@ import React, { useState } from "react";
 import { Container, Tab, Tabs } from "react-bootstrap";
 
 import "../contents.css"
+import Summary from "./Summary";
 import Place from "./Place";
 import Time from "./Time";
 
 function ControlledTabs() {
   const [key, setKey] = useState('home');
 
+
   return (
     <Container>
       <Tabs
-        className="contents"
+        className="Tabs"
         activeKey={key}
         onSelect={(k) => setKey(k)}
       >
         <Tab id="summary" eventKey="summary" title="Summary">
-          <p style={{backgroundColor:"rgb(246, 238, 204)"}}>summary page
-          </p>
+          <Summary />
         </Tab>
         <Tab id="character" eventKey="character" title="Character">
-          <p style={{backgroundColor:"rgb(246, 238, 204)"}}>character page</p>
+          <Container>
+            <p style={{backgroundColor:"rgb(246, 238, 204)"}}>
+              character page
+            </p>
+          </Container>
         </Tab>
         <Tab id="place" eventKey="place" title="Place">
           <Place />

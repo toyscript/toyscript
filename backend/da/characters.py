@@ -1,79 +1,294 @@
+from typing import Tuple
+from collections import defaultdict
+from script_lines_from_txt import get_lines_of_script
+from script_sections import get_lines_with_only_capital
 from utils import (
-    locations,
-    scriptTerms,
-    punctuations,
-    MAX_SPLIT_LENGTH_IN_CHARACTER_NAME,
+    place_indicators,
+    script_terms,
+    character_cue_terms,
+    MAX_BLANK_LINES_BETWEEN_CHARACTER_AND_DIALOGUE,
+    MAX_SPLIT_LENGTH_OF_CHARACTER_NAME,
 )
-from collections import Counter
-from scriptLinesFromTxt import scriptLines
 
 
-def getAllCharacters():
-    characters = []
-    for token in scriptLines:
-        if token[:4] in locations:
-            continue  # 'EXT.' 또는 'INT.'로 시작하면 continue
-        for term in scriptTerms:
-            if token.find(term) != -1:
-                break  # 장면 전환 등의 시나리오 용어라면 break
+def remove_terms_on_name(name: str) -> str:
+    """
+    이름에서 캐릭터 큐 용어를 제외합니다.
+    :params name:
+    :return name:
+    """
+    for cue_term in character_cue_terms:
+        name = name.replace(f" {cue_term}", "")
+
+        start_of_as = name.find("(AS")
+        end_of_as = name.find(")")
+        if start_of_as != -1:
+            name = name.replace(f" {name[start_of_as:end_of_as+1]}", "")
+
+    return name.strip()
+
+
+def count_frequency_of_characters_and_slugs(
+    all_capital_lines: Tuple[str],
+) -> Tuple[Tuple[str, int]]:
+    """
+    캐릭터 또는 슬러그 라인별 등장 빈도 수를 계산합니다.
+    :params all_capital_lines:
+    :return character_slugs_frequencies:
+    """
+    character_slug_counts_dict = {}
+    for line in all_capital_lines:
+        if len(line.split()) >= MAX_SPLIT_LENGTH_OF_CHARACTER_NAME:
+            continue
+
+        if line[:4] in place_indicators:
+            continue
+
+        if line.find("!") != -1 or line.find('"') != -1:
+            continue
+
+        for script_term in script_terms:
+            if line.startswith(script_term):
+                break
         else:
-            if token.isupper() and token.startswith(" "):  # 모든 문자가 대문자이고, 공백으로 시작하면
+            line = remove_terms_on_name(line)
 
-                # TODO 함수로 구현하기
-                # continued를 의미하는 (CONT’D) 또는 (CONT'D) 제거
-                token = token.replace(" (CONT'D)", "")
-                token = token.replace(" (CONT’D)", "")
+            if line[0] == "(" or line[-1] in "):-.;":
+                continue
 
-                # (V.O.) 또는 (V.O)제거
-                # Voice Over: 인물이 출연은 하지만 말은 안하고, 속마음을 얘기하는 경우
-                token = token.replace(" (V.O.)", "")
-                token = token.replace(" (V.O)", "")
+            character_slug_counts_dict[line] = (
+                character_slug_counts_dict.get(line, 0) + 1
+            )
 
-                # (O.C.) 제거 (Off Camera)
-                token = token.replace(" (O.C.)", "")
+    character_slug_frequencies = []
+    for character, count in character_slug_counts_dict.items():
+        character_slug_frequencies.append((character, count))
+    return tuple(character_slug_frequencies)
 
-                # (O.S.) 제거 (Off Screen, 인물은 안 보이고 그 인물의 소리만 들리는 경우, 환청 등)
-                token = token.replace(" (O.S.)", "")
 
-                token = token.replace(" (VOICE BOX)", "")
+def get_character_slug_keys(character_slug_frequencies: Tuple[str, int]) -> Tuple[str]:
+    """
+    캐릭터 또는 슬러그 라인별 빈도 데이터에서 키 값(0번째 인덱스 값)을 구합니다.
+    :params character_slug_frequencies
+    :return characters_slug_keys:
+    """
+    characters_slug_keys = [
+        chracter_slug_freq[0] for chracter_slug_freq in character_slug_frequencies
+    ]
+    return tuple(characters_slug_keys)
 
-                token = token.replace(" (ON PHONE)", "")
 
-                splitted = token.split()
-                wordWithAs = ""
-                for i in range(len(splitted)):
-                    word = splitted[i]
-                    if word.startswith("(AS"):
-                        wordWithAs = " ".join(splitted[i:])
+def count_number_of_blank_lines(
+    script_lines: Tuple[str], character_slug_frequencies: Tuple[str]
+) -> int:
+    """
+    10번 이상 등장한 특정 캐릭터와 대사 사이의 공백 줄 개수를 구합니다.
+    :params
+        script_lines,
+        character_slug_frequencies:
+    :return number_of_blank_lines:
+    """
+    character = ""
+    for character, frequency in character_slug_frequencies:
+        if frequency >= 10:
+            character = character
+            break
 
-                # TODO 지엽적인 것 -> 일반화 어떻게 할지 논의 필요
-                if wordWithAs:
-                    token = token.replace(f" {wordWithAs}", "")
+    num_of_blank_lines = 0
+    is_character_found = False
+    for i in range(len(script_lines)):
+        if not is_character_found:
+            line = script_lines[i]
+            if line.startswith(" ") and character in line:
+                for j in range(
+                    i + 1, i + MAX_BLANK_LINES_BETWEEN_CHARACTER_AND_DIALOGUE
+                ):
+                    is_character_found = True
+                    if script_lines[j]:
+                        break
+                    num_of_blank_lines += 1
+        else:
+            break
+    return num_of_blank_lines
+
+
+def get_dialogues_by_characters(
+    script_lines: Tuple[str],
+    character_slug_keys: Tuple[str],
+    num_of_blank_lines: int,
+) -> Tuple[Tuple[str, Tuple[str]]]:
+    """
+    캐릭터별 대사 목록을 구합니다.
+    :params
+        script_lines,
+        character_slug_keys,
+        num_of_blank_lines:
+    :return character_dialogues:
+    """
+    chunks = defaultdict(list)
+    for i in range(len(script_lines)):
+        line = script_lines[i]
+
+        if not line.startswith(" "):
+            continue
+
+        if line.strip() == "OR":
+            continue
+
+        for word in line.split():
+            if word.islower():
+                break
+        else:
+            for character in character_slug_keys:
+                tokens = line.strip().split()
+                character_names = character.split()
+                len_of_tokens = len(tokens)
+                len_of_character_names = len(character_names)
 
                 if (
-                    len(token.split()) > MAX_SPLIT_LENGTH_IN_CHARACTER_NAME
-                ):  # split 이후 길이가 MAX 길이보다 크면 break
+                    len_of_tokens > 1
+                    and len_of_character_names == 1
+                    and len(tokens[0]) == 1
+                    and len(character_names[0]) == 1
+                    and tokens[0] == character_names[0]
+                ):
+                    # 'A U'와 'A'를 구분하기 위함
                     continue
 
-                for char in token:
-                    if char in punctuations + '.':  # 특수 문자가 포함되면 break
-                        break
-                else:
-                    characters.append(token.strip())
-    return characters
+                elif (
+                    (
+                        len_of_tokens == 1
+                        and len_of_character_names == 1
+                        and tokens[0] == character_names[0]
+                    )
+                    # tokens, character_names 길이가 모두 1보다 클 때 둘의 각 0번째 이름, 각 1번째 이름, 각 마지막 이름이 일치하거나
+                    # (예_ 'DR. STONER'와 'DR. SALLY FRIEDMAN'를 다른 인물로 구분하기 위함)
+                    or (
+                        len_of_tokens > 1
+                        and len_of_character_names > 1
+                        and tokens[0] == character_names[0]
+                        and tokens[1] == character_names[1]
+                        and tokens[-1] == character_names[-1]
+                    )
+                    # tokens 길이가 1보다 크고 character_names 길이가 1일 때,
+                    # 둘의 0번째 이름이 일치하나 tokens의 마지막 요소가 '#'로 시작하지 않을 때
+                    # (예_ tokens가 'ALIEN #1' 이고 character_names가 'ALIEN'인 경우, 둘을 다르게 구분하기 위함)
+                    or (
+                        len_of_tokens > 1
+                        and len_of_character_names == 1
+                        and tokens[0] == character_names[0]
+                        and not tokens[-1].startswith("#")
+                    )
+                ):
+                    blank_count = 0
+                    for j in range(i + 1, len(script_lines)):
+                        token = script_lines[j]
+
+                        if token.startswith("  ") and token.strip()[:-1].isdigit():
+                            break
+
+                        token = script_lines[j].strip()
+                        if blank_count > num_of_blank_lines:
+                            break
+
+                        if token:
+                            blank_count = 0
+                            chunks[character].append(token)
+                        else:
+                            blank_count += 1
+
+    character_dialogues = []
+    for character, dialogues in chunks.items():
+        character_dialogues.append((character, tuple(dialogues)))
+    return tuple(character_dialogues)
 
 
-# 캐릭터 목록 출력
-charactersSet = set(getAllCharacters())
-# print(sorted(list(charactersSet)))
+def get_character_list(character_dialogues: Tuple[str, Tuple[str]]) -> Tuple[str]:
+    """
+    대사가 있는 캐릭터 이름 목록을 구합니다.
+    :params character_dialogues:
+    :return characters:
+    """
+    characters = [character_dialogue[0] for character_dialogue in character_dialogues]
+    return tuple(characters)
 
-# 총 캐릭터 수 출력
-numOfCharacters = len(charactersSet)
-# print(numOfCharacters)
+
+def get_character_frequencies(
+    character_slug_frequencies: Tuple[str, int], characters: Tuple[str]
+) -> Tuple[Tuple[str, int]]:
+    """
+    캐릭터 또는 슬러그 라인별 빈도 데이터에서 캐릭터별로 등장 빈도 수를 계산합니다.
+    :params character_slug_frequencies
+    :return character_frequencies:
+    """
+    character_frequencies = []
+    for character, frequency in character_slug_frequencies:
+        if character in characters:
+            character_frequencies.append((character, frequency))
+    return tuple(character_frequencies)
 
 
-# 캐릭터별 대사 개수 출력
-charactersCount = Counter(getAllCharacters()).most_common()
-# print(charactersCount)
-# for name, count in charactersCount:
-#     print(f'{name}, {count}')
+def get_most_frequent_characters(
+    number: int, character_frequencies: Tuple[str, int]
+) -> Tuple[Tuple[str, int]]:
+    """
+    캐릭터 중 대사 개수가 가장 많은 캐릭터를 number만큼 구합니다.
+    :params character_frequencies:
+    :return most_frequent_characters:
+    """
+    if number >= len(character_frequencies):
+        return ()
+    sorted_character_frequencies = sorted(
+        character_frequencies, key=lambda x: x[1], reverse=True
+    )[:number]
+    most_frequent_characters = [
+        character_freq[0] for character_freq in sorted_character_frequencies
+    ]
+    return tuple(most_frequent_characters)
+
+
+def get_most_frequent_character_dialogues(
+    most_frequent_characters: Tuple[str], character_dialogues: Tuple[str, int]
+) -> Tuple[str]:
+    """
+    캐릭터 중 대사 개수가 가장 많은 5명을 구합니다.
+    :params most_frequent_characters, character_dialogues:
+    :return top_five_character_dialogues:
+    """
+
+    top_five_character_dialogues = []
+    for character, dialogues in character_dialogues:
+        for top_character in most_frequent_characters:
+            if character == top_character:
+                top_five_character_dialogues.append((top_character, dialogues))
+                break
+    return tuple(top_five_character_dialogues)
+
+
+script_lines = get_lines_of_script()
+
+character_slug_frequencies = count_frequency_of_characters_and_slugs(
+    get_lines_with_only_capital(script_lines)
+)
+
+character_slug_keys = get_character_slug_keys(character_slug_frequencies)
+
+num_of_blank_lines = count_number_of_blank_lines(
+    script_lines, character_slug_frequencies
+)
+
+character_dialogues = get_dialogues_by_characters(
+    script_lines, character_slug_keys, num_of_blank_lines
+)
+
+characters = get_character_list(character_dialogues)
+
+character_frequencies = get_character_frequencies(
+    character_slug_frequencies, characters
+)
+
+most_frequent_characters = get_most_frequent_characters(5, character_frequencies)
+
+most_frequent_character_dialogues = get_most_frequent_character_dialogues(
+    most_frequent_characters, character_dialogues
+)
