@@ -1,5 +1,5 @@
 from flask_restful import Resource
-from model.models import Place, Scene, PlaceCharacter as PC
+from db.models import Place, Scene, PlaceCharacter as PC
 
 
 class PlaceFrequency(Resource):
@@ -67,17 +67,8 @@ class PlaceCharacter(Resource):
                 place["characters"] = []
 
             frequency = {}
-            frequency['character-name'] = p.character.name
+            frequency['characterName'] = p.character.name
             frequency['frequency']=p.frequency
             place["characters"].append(frequency)
 
         return sorted(result[1:], key=lambda x: len(x.get("characters")), reverse=True)
-
-
-
-class PlaceCharacterFrequency(Resource):
-
-    def get(self, movie_id):
-
-
-        return None

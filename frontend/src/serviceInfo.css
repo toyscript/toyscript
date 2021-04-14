@@ -1,6 +1,144 @@
 .toyscript {
   width: 765px;
   height: 80px;
-  margin-top: 100px;
-  margin-bottom: 100px;
+  margin-top: 120px;
+  margin-bottom: 150px;
+}
+
+.desc {
+  padding: 50px 100px 100px;
+}
+
+.section-box.first {
+  padding-top: 97px;
+}
+
+.section-box {
+  width: 960px;
+  margin: 0 auto;
+  padding-top: 50px;
+  padding-bottom: 147px;
+}
+
+.section-tit {
+  padding-top: 30px;
+  margin-bottom: 70px;
+  border-top: 1px solid #e2e2e2;
+}
+.guide-service .head
+li:first-child {
+  margin-left: 0;
+}
+
+.guide-service .head {
+  position: relative;
+  padding: 30px 22px 200px;
+  border-bottom: 1px solid #e2e2e2;
+}
+
+.guide-service .head li {
+  float: left;
+  position: relative;
+  width: 142px;
+  height: 142px;
+  margin-left: 100px;
+
+  border-top-color: rgb(12, 75, 145);
+  border-top-style: solid;
+  border-top-width: 3px;
+  border-right-color: rgb(12, 75, 145);
+  border-right-style: solid;
+  border-right-width: 3px;
+  border-bottom-color: rgb(12, 75, 145);
+  border-bottom-style: solid;
+  border-bottom-width: 3px;
+  border-left-color: rgb(12, 75, 145);
+  border-left-style: solid;
+  border-left-width: 3px;
+  border-image-source: initial;
+  border-image-slice: initial;
+  border-image-width: initial;
+  border-image-outset: initial;
+  border-image-repeat: initial;
+  background-color: rgb(246, 233, 180);
+
+  webkit: border radius 50%;
+  border-radius: 50%;
+  font-size: 16px;
+  color: #3c3c3c;
+  text-align: center;
+}
+
+ul {
+  list-style: none;
+}
+
+.guide-service .head .num {
+  display: block;
+  padding: 44px 0 17px;
+  font-size: 20px;
+  font-weight: 500;
+}
+
+.guide-service .head .arr {
+  position: absolute;
+  top: 62px;
+  right: -60px;
+  width: 30px;
+  height: 30px;
+  background: url(./asset/rightarrow.png) no-repeat 100% 100%;
+  background-size: 80%;
+ 
+}
+
+.guide-service .cont .step1 {
+  padding-top: 50px;
+  padding-left: 568px;
+  padding-bottom: 50px;
+  background: url(./asset/mainpage.png) no-repeat 5% -200%;
+  background-size: 50%;
+}
+
+.guide-service .cont .step2 {
+  padding-top: 50px;
+  padding-bottom: 50px;
+  padding-right: 400px;
+  background: url(./asset/toyscript_2.png) no-repeat 100% 55%;
+  background-size: 40%;
+}
+
+.guide-service .cont .step3 {
+  padding-top: 50px;
+  padding-left: 568px;
+  padding-bottom: 50px;
+  background: url(./asset/toyscript_3.png) no-repeat 5% 50%;
+  background-size: 40%;
+}
+
+.guide-service .cont .num {
+  display: block;
+  margin-bottom: 17px;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+
+.guide-service .cont dl {
+  display: table-cell;
+  position: relative;
+  height: 100%;
+  vertical-align: middle;
+}
+
+
+.guide-service .cont dt {
+  margin-bottom: 16px;
+  font-size: 24px;
+  color: #3c3c3c;
+}
+
+.guide-service .cont .dsc {
+  margin-bottom: 15px;
+  font-size: 18px;
+  line-height: 1.27;
 }
