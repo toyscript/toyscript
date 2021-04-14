@@ -278,17 +278,17 @@ def get_interaction_characters(
     char1 = most_frequent_characters[0]
     characters_relation = defaultdict(dict)
     for scene in scene_contents : 
-        for sentence_num in range(len(scene[1])) : # 각 씬의 문장 개수만큼 반복
-            for sentence_next_num in range(sentence_num+1, len(scene[1])) :
-                for char1 in characters :
-                    if char1 in scene[1][sentence_num] :
-                        for char2 in most_frequent_characters :
-                            if char2 in scene[1][sentence_next_num] :
-                                if char1 == char2 :
-                                    continue
-                                characters_relation[char1][char2] = (
-                                    characters_relation[char1].get(char2, 0) + 1
-                                )
+        for sentence_num in range(len(scene[1])) : # 각 씬의 문장 개수만큼 반복 O
+            # for sentence_next_num in range(sentence_num+1, len(scene[1])) : # 
+            for char1 in range(len(characters)) :
+                if characters[char1] in scene[1][sentence_num] :
+                    for char2 in range(char1, len(characters)) :
+                        if characters[char2] in scene[1][sentence_num:-1] :
+                            if characters[char1] == characters[char2] :
+                                continue
+                            characters_relation[characters[char1]][characters[char2]] = (
+                                characters_relation[characters[char1]].get(characters[char2], 0) + 1
+                            )
 
     character_relations = []
     for character, relations_dict in characters_relation.items():
@@ -298,31 +298,6 @@ def get_interaction_characters(
 
         character_relations.append((character, tuple(relations)))
     return tuple(character_relations)
-
-
-def print_interaction_graph(characters_relation) :
-    """
-    파이썬으로 관계도 네트워크 그리는 함수
-    :params characters_relation
-    :return pltimg
-    """
-    graph = nx.Graph()
-    for i in range(len(characters_relation)) :
-        char1 = characters_relation[i][0]
-        for j in range(len(characters_relation[i][1])) :
-            char2 = characters_relation[i][1][j][0]
-            if not graph.has_edge(char1, char2) :
-                graph.add_edge(char1, char2, weight = 1)
-            else :
-                graph[char1][char2]['weight'] += 1
-
-    edge_weights = [graph[char1][char2]['weight'] for char1,char2 in graph.edges()]
-    pos = nx.kamada_kawai_layout(graph)
-    plt.figure(figsize=(16,8))
-    plt.margins(x=0.1, y=0.02)
-    nx.draw_networkx(graph, pos, with_labels=True, width=edge_weights, 
-    alpha=0.5, node_size=700, node_color=range(len(characters_relation)), font_size=9, font_weight='bold')
-    plt.show()
 
 
 script_lines = get_lines_of_script()
@@ -347,7 +322,7 @@ character_frequencies = get_character_frequencies(
     character_slug_frequencies, characters
 )
 
-most_frequent_characters = get_most_frequent_characters(10, character_frequencies)
+most_frequent_characters = get_most_frequent_characters(5, character_frequencies)
 
 most_frequent_character_dialogues = get_most_frequent_character_dialogues(
     most_frequent_characters, character_dialogues
@@ -355,4 +330,4 @@ most_frequent_character_dialogues = get_most_frequent_character_dialogues(
 
 characters_relation = get_interaction_characters(scene_contents, most_frequent_characters, characters)
 
-# print_interaction_graph(characters_relation)
+print(characters_relation)
