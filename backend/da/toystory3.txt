@@ -1190,8 +1190,9 @@ exits, carrying it downstairs.
 
             22
 
-        ANDY’S ROOM
-    Woody -- at the door -- is electrified.
+ANDY’S ROOM
+
+Woody -- at the door -- is electrified.
 
         WOODY
     That’s not trash! That’s not trash!!
