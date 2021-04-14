@@ -238,9 +238,11 @@ def get_most_frequent_characters(
     """
     if number >= len(character_frequencies):
         return ()
+
     sorted_character_frequencies = sorted(
         character_frequencies, key=lambda x: x[1], reverse=True
     )[:number]
+
     most_frequent_characters = [
         character_freq[0] for character_freq in sorted_character_frequencies
     ]
@@ -251,20 +253,18 @@ def get_most_frequent_character_dialogues(
     most_frequent_characters: Tuple[str], character_dialogues: Tuple[str, int]
 ) -> Tuple[str]:
     """
-    캐릭터 중 대사 개수가 가장 많은 5명을 구합니다.
-    :params
-        most_frequent_characters
-        character_dialogues:
-    :return top_five_character_dialogues:
+    대사 개수가 가장 많은 캐릭터별 대사 목록을 구합니다.
+    :params most_frequent_characters, character_dialogues:
+    :return most_frequent_character_dialogues:
     """
 
-    top_five_character_dialogues = []
-    for character, dialogues in character_dialogues:
-        for top_character in most_frequent_characters:
+    most_frequent_character_dialogues = []
+    for top_character in most_frequent_characters:
+        for character, dialogues in character_dialogues:
             if character == top_character:
-                top_five_character_dialogues.append((top_character, dialogues))
+                most_frequent_character_dialogues.append((top_character, dialogues))
                 break
-    return tuple(top_five_character_dialogues)
+    return tuple(most_frequent_character_dialogues)
 
 
 def get_interaction_characters(
