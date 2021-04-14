@@ -86,7 +86,11 @@ def count_frequency_of_emotions(all_emotions: Tuple[str]) -> Tuple[Tuple[str, in
     :params all_emotions:
     :return emotion_frequencies:
     """
-    emotion_frequencies_dict = pd.Series(all_emotions).value_counts().to_dict()
+    emotion_frequencies_series = pd.Series(all_emotions).value_counts()
+    emotion_frequencies_dict = emotion_frequencies_series.reindex(
+        emotion_analysis_types, fill_value=0
+    ).to_dict()
+
     emotion_frequencies = []
     for emotion, count in emotion_frequencies_dict.items():
         if emotion not in ["negative", "positive"]:
@@ -109,18 +113,7 @@ def get_emotion_frequencies_by_character(
         file_path:
     :return character_emotion_frequencies:
     """
-    character_emotion_frequencies = [
-        (
-            "anger",
-            "anticipation",
-            "disgust",
-            "fear",
-            "joy",
-            "sadness",
-            "surprise",
-            "trust",
-        )
-    ]
+    character_emotion_frequencies = [emotion_analysis_types]
     for character, dialogues in most_frequent_character_dialogues:
         joined_dialogues = " ".join(dialogues)
 
@@ -180,6 +173,17 @@ tokenizer = WordPunctTokenizer()
 p_stemmer = PorterStemmer()
 
 lemmatizer = WordNetLemmatizer()
+
+emotion_analysis_types = (
+    "anger",
+    "anticipation",
+    "disgust",
+    "fear",
+    "joy",
+    "sadness",
+    "surprise",
+    "trust",
+)
 
 character_emotion_frequencies = get_emotion_frequencies_by_character(
     most_frequent_character_dialogues, tokenizer, p_stemmer, file_path
