@@ -300,29 +300,29 @@ def get_interaction_characters(
     return tuple(character_relations)
 
 
-def print_interaction_graph(characters_relation) :
-    """
-    파이썬으로 관계도 네트워크 그리는 함수
-    :params characters_relation
-    :return pltimg
-    """
-    graph = nx.Graph()
-    for i in range(len(characters_relation)) :
-        char1 = characters_relation[i][0]
-        for j in range(len(characters_relation[i][1])) :
-            char2 = characters_relation[i][1][j][0]
-            if not graph.has_edge(char1, char2) :
-                graph.add_edge(char1, char2, weight = 1)
-            else :
-                graph[char1][char2]['weight'] += 1
-
-    edge_weights = [graph[char1][char2]['weight'] for char1,char2 in graph.edges()]
-    pos = nx.kamada_kawai_layout(graph)
-    plt.figure(figsize=(16,8))
-    plt.margins(x=0.1, y=0.02)
-    nx.draw_networkx(graph, pos, with_labels=True, width=edge_weights, 
-    alpha=0.5, node_size=700, node_color=range(len(characters_relation)), font_size=9, font_weight='bold')
-    plt.show()
+# def print_interaction_graph(characters_relation) :
+#     """
+#     파이썬으로 관계도 네트워크 그리는 함수
+#     :params characters_relation
+#     :return pltimg
+#     """
+#     graph = nx.Graph()
+#     for i in range(len(characters_relation)) :
+#         char1 = characters_relation[i][0]
+#         for j in range(len(characters_relation[i][1])) :
+#             char2 = characters_relation[i][1][j][0]
+#             if not graph.has_edge(char1, char2) :
+#                 graph.add_edge(char1, char2, weight = 1)
+#             else :
+#                 graph[char1][char2]['weight'] += 1
+#
+#     edge_weights = [graph[char1][char2]['weight'] for char1,char2 in graph.edges()]
+#     pos = nx.kamada_kawai_layout(graph)
+#     plt.figure(figsize=(16,8))
+#     plt.margins(x=0.1, y=0.02)
+#     nx.draw_networkx(graph, pos, with_labels=True, width=edge_weights,
+#     alpha=0.5, node_size=700, node_color=range(len(characters_relation)), font_size=9, font_weight='bold')
+#     plt.show()
 
 
 script_lines = get_lines_of_script()
