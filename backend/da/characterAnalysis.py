@@ -16,16 +16,17 @@ def preprocess_data(data: str, tokenizer) -> Tuple[str]:
     :return processed_data:
     """
     tokens = tokenizer.tokenize(data)
-    processed_data = [
-        token for token in tokens if len(token) > 2 and token.lower() not in stop_words
+    lower_tokens = [token.lower() for token in tokens]
+    stopped_words = [
+        token for token in lower_tokens if len(token) > 2 and token not in stop_words
     ]
-    processed_data = [token for token in processed_data if token not in punctuations]
+    processed_data = [token for token in stopped_words if token not in punctuations]
     return processed_data
 
 
 def extract_stemmed_words(data: Tuple[str], stemmer) -> Tuple[str]:
     """
-    NLTK의 PorterStemmer를 이용해 데이터에서 어간 목록을 추출합니다.
+    NLTK의 PorterStemmer를 이용해 데이터 목록에서 어간을 추출합니다.
     :params data:
     :return stemmed_words:
     """
@@ -34,7 +35,7 @@ def extract_stemmed_words(data: Tuple[str], stemmer) -> Tuple[str]:
 
 def lemmatize_words(data: Tuple[str], lemmatizer) -> Tuple[str]:
     """
-    NLTK의 WordNetLemmatizer를 이용해 데이터에서 어간 목록을 추출합니다.
+    NLTK의 WordNetLemmatizer를 이용해 데이터 목록에서 표제어를 추출합니다.
     :params data:
     :return lemmatized_words:
     """
@@ -101,7 +102,11 @@ def get_emotion_frequencies_by_character(
 ) -> Tuple[Tuple[str, Tuple[Tuple[str, int]]]]:
     """
     캐릭터별로 감정 빈도 수를 구하고, 이를 목록으로 반환합니다.
-    :params most_frequent_character_dialogues:
+    :params
+        most_frequent_character_dialogues,
+        tokenizer,
+        stemmer,
+        file_path:
     :return character_emotion_frequencies:
     """
     character_emotion_frequencies = []
@@ -109,7 +114,7 @@ def get_emotion_frequencies_by_character(
         joined_dialogues = " ".join(dialogues)
 
         processed_data = preprocess_data(joined_dialogues, tokenizer)
-        stemmed_words = extract_stemmed_words(processed_data, p_stemmer)
+        stemmed_words = extract_stemmed_words(processed_data, stemmer)
 
         emotion_lexicons = analyze_data_with_lexicons(file_path)
         match_words = get_match_words(stemmed_words, tuple(emotion_lexicons[0]))
@@ -120,21 +125,51 @@ def get_emotion_frequencies_by_character(
     return tuple(character_emotion_frequencies)
 
 
+def get_word_frequencies_by_character(
+    most_frequent_character_dialogues: Tuple[Tuple[str, int]],
+    tokenizer,
+    lemmatizer,
+    min_frequency,
+) -> Tuple[Tuple[str, Tuple[Tuple[str, int]]]]:
+    """
+    캐릭터별로 단어 빈도 수를 구하고, 이를 목록으로 반환합니다.
+    :params
+        most_frequent_character_dialogues,
+        tokenizer,
+        lemmatizer,
+        min_frequency
+    :return character_word_frequencies:
+    """
+    character_word_frequencies = []
+    for character, dialogues in most_frequent_character_dialogues:
+        joined_dialogues = " ".join(dialogues)
+        processed_data = preprocess_data(joined_dialogues, tokenizer)
+        lemmatized_words = lemmatize_words(processed_data, lemmatizer)
+
+        word_counts = Counter(lemmatized_words)
+        word_counts = tuple(
+            filter(lambda x: x[1] > min_frequency, word_counts.most_common())
+        )
+
+        character_word_frequencies.append((character, word_counts))
+    return tuple(character_word_frequencies)
+
+
 file_path = "NRC-Emotion-Lexicon-Wordlevel-v0.92.txt"
 
 stop_words = set(stopwords.words("english"))
+stop_words.update(("mon", "one", "two", "three"))
 
 tokenizer = WordPunctTokenizer()
 
 p_stemmer = PorterStemmer()
 
+lemmatizer = WordNetLemmatizer()
+
 character_emotion_frequencies = get_emotion_frequencies_by_character(
     most_frequent_character_dialogues, tokenizer, p_stemmer, file_path
 )
 
-lemmatizer = WordNetLemmatizer()
-
-
-processed_data = preprocess_data(
-    " ".join(most_frequent_character_dialogues[0][1]), tokenizer
+character_word_frequencies = get_word_frequencies_by_character(
+    most_frequent_character_dialogues, tokenizer, lemmatizer, 2
 )
