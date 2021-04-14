@@ -17,7 +17,6 @@ const Place = () => {
   const [allScenesPerPlaceData, setAllScenesPerPlacesData] = useState([]);
   const [allCharactersData, setAllCharactersData] = useState([]);
   const [topCharactersData, setTopCharactersData] = useState([]);
-  const [charactersChartData, setCharactersChartData] = useState({});
 
   const chartBackgroundColor = {
     backgroundColor: "white",
@@ -89,30 +88,29 @@ const Place = () => {
     const fetchAllScenesData = async () => {
       const result = [];
       await axios.get(scenesPerPlaceApiUrl).then((response) => {
-        // console.log(response)
         for (let dataObj of response.data) {
           result.push(dataObj);
         }
-        // console.log(result)
       });
       const topResult = result.slice(0, 5);
       setAllScenesPerPlacesData(topResult);
-      // console.log(allScenesPerPlaceData)
     };
     fetchAllScenesData();
-  }, []);
+  }, [allCharactersData, topCharactersData]);
 
   useEffect(() => {
     const fetchAllCharactersData = async () => {
+      const result = [];
       await axios.get(charactersPerPlaceApiUrl).then((response) => {
         setAllCharactersData(response.data);
+        for (let dataObj of response.data) {
+          result.push(dataObj);
+        }
       });
-      const topCharacters = allCharactersData.slice(0, 5);
+      const topCharacters = result.slice(0, 5);
       setTopCharactersData(topCharacters);
     };
     fetchAllCharactersData();
-    // console.log(allCharactersData);
-    // console.log(topCharactersData);
   }, []);
 
   return (
@@ -214,7 +212,7 @@ const Place = () => {
                       {
                         label: label,
                         data: frequency,
-                        backgroundColor: rgbList
+                        backgroundColor: rgbList,
                       },
                     ],
                   }}
@@ -236,8 +234,8 @@ const Place = () => {
                       ],
                     },
                     legend: {
-                      display: false
-                  },
+                      display: false,
+                    },
                   }}
                 />
                 <br />
@@ -245,6 +243,18 @@ const Place = () => {
               </>
             );
           })}
+          {/* {allScenesPerPlaceData.map((data) => {
+            // console.log(data);
+            // {place: "CATERPILLAR ROOM", scenes: Array(18)}place: "CATERPILLAR ROOM"scenes: (18) [27, 31, 43, 45, 47, 49, 59, 63, 65, 67, 74, 75, 76, 78, 88, 93, 95, 103]__proto__: Object
+            // {place: "PLAYGROUND", scenes: Array(11)}
+            // {place: "ANDY’S ROOM", scenes: Array(9)}
+            // {place: "HALLWAY", scenes: Array(6)}
+            // {place: "OFFICE", scenes: Array(6)}
+            return <li>ok?</li>;
+          })}
+          {topCharactersData.map((data) => {
+            return <li>ok!</li>;
+          })} */}
           <br />
           <hr />
           <br />

@@ -8,13 +8,12 @@ const Time = () => {
     "http://elice-kdt-ai-track-vm-da-04.koreacentral.cloudapp.azure.com:5000/api/1212/times/frequencys";
   const allScenesPerTimeApiUrl =
     "http://elice-kdt-ai-track-vm-da-04.koreacentral.cloudapp.azure.com:5000/api/1212/times/scenes";
-  const charactersPerPlaceApiUrl =
+  const charactersPerTimeApiUrl =
     "http://elice-kdt-ai-track-vm-da-04.koreacentral.cloudapp.azure.com:5000/api/1212/times/characters";
   const [allTimeData, setAllTimeData] = useState({});
   const [allScenesPerTimeData, setAllScenesPerTimeData] = useState([]);
   const [allCharactersData, setAllCharactersData] = useState([]);
   const [topCharactersData, setTopCharactersData] = useState([]);
-  const [charactersChartData, setCharactersChartData] = useState({});
 
   const style = {
     backgroundColor: "rgb(246, 233, 180)",
@@ -84,15 +83,17 @@ const Time = () => {
 
   useEffect(() => {
     const fetchAllCharactersData = async () => {
-      await axios.get(charactersPerPlaceApiUrl).then((response) => {
+      const result = [];
+      await axios.get(charactersPerTimeApiUrl).then((response) => {
         setAllCharactersData(response.data);
+        for (let dataObj of response.data) {
+          result.push(dataObj);
+        }
       });
-      const topCharacters = allCharactersData.slice(0, 5);
+      const topCharacters = result.slice(0, 5);
       setTopCharactersData(topCharacters);
     };
     fetchAllCharactersData();
-    console.log(allCharactersData);
-    console.log(topCharactersData);
   }, []);
 
   return (
@@ -117,7 +118,6 @@ const Time = () => {
         />
         <br />
         {allScenesPerTimeData.map((scenes, index) => {
-          // console.log(scenes);
           let scenesList = [];
           for (let i = 0; i < scenes.scenes.length; i++) {
             let scene = `${scenes.scenes[i]}, `;
