@@ -1,5 +1,5 @@
 from flask_restful import Resource
-from model.models import Place, Scene, PlaceCharacter as PC
+from db.models import Place, Scene, PlaceCharacter as PC
 
 
 class PlaceFrequency(Resource):

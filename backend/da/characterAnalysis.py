@@ -7,7 +7,7 @@ from nltk.corpus import stopwords
 from nltk.stem import PorterStemmer, WordNetLemmatizer
 from nltk.tokenize import word_tokenize, WordPunctTokenizer
 from characters import character_dialogues, most_frequent_character_dialogues
-
+import os
 
 def preprocess_data(data: str, tokenizer) -> Tuple[str]:
     """
@@ -109,7 +109,18 @@ def get_emotion_frequencies_by_character(
         file_path:
     :return character_emotion_frequencies:
     """
-    character_emotion_frequencies = []
+    character_emotion_frequencies = [
+        (
+            "anger",
+            "anticipation",
+            "disgust",
+            "fear",
+            "joy",
+            "sadness",
+            "surprise",
+            "trust",
+        )
+    ]
     for character, dialogues in most_frequent_character_dialogues:
         joined_dialogues = " ".join(dialogues)
 
@@ -120,8 +131,11 @@ def get_emotion_frequencies_by_character(
         match_words = get_match_words(stemmed_words, tuple(emotion_lexicons[0]))
         all_emotions = get_all_emotions(match_words, emotion_lexicons)
         emotion_frequencies = count_frequency_of_emotions(all_emotions)
+        emotion_frequencies = sorted(emotion_frequencies, key=lambda x: x[0])
 
-        character_emotion_frequencies.append((character, tuple(emotion_frequencies)))
+        character_emotion_frequencies.append(
+            (character, tuple(map(lambda x: x[1], emotion_frequencies)))
+        )
     return tuple(character_emotion_frequencies)
 
 
@@ -154,8 +168,9 @@ def get_word_frequencies_by_character(
         character_word_frequencies.append((character, word_counts))
     return tuple(character_word_frequencies)
 
-
-file_path = "NRC-Emotion-Lexicon-Wordlevel-v0.92.txt"
+file_name = "NRC-Emotion-Lexicon-Wordlevel-v0.92.txt"
+dir_path = os.path.join(os.path.dirname(os.getcwd()), 'da')
+file_path = os.path.join(dir_path, file_name)
 
 stop_words = set(stopwords.words("english"))
 stop_words.update(("mon", "one", "two", "three"))

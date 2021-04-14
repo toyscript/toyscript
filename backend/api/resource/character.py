@@ -1,5 +1,5 @@
 from flask_restful import Resource
-from model.models import Character
+from db.models import Character, Relation
 
 
 class CharacterFrequency(Resource):
@@ -16,3 +16,20 @@ class CharacterFrequency(Resource):
             characterFrequency.append(object)
 
         return sorted(characterFrequency, key=lambda x: x["frequency"], reverse=True)
+
+class CharacterRelaction(Resource):
+
+    def get(self, movie_id):
+
+        relations = Relation.query.filter(Relation.movie_id==movie_id).all()
+        result = []
+        for r in relations:
+
+            tmp = {
+                "source" : r.character_one.name,
+                "target" : r.character_two.name,
+                "value" : r.value
+            }
+
+            result.append(tmp)
+        return result

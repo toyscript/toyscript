@@ -1,5 +1,5 @@
 from flask_restful import Resource, reqparse
-from model.models import Movie
+from db.models import Movie
 
 parser = reqparse.RequestParser()
 parser.add_argument("query", type=str)
