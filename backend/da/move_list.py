@@ -1,7 +1,7 @@
 import requests
 from bs4 import BeautifulSoup
 
-from model.models import Movie
+from db.models import Movie
 from init_app.init_app import db, create_app
 
 app = create_app()

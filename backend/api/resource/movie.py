@@ -1,5 +1,5 @@
 from flask_restful import Resource, reqparse
-from model.models import Movie
+from db.models import Movie
 
 parser = reqparse.RequestParser()
 parser.add_argument("query", type=str)
@@ -19,7 +19,7 @@ class QueryMovie(Resource):
 
             movie = {}
             movie['title'] = m.title
-            movie['movie_id'] = m.id
+            movie['movieId'] = m.id
             movie_list.append(movie)
 
         return movie_list
@@ -32,9 +32,9 @@ class Summary(Resource):
         result = {}
         result["title"] = movie.title
         result["author"] = movie.author
-        result["total-characters"] = movie.total_characters
-        result["total-pages"] = movie.total_pages
-        result["total-scenes"] = movie.total_scenes
-        result["total-places"] = movie.total_places
+        result["totalCharacters"] = movie.total_characters
+        result["totalPages"] = movie.total_pages
+        result["totalScenes"] = movie.total_scenes
+        result["totalPlaces"] = movie.total_places
 
         return result
