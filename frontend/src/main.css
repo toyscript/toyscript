@@ -3,11 +3,20 @@ html{
 }
 
 .logo {
+  position: relative;
   margin-top: 100px;
-  margin-bottom: 20px;
-  width: 310px;
-  height: 160px;
+  margin-bottom: 50px;
+  width: 350px;
+  height: 200px;
+  z-index: 1;
+}
 
+.woody {
+  position: absolute;
+  width: 23%;
+  height: 23%;
+  top: 37%;
+  z-index: 2;
 }
 
 .search {
