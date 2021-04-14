@@ -45,6 +45,7 @@ class Line(db.Model):
     character = db.relationship("Character")
     line = db.Column(db.Text)
 
+
 class Time(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     name = db.Column(db.String(50))
@@ -72,6 +73,7 @@ class PlaceCharacter(db.Model):
     frequency = db.Column(db.Integer)
     __table_args__ = {"extend_existing": True}
 
+
 class Sentiment(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     character_id = db.Column(db.Integer, db.ForeignKey("character.id"))
@@ -84,9 +86,9 @@ class Sentiment(db.Model):
     sadness = db.Column(db.Integer)
     surprise = db.Column(db.Integer)
     trust = db.Column(db.Integer)
+    __suram=True
 
     def __init__(self, sentiments:tuple, character_id:int) -> None:
-
         self.character_id = character_id
         self.anger = sentiments[0]
         self.anticipation = sentiments[1]
@@ -96,6 +98,16 @@ class Sentiment(db.Model):
         self.sadness = sentiments[5]
         self.surprise = sentiments[6]
         self.trust = sentiments[7]
+
+    @staticmethod
+    def get_sentiment_name():
+        return list(Sentiment.__dict__.keys())[4:12]
+
+    def get_sentiments(self):
+        return [self.anger, self.anticipation, self.disgust, self.fear, self.joy, self.sadness
+                  , self.surprise, self.trust]
+
+
 
 
 class Relation(db.Model):
