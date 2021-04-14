@@ -15,15 +15,22 @@ function Main() {
       <Header/>
 
       <br />
-      <center>
-        <Nav.Link href="/">
-          <img
-            src="/images/logo.png"
-            className="logo"
-            alt="logo"
-          />
-        </Nav.Link>
-      </center>
+      <Container>
+        <center>
+          <a href="/">
+            <img
+              src="/images/logo.png"
+              className="logo"
+              alt="logo"
+            />
+          </a>
+        </center>
+        <img 
+          src="/images/woody.png"
+          className="woody"
+          alt="leaning Woody"
+        /> 
+      </Container>
 
       <Container className="search">
         <InputGroup>

@@ -279,7 +279,6 @@ def get_interaction_characters(
     characters_relation = defaultdict(dict)
     for scene in scene_contents : 
         for sentence_num in range(len(scene[1])) : # 각 씬의 문장 개수만큼 반복 O
-            # for sentence_next_num in range(sentence_num+1, len(scene[1])) : # 
             for char1 in range(len(characters)) :
                 if characters[char1] in scene[1][sentence_num] :
                     for char2 in range(char1, len(characters)) :
@@ -329,5 +328,3 @@ most_frequent_character_dialogues = get_most_frequent_character_dialogues(
 )
 
 characters_relation = get_interaction_characters(scene_contents, most_frequent_characters, characters)
-
-print(characters_relation)
