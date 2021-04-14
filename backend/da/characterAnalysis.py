@@ -7,7 +7,7 @@ from nltk.corpus import stopwords
 from nltk.stem import PorterStemmer, WordNetLemmatizer
 from nltk.tokenize import word_tokenize, WordPunctTokenizer
 from characters import character_dialogues, most_frequent_character_dialogues
-
+import os
 
 def preprocess_data(data: str, tokenizer) -> Tuple[str]:
     """
@@ -161,8 +161,9 @@ def get_word_frequencies_by_character(
         character_word_frequencies.append((character, word_counts))
     return tuple(character_word_frequencies)
 
-
-file_path = "NRC-Emotion-Lexicon-Wordlevel-v0.92.txt"
+file_name = "NRC-Emotion-Lexicon-Wordlevel-v0.92.txt"
+dir_path = os.path.join(os.path.dirname(os.getcwd()), 'da')
+file_path = os.path.join(dir_path, file_name)
 
 stop_words = set(stopwords.words("english"))
 stop_words.update(("mon", "one", "two", "three"))
