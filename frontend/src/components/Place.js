@@ -5,13 +5,14 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import axios from "axios";
 // import * as palette from 'google-palette';
 
-const Place = () => {
+const Place = ({ movieId }) => {
+  
   const allPlacesApiUrl =
-    "http://elice-kdt-ai-track-vm-da-04.koreacentral.cloudapp.azure.com:5000/api/1212/places/frequencys";
+    `http://elice-kdt-ai-track-vm-da-04.koreacentral.cloudapp.azure.com:5000/api/${movieId}/places/frequencys`;
   const scenesPerPlaceApiUrl =
-    "http://elice-kdt-ai-track-vm-da-04.koreacentral.cloudapp.azure.com:5000/api/1212/places/scenes";
+    `http://elice-kdt-ai-track-vm-da-04.koreacentral.cloudapp.azure.com:5000/api/${movieId}/places/scenes`;
   const charactersPerPlaceApiUrl =
-    "http://elice-kdt-ai-track-vm-da-04.koreacentral.cloudapp.azure.com:5000/api/1212/places/characters";
+    `http://elice-kdt-ai-track-vm-da-04.koreacentral.cloudapp.azure.com:5000/api/${movieId}/places/characters`;
   const [allPlacesData, setAllPlacesData] = useState({});
   const [topPlacesData, setTopPlacesData] = useState({});
   const [mostData, setMostData] = useState({});

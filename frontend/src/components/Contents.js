@@ -8,9 +8,12 @@ import Time from "./Time";
 import Character from "./Character"
 import Kakao from "./Kakao"
 import Header from "./Header";
-import Footer from "./Footer";
 
-function ControlledTabs() {
+function ControlledTabs(prop) {
+  let movieId = prop.location.pathname;
+  // console.log(movieId) ///result/1212
+  movieId = movieId.split('/')[2]; // 1212
+
   const [key, setKey] = useState('summary');
 
 
@@ -25,16 +28,16 @@ function ControlledTabs() {
         onSelect={(k) => setKey(k)}
       >
         <Tab id="summary" eventKey="summary" title="Summary">
-          <Summary />
+          <Summary movieId={movieId} />
         </Tab>
         <Tab id="character" eventKey="character" title="Character">
-          <Character />
+          <Character movieId={movieId} />
         </Tab>
         <Tab id="place" eventKey="place" title="Place">
-          <Place />
+          <Place movieId={movieId} />
         </Tab>
         <Tab id="time" eventKey="time" title="Time">
-          <Time />
+          <Time movieId={movieId} />
         </Tab>
       </Tabs>
     </Container>

@@ -9,7 +9,6 @@ import {
 import "bootstrap/dist/css/bootstrap.min.css";
 import "../main.css";
 import Header from "./Header";
-import Contents from "./Contents";
 import Footer from "./Footer";
 import { Link } from "react-router-dom";
 import axios from "axios";
@@ -17,7 +16,6 @@ import axios from "axios";
 function Main() {
   const MovieListApiUrl = `http://elice-kdt-ai-track-vm-da-04.koreacentral.cloudapp.azure.com:5000/api/movies`;
   const [term, setTerm] = useState("");
-  const [results, setResults] = useState([]);
   const [movieIds, setMovieIds] = useState([]);
 
   useEffect(() => {
@@ -29,13 +27,10 @@ function Main() {
           },
         })
         .then((response) => {
-          let movieTitleList = [];
           let movieIdList = [];
           for (let dataObj of response.data) {
-            movieTitleList.push(dataObj.title);
             movieIdList.push(dataObj.movieId);
           }
-          setResults(movieTitleList);
           setMovieIds(movieIdList);
         });
     };
@@ -43,9 +38,12 @@ function Main() {
       search();
     }
   }, [term]);
-  // console.log(movieIds, results)
+  // console.log(movieIds)
 
-  const handleOnClick = () => {};
+  function sayId(movieIds) {
+    alert(`${movieIds}`);
+    return movieIds;
+  }
 
   return (
     <>
@@ -70,12 +68,9 @@ function Main() {
             onChange={(e) => setTerm(e.target.value)}
           />
           <InputGroup.Append>
-            <Button className="go-button" variant="outline-danger">
+            <Button className="go-button" variant="outline-danger" onClick={() => sayId(`${movieIds}`)}>
               <Link
-                to="/result"
-                onClick={(event) => {
-                  console.log(event);
-                }}
+                to={`result/${movieIds}`}
               >
                 GO!
               </Link>
