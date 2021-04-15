@@ -19,7 +19,7 @@ function App() {
       <Route exact path='/' component={Main} />
       <Route path='/serviceinfo' component={ServiceInfo} />
       <Route path='/aboutus' component={AboutUs} />
-      <Route path='/result' component={ControlledTabs} />
+      <Route path='/result/:movieId' component={ControlledTabs} />
     </Router>
 
   );

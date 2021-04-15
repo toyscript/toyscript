@@ -10,11 +10,11 @@ import {ReactComponent as SceneIcon} from "./icons/cut-scene.svg";
 import {ReactComponent as PlaceIcon} from "./icons/maps.svg";
 import {ReactComponent as MovieIcon} from "./icons/video-camera.svg";
 import {ReactComponent as WriterIcon} from "./icons/writing-tool.svg";
-import {ReactComponent as PageIcon} from "./icons/paper.svg";
 import {ReactComponent as MinionIcon} from "./icons/minion.svg";
 
 
-function Summary() {
+function Summary({movieId}) {
+  // console.log(movieId) // 1212
   const style = {
     backgroundColor: "rgb(246, 233, 180)",
   };
@@ -24,7 +24,7 @@ function Summary() {
     padding: "20px",
   };
   const summaryApiUrl =
-    "http://elice-kdt-ai-track-vm-da-04.koreacentral.cloudapp.azure.com:5000/api/movies/1212";
+    `http://elice-kdt-ai-track-vm-da-04.koreacentral.cloudapp.azure.com:5000/api/movies/${movieId}`;
   const [author, setAuthor] = useState("");
   const [title, setTitle] = useState("");
   const [totalCharacters, setTotalCharacters] = useState(0);

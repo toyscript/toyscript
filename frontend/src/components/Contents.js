@@ -8,10 +8,17 @@ import Time from "./Time";
 import Character from "./Character"
 import Kakao from "./Kakao"
 import Header from "./Header";
+<<<<<<< HEAD
 import CharacterEmotion from "./CharacterEmotion"
 import CharacterWordCloud from "./CharacterWordCloud";
+=======
+>>>>>>> beaf02d2fc3ba123fbc240ea19855c5de8a6f893
 
-function ControlledTabs() {
+function ControlledTabs(prop) {
+  let movieId = prop.location.pathname;
+  // console.log(movieId) ///result/1212
+  movieId = movieId.split('/')[2]; // 1212
+
   const [key, setKey] = useState('summary');
 
   const chartBackgroundColor = {
@@ -30,7 +37,7 @@ function ControlledTabs() {
         onSelect={(k) => setKey(k)}
       >
         <Tab id="summary" eventKey="summary" title="Summary">
-          <Summary />
+          <Summary movieId={movieId} />
         </Tab>
         <Tab id="character" eventKey="character" title="Character">
           <Container style={{ backgroundColor: "rgb(246, 233, 180)" }}>
@@ -48,10 +55,10 @@ function ControlledTabs() {
           </ Container>
         </Tab>
         <Tab id="place" eventKey="place" title="Place">
-          <Place />
+          <Place movieId={movieId} />
         </Tab>
         <Tab id="time" eventKey="time" title="Time">
-          <Time />
+          <Time movieId={movieId} />
         </Tab>
       </Tabs>
     </Container>
