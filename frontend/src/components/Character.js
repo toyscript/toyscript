@@ -224,9 +224,6 @@ const Character = () => {
           config={myConfig2}
         />
       </div>
-      {/* <div style={chartBackgroundColor}>
-        
-      </div> */}
       <br />
     </Container>
   );
