@@ -1,4 +1,4 @@
-from flask_restful import Resource
+from flask_restful import Resource, request
 from db.models import Character, Relation, Sentiment, WordCloud
 
 
@@ -20,6 +20,11 @@ class CharacterFrequency(Resource):
 class CharacterRelation(Resource):
 
     def get(self, movie_id):
+
+        if 'test' in request.args.keys():
+            relations = Relation.query.filter(
+                Relation.movie_id==movie_id, Relation.test==True
+            ).all()
 
         relations = Relation.query.filter(Relation.movie_id==movie_id).all()
         result = []
@@ -88,8 +93,8 @@ class CharacterWord(Resource):
             else:
                 tmp.get(wc.character.id).append(
                     {
-                        "word" : wc.word,
-                      "frequency" : wc.frequency
+                        "text" : wc.word,
+                      "value" : wc.frequency
                     }
                 )
 
