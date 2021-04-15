@@ -40,7 +40,6 @@ function ControlledTabs() {
     </Container>
     <Kakao />
     <br />
-    <Footer />
   </>
   );
 }
