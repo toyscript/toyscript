@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import kakao from '../asset/buzz.png';
+// import kakao from '../asset/buzz.png';
+import img from './Contents.js';
 
 class Kakao extends Component {
   componentDidMount() {
@@ -46,7 +47,7 @@ class Kakao extends Component {
   render() {
     return (
       <div className="Kakao">
-        <button id="kakao-link-btn" onClick={this.onClickKakao}><img src={kakao} alt="kakao" /></button>
+        <button id="kakao-link-btn" onClick={this.onClickKakao}><img src={img} alt="kakao" /></button>
       </div>
     );
   }
