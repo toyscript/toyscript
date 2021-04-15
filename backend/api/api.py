@@ -3,7 +3,7 @@ from flask import Blueprint, jsonify, request
 
 from api.resource.place import PlaceFrequency, PlaceScene, PlaceCharacter
 from api.resource.movie import QueryMovie, Summary
-from api.resource.character import CharacterFrequency, CharacterRelation, CharacterSentiment
+from api.resource.character import CharacterFrequency, CharacterRelation, CharacterSentiment, CharacterWord
 from api.resource.time import TimeScene, TimeCharacter, TimeFrequency
 from api.errors import *
 
@@ -17,6 +17,7 @@ api.add_resource(PlaceCharacter, "/<int:movie_id>/places/characters")
 api.add_resource(CharacterFrequency, "/<int:movie_id>/characters/frequencys")
 api.add_resource(CharacterRelation, "/<int:movie_id>/characters/relations")
 api.add_resource(CharacterSentiment, "/<int:movie_id>/characters/sentiments")
+api.add_resource(CharacterWord, "/<int:movie_id>/characters/words")
 
 api.add_resource(TimeScene, "/<int:movie_id>/times/scenes")
 api.add_resource(TimeCharacter, "/<int:movie_id>/times/characters")

@@ -1,5 +1,5 @@
 from flask_restful import Resource
-from db.models import Character, Relation, Sentiment
+from db.models import Character, Relation, Sentiment, WordCloud
 
 
 class CharacterFrequency(Resource):
@@ -60,5 +60,37 @@ class CharacterSentiment(Resource):
             characters.append(tmp)
 
         result['characters'] = characters
+
+        return result
+
+
+class CharacterWord(Resource):
+
+    def get(self, movie_id):
+
+        wordclouds = WordCloud.query.filter(WordCloud.character.has(movie_id=movie_id)).all()
+        wordclouds = sorted(wordclouds, key=lambda x : x.character.lines, reverse=True)
+        result = []
+        character = wordclouds[0].character
+        tmp = {}
+        tmp[character.id] = []
+
+        for wc in wordclouds:
+
+            if wc.character.id != character.id:
+                tmp['characterName'] = character.name
+                tmp['words'] = tmp.pop(character.id)
+                character = wc.character
+                result.append(tmp)
+                tmp = {}
+                tmp[wc.character.id] = []
+
+            else:
+                tmp.get(wc.character.id).append(
+                    {
+                        "word" : wc.word,
+                      "frequency" : wc.frequency
+                    }
+                )
 
         return result
