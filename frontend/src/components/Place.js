@@ -109,6 +109,7 @@ const Place = () => {
     const fetchAllCharactersData = async () => {
       const result = [];
       await axios.get(charactersPerPlaceApiUrl).then((response) => {
+        console.log(response);
         for (let dataObj of response.data) {
           result.push(dataObj);
         }

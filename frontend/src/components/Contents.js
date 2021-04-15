@@ -7,6 +7,7 @@ import Place from "./Place";
 import Time from "./Time";
 import Character from "./Character"
 import Kakao from "./Kakao"
+import CharacterEmotion from "./CharacterEmotion"
 
 function ControlledTabs() {
   const [key, setKey] = useState('home');
@@ -23,6 +24,7 @@ function ControlledTabs() {
           <Summary />
         </Tab>
         <Tab id="character" eventKey="character" title="Character">
+          <CharacterEmotion />
           <Kakao />
           <Character />
         </Tab>

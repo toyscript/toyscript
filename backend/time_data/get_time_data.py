@@ -4,6 +4,7 @@ from script_sections import (
     get_lines_with_only_capital,
     get_all_headings,
 )
+
 from characters import (
     count_frequency_of_characters_and_slugs,
     get_character_slug_keys,
@@ -11,6 +12,7 @@ from characters import (
     count_number_of_blank_lines,
     get_character_list,
 )
+
 from times import (
     group_scene_numbers_by_time,
     count_frequency_of_characters_by_time,
