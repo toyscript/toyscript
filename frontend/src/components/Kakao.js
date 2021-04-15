@@ -20,7 +20,7 @@ class Kakao extends Component {
       social: {
         likeCount: 286,
         commentCount: 45,
-        sharedCount: 845
+        sharedCount: 845,
       },
       buttons: [
         {
@@ -31,10 +31,10 @@ class Kakao extends Component {
           }
         },
         {
-          title: '앱으로 보기',
+          title: '팀 소개',
           link: {
-            mobileWebUrl: 'http://elice-kdt-ai-track-vm-da-04.koreacentral.cloudapp.azure.com:3000/',
-            webUrl: 'http://elice-kdt-ai-track-vm-da-04.koreacentral.cloudapp.azure.com:3000/'
+            mobileWebUrl: 'http://elice-kdt-ai-track-vm-da-04.koreacentral.cloudapp.azure.com:3000/aboutus',
+            webUrl: 'http://elice-kdt-ai-track-vm-da-04.koreacentral.cloudapp.azure.com:3000/aboutus'
           }
         }
       ]

@@ -25,14 +25,14 @@ const Character = () => {
       const target = [];
       const links = [];
       const nodes = [];
-      const weight = [];
+      // const weight = [];
 
       await axios.get(allCharactersRelationApiUrl).then((response) => {
         // console.log(response.data)
         for (let dataObj of response.data) {
           source.push(dataObj.source);
           target.push(dataObj.target);
-          weight.push(dataObj.value);
+          // weight.push(dataObj.value);
         }
         let uniqueSourceSet = new Set(source);
         let uniqueSourceList = [...uniqueSourceSet];
@@ -46,7 +46,7 @@ const Character = () => {
           const dict = {
             source: source[i],
             target: target[i],
-            strokeWidth : weight[i]
+            // strokeWidth : weight[i]
           }
           links.push(dict);
           
@@ -92,7 +92,6 @@ const Character = () => {
     <Container style={style}>
       <br />
       <div style={chartBackgroundColor}>
-        okay
         <Graph
           id="graph-id" 
           data={data}
