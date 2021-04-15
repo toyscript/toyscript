@@ -25,8 +25,9 @@ class CharacterRelation(Resource):
             relations = Relation.query.filter(
                 Relation.movie_id==movie_id, Relation.test==True
             ).all()
+        else:
+            relations = Relation.query.filter(Relation.movie_id==movie_id).all()
 
-        relations = Relation.query.filter(Relation.movie_id==movie_id).all()
         result = []
         for r in relations:
 

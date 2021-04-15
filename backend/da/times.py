@@ -1,10 +1,11 @@
 from typing import Tuple
 from utils import ambiguous_time_modifiers, time_modifiers
 from collections import Counter, defaultdict
-from script_sections import headings, scene_contents
 from characters import characters, remove_terms_on_name
-from script_lines_from_txt import get_lines_of_script
+from characters import remove_terms_on_name
 
+from script_lines_from_txt import get_lines_of_script
+from script_sections import *
 
 def get_time_from_heading(heading: str) -> str:
     """
@@ -124,6 +125,32 @@ def count_frequency_of_characters_by_time(
 time_frequencies = count_frequency_of_times(headings)
 
 time_scenes = group_scene_numbers_by_time(scene_contents)
+
+
+from init_app.init_app import create_app, db
+from db.models import Time, Scene
+
+app = create_app()
+app.app_context().push()
+movie_id = 1211
+
+# for tc in time_scenes:
+#
+#     time = Time.query.filter(Time.name == tc[0], Time.movie_id == movie_id).first()
+#     print(time, len(tc[1]))
+#
+#     for scene in tc[1]:
+#         s = Scene.query.filter(Scene.num==scene, Scene.movie_id == movie_id).first()
+#         print(s)
+#
+#         if s is None:
+#             s = Scene(num = scene, movie_id = movie_id, time_id = time.id)
+#             db.session.add(s)
+#             continue
+#
+#         s.time_id = time.id
+
+# db.session.commit()
 
 time_characters = count_frequency_of_characters_by_time(
     time_scenes, scene_contents, characters

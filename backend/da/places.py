@@ -160,3 +160,24 @@ place_scenes = group_scene_numbers_by_place(scene_contents)
 place_characters = count_frequency_of_characters_by_place(
     place_scenes, scene_contents, characters
 )
+
+
+from init_app.init_app import db, create_app
+from db.models import Place, Character, PlaceCharacter as PC
+movie_id = 1211
+
+app = create_app()
+app.app_context().push()
+
+for pc in place_characters:
+
+    p = Place.query.filter(Place.movie_id == movie_id).first()
+    print(p.name, end=" ")
+
+    for character in pc[1]:
+        print(character)
+        c = Character.query.filter(Character.name==character[0]).first()
+        place_character = PC(character_id = c.id, place_id = p.id, frequency = character[1])
+        # db.session.add(place_character)
+
+# db.session.commit()
