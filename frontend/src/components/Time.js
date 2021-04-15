@@ -3,13 +3,14 @@ import { Container } from "react-bootstrap";
 import { Bar, Pie } from "react-chartjs-2";
 import axios from "axios";
 
-const Time = () => {
+const Time = ({ movieId }) => {
+  // console.log(movieId) // 1212
   const allTimeApiUrl =
-    "http://elice-kdt-ai-track-vm-da-04.koreacentral.cloudapp.azure.com:5000/api/1212/times/frequencys";
+    `http://elice-kdt-ai-track-vm-da-04.koreacentral.cloudapp.azure.com:5000/api/${movieId}/times/frequencys`;
   const allScenesPerTimeApiUrl =
-    "http://elice-kdt-ai-track-vm-da-04.koreacentral.cloudapp.azure.com:5000/api/1212/times/scenes";
+    `http://elice-kdt-ai-track-vm-da-04.koreacentral.cloudapp.azure.com:5000/api/${movieId}/times/scenes`;
   const charactersPerTimeApiUrl =
-    "http://elice-kdt-ai-track-vm-da-04.koreacentral.cloudapp.azure.com:5000/api/1212/times/characters";
+    `http://elice-kdt-ai-track-vm-da-04.koreacentral.cloudapp.azure.com:5000/api/${movieId}/times/characters`;
   const [allTimeData, setAllTimeData] = useState({});
   const [allScenesPerTimeData, setAllScenesPerTimeData] = useState([]);
   const [topCharactersData, setTopCharactersData] = useState([]);

@@ -1,13 +1,14 @@
+import os
 import numpy as np
 import pandas as pd
 from typing import Tuple
-from utils import punctuations
+from constants import PUNCTUATIONS
 from collections import Counter
 from nltk.corpus import stopwords
 from nltk.stem import PorterStemmer, WordNetLemmatizer
 from nltk.tokenize import word_tokenize, WordPunctTokenizer
 from characters import character_dialogues, most_frequent_character_dialogues
-import os
+
 
 def preprocess_data(data: str, tokenizer) -> Tuple[str]:
     """
@@ -20,7 +21,7 @@ def preprocess_data(data: str, tokenizer) -> Tuple[str]:
     stopped_words = [
         token for token in lower_tokens if len(token) > 2 and token not in stop_words
     ]
-    processed_data = [token for token in stopped_words if token not in punctuations]
+    processed_data = [token for token in stopped_words if token not in PUNCTUATIONS]
     return processed_data
 
 
@@ -161,8 +162,9 @@ def get_word_frequencies_by_character(
         character_word_frequencies.append((character, word_counts))
     return tuple(character_word_frequencies)
 
+
 file_name = "NRC-Emotion-Lexicon-Wordlevel-v0.92.txt"
-dir_path = os.path.join(os.path.dirname(os.getcwd()), 'da')
+dir_path = os.path.join(os.path.dirname(os.getcwd()), "da")
 file_path = os.path.join(dir_path, file_name)
 
 stop_words = set(stopwords.words("english"))

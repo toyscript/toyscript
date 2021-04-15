@@ -10,11 +10,11 @@ import {ReactComponent as SceneIcon} from "./icons/cut-scene.svg";
 import {ReactComponent as PlaceIcon} from "./icons/maps.svg";
 import {ReactComponent as MovieIcon} from "./icons/video-camera.svg";
 import {ReactComponent as WriterIcon} from "./icons/writing-tool.svg";
-import {ReactComponent as PageIcon} from "./icons/paper.svg";
 import {ReactComponent as MinionIcon} from "./icons/minion.svg";
 
 
-function Summary() {
+function Summary({movieId}) {
+  // console.log(movieId) // 1212
   const style = {
     backgroundColor: "rgb(246, 233, 180)",
   };
@@ -24,11 +24,10 @@ function Summary() {
     padding: "20px",
   };
   const summaryApiUrl =
-    "http://elice-kdt-ai-track-vm-da-04.koreacentral.cloudapp.azure.com:5000/api/movies/1212";
+    `http://elice-kdt-ai-track-vm-da-04.koreacentral.cloudapp.azure.com:5000/api/movies/${movieId}`;
   const [author, setAuthor] = useState("");
   const [title, setTitle] = useState("");
   const [totalCharacters, setTotalCharacters] = useState(0);
-  const [totalPages, setTotalPages] = useState(0);
   const [totalScenes, setTotalScenes] = useState(0);
   const [totalPlaces, setTotalPlaces] = useState(0);
 
@@ -38,11 +37,9 @@ function Summary() {
         setAuthor(response.data.author);
         setTitle(response.data.title);
         setTotalCharacters(response.data.totalCharacters);
-        setTotalPages(response.data.totalPages);
         setTotalPlaces(response.data.totalPlaces);
         setTotalScenes(response.data.totalScenes);
       });
-      // console.log(author, title, totalCharacters, totalPages, totalPlaces, totalScenes);
     };
     fetchSummaryData();
   }, []);
@@ -126,22 +123,6 @@ function Summary() {
             </h4>
             <h1 className="vertical-timeline-element-subtitle"  style={{textAlign: "center"}}>
               {totalScenes === null? "no result" : totalScenes}
-            </h1>
-          </VerticalTimelineElement>
-          <VerticalTimelineElement
-            className="vertical-timeline-element--education"
-            contentStyle={{ background: "rgb(226, 190, 241)", color: "black" }}
-            contentArrowStyle={{
-              borderRight: "7px solid  rgb(226, 190, 241)",
-            }}
-            iconStyle={{ background: "rgb(226, 190, 241)", color: "#fff" }}
-            icon={<PageIcon />}
-          >
-            <h4 className="vertical-timeline-element-title" style={{textAlign: "center", color: "#696969"}}>
-              TOTAL PAGES
-            </h4>
-            <h1 className="vertical-timeline-element-subtitle" style={{textAlign: "center"}}>
-            {totalPages === null? "no result" : totalPages}
             </h1>
           </VerticalTimelineElement>
         </VerticalTimeline>

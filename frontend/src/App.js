@@ -10,6 +10,7 @@ import Header from "./components/Header";
 import Main from "./components/Main";
 import ServiceInfo from "./components/ServiceInfo";
 import AboutUs from "./components/AboutUs";
+import ControlledTabs from "./components/Contents";
 
 
 function App() {
@@ -18,6 +19,7 @@ function App() {
       <Route exact path='/' component={Main} />
       <Route path='/serviceinfo' component={ServiceInfo} />
       <Route path='/aboutus' component={AboutUs} />
+      <Route path='/result/:movieId' component={ControlledTabs} />
     </Router>
 
   );

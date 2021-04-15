@@ -25,14 +25,14 @@ const Character = () => {
       const target = [];
       const links = [];
       const nodes = [];
-      const weight = [];
+      // const weight = [];
 
       await axios.get(allCharactersRelationApiUrl).then((response) => {
         // console.log(response.data)
         for (let dataObj of response.data) {
           source.push(dataObj.source);
           target.push(dataObj.target);
-          weight.push(dataObj.value);
+          // weight.push(dataObj.value);
         }
         let uniqueSourceSet = new Set(source);
         let uniqueSourceList = [...uniqueSourceSet];
@@ -46,7 +46,7 @@ const Character = () => {
           const dict = {
             source: source[i],
             target: target[i],
-            strokeWidth : weight[i]
+            // strokeWidth : weight[i]
           }
           links.push(dict);
           
@@ -77,22 +77,76 @@ const Character = () => {
   }, []);
 
   const myConfig = {
-    nodeHighlightBehavior: true,
-    node: {
-      color: "lightgreen",
-      size: 120,
-      highlightStrokeColor: "blue",
+    "automaticRearrangeAfterDropNode": true,
+    "collapsible": true,
+    "directed": true,
+    "focusAnimationDuration": 0.75,
+    "focusZoom": 1,
+    "freezeAllDragEvents": false,
+    "height": 400,
+    "highlightDegree": 2,
+    "highlightOpacity": 0.2,
+    "linkHighlightBehavior": true,
+    "maxZoom": 12,
+    "minZoom": 0.05,
+    "nodeHighlightBehavior": true,
+    "panAndZoom": false,
+    "staticGraph": false,
+    "staticGraphWithDragAndDrop": false,
+    "width": 800,
+    "d3": {
+      "alphaTarget": 0.05,
+      "gravity": -250,
+      "linkLength": 120,
+      "linkStrength": 2,
+      "disableLinkForce": false
     },
-    link: {
-      highlightColor: "lightblue",
+    "node": {
+      "color": "white",
+      "fontColor": "black",
+      "fontSize": 20,
+      "fontWeight": "bold",
+      "highlightColor": "red",
+      "highlightFontSize": 35,
+      "highlightFontWeight": "bold",
+      "highlightStrokeColor": "red",
+      "highlightStrokeWidth": 1.5,
+      "mouseCursor": "pointer",
+      "opacity": 0.9,
+      "renderLabel": true,
+      "size": 1000,
+      "strokeColor": "black",
+      "strokeWidth": 1.5,
+      "svg": "",
+      "symbolType": "circle"
     },
-  };
+    "link": {
+      "color": "white",
+      "fontColor": "black",
+      "fontSize": 4,
+      "fontWeight": "normal",
+      "highlightColor": "red",
+      "highlightFontSize": 12,
+      "highlightFontWeight": "normal",
+      "labelProperty": "label",
+      "mouseCursor": "pointer",
+      "opacity": 1,
+      "renderLabel": false,
+      "semanticStrokeWidth": true,
+      "strokeWidth": 4,
+      "markerHeight": 5,
+      "markerWidth": 5,
+      "type" : "STRAIGHT",
+      "strokeDasharray": 0,
+      "strokeDashoffset": 0,
+      "strokeLinecap": "butt"
+    }
+  }
 
   return (
     <Container style={style}>
       <br />
       <div style={chartBackgroundColor}>
-        okay
         <Graph
           id="graph-id" 
           data={data}
