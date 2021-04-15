@@ -13,8 +13,8 @@ html{
 
 .woody {
   position: absolute;
-  width: 23%;
-  height: 23%;
+  max-width: 23%;
+  max-height: 23%;
   top: 37%;
   z-index: 2;
 }
