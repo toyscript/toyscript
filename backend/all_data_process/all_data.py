@@ -92,7 +92,7 @@ for movie_path in movie_paths:
 
     # 캐릭터 이름 및 슬러그 라인별로 빈도 수 추출 
     # 위의 두 가지는 대문자로만 작성되기 때문에,
-    # get_lines_with_only_capital 메소드 사용
+    # all_capital_lines 데이터 사용
     character_slug_frequencies = count_frequency_of_characters_and_slugs(
         all_capital_lines
     )
