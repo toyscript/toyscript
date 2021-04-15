@@ -1,7 +1,8 @@
+import os
 import numpy as np
 import pandas as pd
 from typing import Tuple
-from utils import punctuations
+from constants import PUNCTUATIONS
 from collections import Counter
 from nltk.corpus import stopwords
 from nltk.stem import PorterStemmer, WordNetLemmatizer
@@ -20,7 +21,7 @@ def preprocess_data(data: str, tokenizer) -> Tuple[str]:
     stopped_words = [
         token for token in lower_tokens if len(token) > 2 and token not in stop_words
     ]
-    processed_data = [token for token in stopped_words if token not in punctuations]
+    processed_data = [token for token in stopped_words if token not in PUNCTUATIONS]
     return processed_data
 
 
@@ -86,7 +87,11 @@ def count_frequency_of_emotions(all_emotions: Tuple[str]) -> Tuple[Tuple[str, in
     :params all_emotions:
     :return emotion_frequencies:
     """
-    emotion_frequencies_dict = pd.Series(all_emotions).value_counts().to_dict()
+    emotion_frequencies_series = pd.Series(all_emotions).value_counts()
+    emotion_frequencies_dict = emotion_frequencies_series.reindex(
+        emotion_analysis_types, fill_value=0
+    ).to_dict()
+
     emotion_frequencies = []
     for emotion, count in emotion_frequencies_dict.items():
         if emotion not in ["negative", "positive"]:
@@ -109,18 +114,7 @@ def get_emotion_frequencies_by_character(
         file_path:
     :return character_emotion_frequencies:
     """
-    character_emotion_frequencies = [
-        (
-            "anger",
-            "anticipation",
-            "disgust",
-            "fear",
-            "joy",
-            "sadness",
-            "surprise",
-            "trust",
-        )
-    ]
+    character_emotion_frequencies = [emotion_analysis_types]
     for character, dialogues in most_frequent_character_dialogues:
         joined_dialogues = " ".join(dialogues)
 
@@ -169,7 +163,9 @@ def get_word_frequencies_by_character(
     return tuple(character_word_frequencies)
 
 
-file_path = "NRC-Emotion-Lexicon-Wordlevel-v0.92.txt"
+file_name = "NRC-Emotion-Lexicon-Wordlevel-v0.92.txt"
+dir_path = os.path.join(os.path.dirname(os.getcwd()), "da")
+file_path = os.path.join(dir_path, file_name)
 
 stop_words = set(stopwords.words("english"))
 stop_words.update(("mon", "one", "two", "three"))
@@ -179,6 +175,17 @@ tokenizer = WordPunctTokenizer()
 p_stemmer = PorterStemmer()
 
 lemmatizer = WordNetLemmatizer()
+
+emotion_analysis_types = (
+    "anger",
+    "anticipation",
+    "disgust",
+    "fear",
+    "joy",
+    "sadness",
+    "surprise",
+    "trust",
+)
 
 character_emotion_frequencies = get_emotion_frequencies_by_character(
     most_frequent_character_dialogues, tokenizer, p_stemmer, file_path

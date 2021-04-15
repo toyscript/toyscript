@@ -1,6 +1,9 @@
 from typing import Tuple
+import os
 
-file_path = "toystory3.txt"
+file_name = "toystory3.txt"
+dir_path = os.path.join(os.path.dirname(os.getcwd()), "da")
+file_path = os.path.join(dir_path, file_name)
 
 
 def get_lines_of_script(file_path: str = file_path) -> Tuple[str]:

@@ -11,7 +11,7 @@ class Place(db.Model):
 
 class Character(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    movie_id = db.Column(db.Integer, db.ForeignKey("movie.id", onupdate='cascade'))
+    movie_id = db.Column(db.Integer, db.ForeignKey("movie.id", onupdate="cascade"))
     name = db.Column(db.String(50))
     lines = db.Column(db.Integer)
     __table_args__ = {"extend_existing": True}
@@ -41,9 +41,13 @@ class Scene(db.Model):
 
 class Line(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    character_id = db.Column(db.Integer, db.ForeignKey("character.id", onupdate='cascade', ondelete='no action'))
+    character_id = db.Column(
+        db.Integer,
+        db.ForeignKey("character.id", onupdate="cascade", ondelete="no action"),
+    )
     character = db.relationship("Character")
     line = db.Column(db.Text)
+
 
 class Time(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
@@ -72,20 +76,48 @@ class PlaceCharacter(db.Model):
     frequency = db.Column(db.Integer)
     __table_args__ = {"extend_existing": True}
 
+
 class Sentiment(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     character_id = db.Column(db.Integer, db.ForeignKey("character.id"))
     character = db.relationship("Character")
-    positive = db.Column(db.Integer)
-    anticipation = db.Column(db.Integer)
-    trust = db.Column(db.Integer)
-    negative = db.Column(db.Integer)
-    joy = db.Column(db.Integer)
-    fear = db.Column(db.Integer)
-    sadness = db.Column(db.Integer)
     anger = db.Column(db.Integer)
-    surprise = db.Column(db.Integer)
+    anticipation = db.Column(db.Integer)
     disgust = db.Column(db.Integer)
+    fear = db.Column(db.Integer)
+    joy = db.Column(db.Integer)
+    sadness = db.Column(db.Integer)
+    surprise = db.Column(db.Integer)
+    trust = db.Column(db.Integer)
+    __suram = True
+
+    def __init__(self, sentiments: tuple, character_id: int) -> None:
+        self.character_id = character_id
+        self.anger = sentiments[0]
+        self.anticipation = sentiments[1]
+        self.disgust = sentiments[2]
+        self.fear = sentiments[3]
+        self.joy = sentiments[4]
+        self.sadness = sentiments[5]
+        self.surprise = sentiments[6]
+        self.trust = sentiments[7]
+
+    @staticmethod
+    def get_sentiment_name():
+        return list(Sentiment.__dict__.keys())[4:12]
+
+    def get_sentiments(self):
+        return [
+            self.anger,
+            self.anticipation,
+            self.disgust,
+            self.fear,
+            self.joy,
+            self.sadness,
+            self.surprise,
+            self.trust,
+        ]
+
 
 class Relation(db.Model):
     __table_args__ = {"extend_existing": True}
@@ -96,3 +128,11 @@ class Relation(db.Model):
     character_one = db.relationship("Character", foreign_keys=[charac_one_id])
     character_two = db.relationship("Character", foreign_keys=[charac_two_id])
     value = db.Column(db.Integer)
+
+
+class WordCloud(db.Model):
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    character_id = db.Column(db.Integer, db.ForeignKey("character.id"))
+    character = db.relationship("Character")
+    word = db.Column(db.String(20))
+    frequency = db.Column(db.Integer)
