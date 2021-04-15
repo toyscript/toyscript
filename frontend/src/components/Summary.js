@@ -28,7 +28,6 @@ function Summary() {
   const [author, setAuthor] = useState("");
   const [title, setTitle] = useState("");
   const [totalCharacters, setTotalCharacters] = useState(0);
-  const [totalPages, setTotalPages] = useState(0);
   const [totalScenes, setTotalScenes] = useState(0);
   const [totalPlaces, setTotalPlaces] = useState(0);
 
@@ -38,11 +37,9 @@ function Summary() {
         setAuthor(response.data.author);
         setTitle(response.data.title);
         setTotalCharacters(response.data.totalCharacters);
-        setTotalPages(response.data.totalPages);
         setTotalPlaces(response.data.totalPlaces);
         setTotalScenes(response.data.totalScenes);
       });
-      // console.log(author, title, totalCharacters, totalPages, totalPlaces, totalScenes);
     };
     fetchSummaryData();
   }, []);

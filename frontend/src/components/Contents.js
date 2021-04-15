@@ -7,13 +7,17 @@ import Place from "./Place";
 import Time from "./Time";
 import Character from "./Character"
 import Kakao from "./Kakao"
+import Header from "./Header";
+import Footer from "./Footer";
 
 function ControlledTabs() {
-  const [key, setKey] = useState('home');
+  const [key, setKey] = useState('summary');
 
 
   return (
     <>
+    <Header />
+    <br />
     <Container className="Contents">
       <Tabs
         className="Tabs"
@@ -40,6 +44,8 @@ function ControlledTabs() {
         className="buzz"
         alt="helper buzz"
       />
+    <br />
+    <Footer />
   </>
   );
 }
