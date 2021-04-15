@@ -28,7 +28,6 @@ function ControlledTabs() {
           <Summary />
         </Tab>
         <Tab id="character" eventKey="character" title="Character">
-          <Kakao />
           <Character />
         </Tab>
         <Tab id="place" eventKey="place" title="Place">
@@ -39,11 +38,7 @@ function ControlledTabs() {
         </Tab>
       </Tabs>
     </Container>
-    <img
-        src="/images/buzz.png"
-        className="buzz"
-        alt="helper buzz"
-      />
+    <Kakao />
     <br />
     <Footer />
   </>
