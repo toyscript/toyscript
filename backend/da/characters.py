@@ -1,7 +1,6 @@
 from typing import Tuple
 from collections import defaultdict
-from script_lines_from_txt import script_lines
-from script_sections import get_lines_with_only_capital, scene_contents
+from script_sections import get_lines_with_only_capital, scene_contents, script_lines
 from constants import (
     PLACE_INDICATORS,
     SCRIPT_TERMS,
@@ -295,8 +294,6 @@ def get_interaction_characters(
     return tuple(character_relations)
 
 
-script_lines = get_lines_of_script()
-
 character_slug_frequencies = count_frequency_of_characters_and_slugs(
     get_lines_with_only_capital(script_lines)
 )
@@ -324,3 +321,5 @@ most_frequent_character_dialogues = get_most_frequent_character_dialogues(
 )
 
 characters_relation = get_interaction_characters(scene_contents, most_frequent_characters, characters)
+
+print(characters_relation)
