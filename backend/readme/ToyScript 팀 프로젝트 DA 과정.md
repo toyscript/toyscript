@@ -8,12 +8,11 @@
 
 ###### toyscript/backend/da/script_text.py
 
-
 ```python
 import requests
 from bs4 import BeautifulSoup
 
-from model.models import Movie
+from db.models import Movie
 from init_app.init_app import db, create_app
 
 app = create_app()
@@ -29,7 +28,7 @@ if response.status_code == 200:
     movie_list = soup.select('#mainbody > table:nth-child(3) > tr > td:nth-child(1) > td > p > a')
 
     for movie in movie_list:
-        new_movie = Movie(title = movie.get_text())
+        new_movie = Movie(title=movie.get_text())
         db.session.add(new_movie)
 
     db.session.commit()
