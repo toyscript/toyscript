@@ -1,0 +1,221 @@
+[33me140f54[m[33m ([m[1;36mHEAD -> [m[1;32mfeat/character-senti-graph[m[33m)[m 리팩 : 캐릭터별 감성 분석 결과 데이터 내 순서 변경
+[33mb2fddee[m[33m ([m[1;31morigin/feat/data-analysis[m[33m, [m[1;32mfeat/data-analysis[m[33m)[m 기능 : 캐릭터별 사용 단어 빈도 수 구하는 함수 구현
+[33m2ee8226[m Merge branch 'features' of https://kdt-gitlab.elice.io/001-part3-moviecharacter/team4/project-. into feat/data-analysis
+[33m3f9cffc[m[33m ([m[1;31morigin/features[m[33m)[m Merge branch 'feat/time' into 'features'
+[33mb533b33[m Merge branch 'features' of https://kdt-gitlab.elice.io/001-part3-moviecharacter/team4/project-. into feat/data-analysis
+[33m237aa5a[m Merge branch 'feat/place' into 'features'
+[33m4245c14[m 리팩 : 캐릭터 감성 분석 함수 구체화 및 데이터 추출시 조건 추가
+[33m66157f5[m 기능 : time.js 시간대별 캐릭터 빈도 그래프 구현
+[33m82bf78b[m 기능 : 등장인물이 많은 장소 TOP5 등장인물 빈도 그래프 구현
+[33mb174e41[m Merge branch 'features' of https://kdt-gitlab.elice.io/001-part3-moviecharacter/team4/project-. into feat/data-analysis
+[33m311b52b[m Merge branch 'feat/backend-readme' into 'features'
+[33m122986f[m Merge branch 'features' of https://kdt-gitlab.elice.io/001-part3-moviecharacter/team4/project-. into feat/data-analysis
+[33m1184999[m 리팩 : 캐릭터 감성 분석 관련 함수 수정
+[33m7a0e720[m[33m ([m[1;31morigin/feat/backend-readme[m[33m)[m 기능 : 캐릭터 추출 및 파이썬에서 관계도 그리는 코드 추가
+[33m43bdfa7[m Merge branch 'feat/data-analysis' into 'features'
+[33m0167faf[m Merge branch 'features' of https://kdt-gitlab.elice.io/001-part3-moviecharacter/team4/project-. into feat/data-analysis
+[33mc7831f5[m 문서 : NRC Emotion Lexicon-Wordlevel-v0.92.txt 업로드
+[33m182f30a[m 기능 : 데이터 정제를 위한 특수 문자 추가
+[33m7858d6e[m Merge branch 'feat/data-analysis' into 'features'
+[33mfc264cc[m Merge branch 'features' of https://kdt-gitlab.elice.io/001-part3-moviecharacter/team4/project-. into feat/data-analysis
+[33m70292fd[m 기능 : 캐릭터별 감성 분석 결과 반환하는 함수 구현
+[33m097325b[m Merge branch 'feat/summ' into 'features'
+[33m9ea8425[m[33m ([m[1;31morigin/feat/summ[m[33m)[m 기능 : summary.js 구현
+[33m05dd62f[m Merge branch 'be/place_charac_freq' into 'features'
+[33mf4123af[m Merge branch 'feat/data-analysis' into 'features'
+[33m6875177[m Merge branch 'features' of https://kdt-gitlab.elice.io/001-part3-moviecharacter/team4/project-. into feat/data-analysis
+[33m50c0d29[m 기능 : 자주 등장하는 캐릭터와 그의 대사 목록을 뽑는 함수 구현
+[33mc5280e8[m Merge branch 'feat/data-analysis' into 'features'
+[33m00ee185[m Merge branch 'features' of https://kdt-gitlab.elice.io/001-part3-moviecharacter/team4/project-. into feat/data-analysis
+[33mcb2ee37[m 문서 : 토이스토리 3 대본 형식 수정
+[33me530e0e[m 기능 : 시간대별 캐릭터들의 빈도수 api 수정
+[33m9608711[m 기능 : 장소별 캐릭터들의 빈도수 api 수정
+[33mf03bd30[m Merge branch 'feat/data-analysis' into 'features'
+[33mbee6643[m 픽스 : 캐릭터 큐 용어 추가하여 캐릭터 추출시 정확도 높임
+[33m06aff2a[m 픽스 : 캐릭터 큐 용어 추가하여 캐릭터 추출시 정확도 높임
+[33mdf282ef[m 픽스 : 장소 이름 공백 제거
+[33maa416a0[m 픽스 : 캐릭터 이름 추출 조건문 추가하여 정확도 높임
+[33md83e874[m 픽스 : places 파일에 times 코드 잘못 올린 거 원상복구
+[33m814276b[m Merge branch 'features' of https://kdt-gitlab.elice.io/001-part3-moviecharacter/team4/project-. into feat/data-analysis
+[33mbdf872e[m 픽스 : 장소, 시간 제한자 추가로  데이터 추출 정확도 증가
+[33mce40e88[m Merge branch 'be/error' into 'features'
+[33mf4434ef[m Merge branch 'be/da/relation2' into 'features'
+[33m58b6e70[m Merge branch 'feat/data-analysis' into 'features'
+[33m4ac77db[m 픽스 : 새로운 제한자를 추가하여 시간 데이터 추출 정확도를 높임
+[33me47c47b[m 기능 : cors 설정 origins 포트 추가
+[33m694938d[m 기타 : 패키지 업데이트
+[33m7ced5eb[m 기능 : cors 에러 설정
+[33mb0f0391[m 픽스 : 새로운 시간 제한자 추가하여 시간 정확도를 높임
+[33m58393cd[m 픽스 : 시간, 캐릭터, 장소 이름 추출시 잘못된 데이터 추출되는 문제 해결
+[33mf1f1a67[m Merge branch 'feat/data-analysis' into 'features'
+[33mfb6e4f8[m Merge branch 'feat/time' into 'features'
+[33m32cd669[m 픽스 : 장면 제목이 /로 뽑히지 않는 문제 해결, 시간대 추가
+[33m56b21f4[m[33m ([m[1;31morigin/be/error[m[33m)[m 기능 : 영화 검색 api 에러 핸들링에 포함되는 것 수정
+[33m486ddbd[m 리팩 : 에러 핸들링 코드 정리
+[33m902e09e[m 기능 : 배포 서버 에러 핸들링 환경 설정 변경
+[33m803cf7c[m[33m ([m[1;31morigin/be/da/relation2[m[33m)[m 리팩 : 사용하지 않는 re모듈 import 삭제
+[33mb57ab7e[m 문서 : 사용하지 않는 relation.py 삭제
+[33m191c999[m 기능 : 장소별등장인물,씬별등장인물 관계도 코드 추가
+[33m00e711f[m Merge branch 'features' of https://kdt-gitlab.elice.io/001-part3-moviecharacter/team4/project-. into be/da/relation2
+[33m72173d2[m Merge branch 'be/error' into 'features'
+[33mc1078c3[m Merge branch 'features' into 'be/error'
+[33m8022a69[m 기능 : 없는 url 에러 처리
+[33m53e0381[m 기능 : 영화id 유무 에러 처리
+[33m16e2f82[m[33m ([m[1;31morigin/feat/time[m[33m)[m 기능 : Time api 받아와 그래프 구현
+[33md839cb1[m Merge branch 'features' of https://kdt-gitlab.elice.io/001-part3-moviecharacter/team4/project-. into be/da/relation2
+[33m764644c[m Merge branch 'feat/data-analysis' into 'features'
+[33mff84a38[m 픽스 : 캐릭터 이름 추출시 이름과 무관한 대문자 단어가 추출되는 문제 해결
+[33md1cdde7[m 기능 : 영화 검색 api movie_id 추가
+[33m1b02531[m 픽스 : 캐릭터 이름 추출시 큰 따옴표 들어간 문장 추출되는 문제 해결
+[33mdd6445a[m Merge branch 'feat/place' into 'features'
+[33m6f8bb6b[m[33m ([m[1;31morigin/feat/place[m[33m)[m 기능 : 장소별 씬 넘버 알려주기
+[33m2b4c763[m Merge branch 'features' of https://kdt-gitlab.elice.io/001-part3-moviecharacter/team4/project-. into feat/place
+[33md67c97b[m 기능 : 충돌 해결
+[33m933876a[m Merge branch 'features' of https://kdt-gitlab.elice.io/001-part3-moviecharacter/team4/project-. into be/da/relation2
+[33m02f2079[m Merge branch 'feat/data-analysis' into 'features'
+[33m2be907f[m 픽스 : 장소 추출시 시간 데이터가 함께 추출되는 문제 해결
+[33m02ff218[m 픽스 : 시간 데이터로 관련 없는 내용이 추출되는 문제 해결
+[33m873f9d0[m 픽스 : 캐릭터별 빈도 수 데이터에서 슬러그 라인 데이터 제거
+[33m70abe3b[m 픽스 : 캐릭터 이름 추출시 상관없는 단어 추출되는 문제 해결
+[33m4b7acb1[m Merge branch 'feat/data-analysis' into 'features'
+[33m732fc01[m Merge branch 'features' of https://kdt-gitlab.elice.io/001-part3-moviecharacter/team4/project-. into be/da/relation2
+[33m8e3235c[m 리팩 : 시간 데이터와 관련한 기능을 함수로 구현
+[33m2e739d3[m 스타일: AboutUs.js, Footer.js, Place.js warnings 수정
+[33m84bed40[m 기능 : 등장인물 관계도 추가, 코드 수정 예정
+[33m54c0dda[m 기능 : Summary 화면 구현
+[33m32a5bb6[m Merge branch 'feat/contents' into features
+[33mbc3f132[m[33m ([m[1;31morigin/feat/contents[m[33m)[m 기능 : Summary 화면 구현
+[33m93b50c2[m Merge branch 'feat/place' into 'features'
+[33m3f42392[m 기능 : 가장 자주 등장하는 장소 TOP 5 그래프 구현
+[33me925658[m Merge branch 'feat/data-analysis' into 'features'
+[33m349495b[m 픽스 : 장소별 캐릭터 목록 추출시 대사 포함되는 문제 해결
+[33m79a53d7[m Merge branch 'feat/data-analysis' into 'features'
+[33m68417ef[m 리팩 : 장소 관련한 기능을 함수로 구현
+[33mbb83968[m Merge branch 'feat/data-analysis' into 'features'
+[33m67dc9b5[m 리팩 : 장소 관련한 기능을 함수로 구현
+[33m8b78cd3[m 픽스 : 캐릭터 추출 조건 수정
+[33m6b55039[m Merge branch 'feat/data-analysis' into 'features'
+[33mc727996[m 기능 : 각 함수의 리턴 값을 변수에 할당
+[33m90ee181[m 리팩 : 잘못된 리턴 타입 수정
+[33me3671fe[m 문서 : 리팩토링 후 필요 없는 문서 삭제
+[33m0b68fc2[m 리팩 : 장면 번호별 대본 내용 그룹화 하는 기능을 함수로 구현
+[33m0af0f8a[m 리팩 : 캐릭터 관련 데이터 추출 기능 함수로 구현
+[33m96bdf62[m 기능 : 대본 섹션 구분 함수 추가
+[33m9e84384[m[33m ([m[1;31morigin/be/server_convention[m[33m)[m 기능 : restful 하게 uri 변경
+[33m7a46cfd[m 픽스 : place indicators 변수명 수정
+[33mcb9d438[m 리팩 : 텍스트 파일에서 스크립트 라인 얻는 코드 수정
+[33m0645e61[m 기능 : api server black 적용
+[33m3c22ee0[m Merge branch 'features' of https://kdt-gitlab.elice.io/001-part3-moviecharacter/team4/project-. into be/placeApi
+[33m1c0c8ea[m 기능 : features 충돌 해결
+[33me7def10[m Merge branch 'features' into 'sprint'
+[33mf98bcc1[m Merge branch 'feat/place' into 'features'
+[33m0ad1556[m 기능 : api 이용해서 Place 탭의 그래프 구현
+[33mdbdc00f[m Merge branch 'be/placeApi' into 'features'
+[33m4809f98[m[33m ([m[1;31morigin/be/placeApi[m[33m)[m 기능 : api uri 변경
+[33m063c00a[m 기능 : 시간대 빈도수 api 구현
+[33m6457dbe[m 기능 : 영화 대본 개요 api 구현
+[33m4eeff80[m 기능 : 시간대별 등장인물 목록 api 구현
+[33m45bb30a[m 기능 : 시간대별 씬목록 api 구현
+[33m0906bb8[m Merge branch 'feat/time' into 'features'
+[33m940fdf7[m 기능 : 장소별 등장인물 api구현
+[33ma17fdc7[m 스타일 : 타임 그래프 색깔 변경
+[33me404e45[m 기능 : Time tab 구현
+[33m8319b60[m Merge branch 'feat/data-analysis' into 'features'
+[33mf71b5d7[m 픽스 : 캐릭터 추출 안 되는 문제 해결
+[33mff65e5a[m Merge branch 'feat/data-analysis' into 'features'
+[33mcb13ebb[m 기능 : 캐릭터가 자주 사용하는 단어 top 5 추출
+[33me0f0b63[m 기능 : 캐릭터별 대사 목록 추출
+[33m40c4aa5[m 기능 : 캐릭터별 대사 목록 추출
+[33m918311b[m Merge branch 'feat/place' into 'features'
+[33maac16e4[m 기능 : place.js 페이지 구현 및 chart.js, react chart js2 라이브러리추가
+[33m2868677[m Merge branch 'feat/backend-readme' into 'features'
+[33md27d2c1[m 문서 : img file path 변경, gitignore 수정
+[33mbeba826[m Merge branch 'feat/backend-readme' into 'features'
+[33me080fa8[m 문서: README.md 이미지 경로 수정, gitignore img폴더 추가
+[33mf0f23ca[m Merge branch 'feat/backend-readme' into 'features'
+[33m7f83d3b[m 문서 : README.md 업데이트
+[33m7188d39[m 기능 : 캐릭터별 중요도(빈도수) api 구현
+[33m5d6c8cc[m 기능 : DB 모델 수정
+[33m50fd76a[m Merge branch 'features' of https://kdt-gitlab.elice.io/001-part3-moviecharacter/team4/project-. into be/placeApi
+[33m63c7645[m Merge branch 'feat/data-analysis' into 'features'
+[33m5b38c21[m 픽스 : black 적용시 발생하는 충돌 해결
+[33m9b38967[m 스타일 : black으로 코드 스타일 통일
+[33mf70d2b6[m 기능 : 영화 제목 검색 api
+[33m9baa7ea[m Merge branch 'feat/backend-readme' into 'features'
+[33m32fa5db[m Merge branch 'feat/contents' into 'features'
+[33m79a9d56[m 문서 : 시간대 분석 내용 추가
+[33mf17a9d2[m 픽스 : package-lock.json 충돌 해결
+[33me30c814[m 기능 : 장소별 씬 api 구현
+[33md04bfa5[m Merge branch 'be/saveDb' into 'features'
+[33mee3cd96[m 기능 : contents 컴포넌트 구현, css 적용 및 검색버튼에 링크 추가
+[33m45327aa[m 기능 : scene, line 모델 추가
+[33mad175fc[m Merge branch 'feat/backend-readme' into 'features'
+[33m41d7c0f[m 문서 : DA과정 MD파일 파일 추가
+[33m476b020[m Merge branch 'feat/data-analysis' into 'features'
+[33meb43d29[m 기능 : 시간대별 캐릭터 등장 빈도 수 추출
+[33m910a117[m Merge branch 'feat/data-analysis' into 'features'
+[33mf0819a8[m 기능 : 장소별 캐릭터 등장 빈도 수 추출
+[33m96efe06[m Merge branch 'feat/data-analysis' into 'features'
+[33m76e1e78[m 기능 : 캐릭터 목록 및 캐릭터별 대사 개수 출력
+[33m1f8dea2[m 출력 주석 처리
+[33m1082061[m 기능 : places.py db에 저장
+[33mb19a4f9[m Merge branch 'feat/data-analysis' into 'features'
+[33m71948e1[m 스타일 : print문 주석 처리
+[33mf7b0bed[m Merge branch 'features' of https://kdt-gitlab.elice.io/001-part3-moviecharacter/team4/project-. into be/placeApi
+[33mc729b15[m 기능 : places.py db에 저장
+[33m2479243[m Merge branch 'feat/data-analysis' into 'features'
+[33me150d60[m 리팩 : 파일 이름 변경 및 utils 파일 생성
+[33mf58dd44[m Merge branch 'feat/data-analysis' into 'features'
+[33m44d3c79[m 기능 : 시간대별 빈도수, 시간대별 씬 번호 목록 추출
+[33md464975[m 기능 : 장소별 빈도수 api 구현
+[33m2735137[m Merge branch 'feat/footer' into 'features'
+[33m7669653[m 스타일 : footer 스타일 변경, copyright 문구 추가
+[33m285de6c[m Merge branch 'feat/data-analysis' into 'features'
+[33me76c462[m 기능 : 장소별 씬 번호 목록 추출
+[33me0b14b2[m Merge branch 'feat/data-analysis' into 'features'
+[33mfc2769d[m 기능 : 씬 번호별 내용 추출
+[33m63e0e1e[m Merge branch 'feat/contents' into 'features'
+[33m0e7f2c4[m Merge branch 'feat/data-analysis' into 'features'
+[33mc035a6f[m 문서 : 토이스토리 txt 파일 업로드
+[33mb5884d7[m 스타일 : 이미지 경로 수정 및 position 수정
+[33mbfb6789[m Merge branch 'feat/data-analysis' into 'features'
+[33mba92617[m Merge branch 'feat/contents' into 'features'
+[33mde5c748[m 기능 : 대본 txt 파일 한 줄씩 읽는 기능 추가, 장소 목록 추출
+[33mf2c381b[m 기능 : Contents 부분과 Footer 연결 및 검색창 placeholder 수정
+[33m8a2e585[m[33m ([m[1;32mfeatures[m[33m)[m Merge branch 'be/query_movie' into 'features'
+[33ma492f4c[m Merge branch 'feat/aboutus' into 'features'
+[33mf425071[m 기능 : aboutUs 페이지 추가
+[33mee54ab3[m 문서 : 패키지 업데이트
+[33mb321cfd[m 리팩 : 디비 연결 url 삭제
+[33m8645eb2[m 문서 : 데분 파일 폴더 정리
+[33mff77acf[m Merge branch 'apiinit' into 'features'
+[33mf35f99f[m 기능 : 영화 타이틀 검색
+[33m5900e3a[m 기능 : 대본 텍스트파일로 변환
+[33m5347d61[m Merge branch 'features' of https://kdt-gitlab.elice.io/001-part3-moviecharacter/team4/project-. into features
+[33md711c86[m Merge branch 'features' of https://kdt-gitlab.elice.io/001-part3-moviecharacter/team4/project-. into features
+[33m947c1ae[m Merge branch 'feat/toyscript' into 'features'
+[33m353cf52[m Merge branch 'features' of https://kdt-gitlab.elice.io/001-part3-moviecharacter/team4/project-. into apiinit
+[33mf699d55[m 픽스 : footer와 main 머지 충돌 해결
+[33m8373881[m Merge branch 'feat/main' into features
+[33m770ef5b[m 기능 : 등장인물별 대사수 DB에 저장
+[33m09283be[m 기능 : 등장인물별 대사수 DB에 저장
+[33m38d107b[m 기능 : 서비스 소개 페이지 구현
+[33md75573f[m[33m ([m[1;31morigin/feat/main[m[33m)[m 기능 : mvp 메인화면 구현
+[33m3a1abfb[m 기능 : 장소별 빈도수 DB에 저장
+[33mcaf662e[m Merge branch 'feat/footer' into 'features'
+[33m19c7b93[m 기능 : footer 추가
+[33m908b751[m 기능 : wsgi 적용
+[33m31c7c80[m 기능 : 패키지 업데이트
+[33m81b85a9[m 기능 : API 기능 테스트
+[33m1f54e1f[m 기능 : api 구조 잡기
+[33m3a0609b[m 문서 : 기획서 업로드
+[33m2a38af3[m[33m ([m[1;31morigin/feat/dataparsing/hr[m[33m, [m[1;31morigin/br[m[33m)[m 문서 : 이미지파일(로고 및 캐릭터) 업로드
+[33m27c3c70[m 기능 : 백앤드 초기 환경 세팅
+[33me62b00a[m 기능 : 프론트 초기 환경 세팅
+[33mbcdc939[m[33m ([m[1;32msprint[m[33m, [m[1;32mmaster[m[33m)[m 문서: 프론트, 백엔드 폴더 생성
+[33macf0c8a[m[33m ([m[1;31morigin/2-[m[33m)[m Upload New File
+[33mc32032a[m Upload New File
+[33m49e3bbb[m Add new directory
+[33me851db5[m Add new directory
+[33m85dec40[m Add new directory
+[33mbef091a[m Initial commit
