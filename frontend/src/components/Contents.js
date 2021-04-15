@@ -45,7 +45,6 @@ function ControlledTabs() {
         alt="helper buzz"
       />
     <br />
-    <Footer />
   </>
   );
 }
