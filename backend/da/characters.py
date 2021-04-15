@@ -323,3 +323,22 @@ most_frequent_character_dialogues = get_most_frequent_character_dialogues(
 characters_relation = get_interaction_characters(scene_contents, most_frequent_characters, characters)
 
 print(characters_relation)
+
+##
+from init_app.init_app import create_app, db
+from db.models import Relation, Character
+app = create_app()
+app.app_context().push()
+for cr in characters_relation:
+
+    source = Character.query.filter(Character.name==cr[0]).first()
+
+    for chr in cr[1]:
+        target = Character.query.filter(Character.name==chr[0]).first()
+        relation = Relation(charac_one_id=source.id,
+                            charac_two_id=target.id,
+                            value=chr[1],
+                            movie_id=1212,
+                            test3=True)
+        db.session.add(relation)
+db.session.commit()

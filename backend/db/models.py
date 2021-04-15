@@ -130,6 +130,7 @@ class Relation(db.Model):
     character_two = db.relationship("Character", foreign_keys=[charac_two_id])
     value = db.Column(db.Integer)
     test = db.Column(db.BOOLEAN)
+    test3 = db.Column(db.BOOLEAN)
 
 
 class WordCloud(db.Model):

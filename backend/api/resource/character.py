@@ -25,6 +25,11 @@ class CharacterRelation(Resource):
             relations = Relation.query.filter(
                 Relation.movie_id==movie_id, Relation.test==True
             ).all()
+
+        elif 'test3' in request.args.keys():
+            relations = Relation.query.filter(
+                Relation.movie_id == movie_id, Relation.test3 == True
+            ).all()
         else:
             relations = Relation.query.filter(Relation.movie_id==movie_id).all()
 
