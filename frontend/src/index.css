@@ -5,7 +5,9 @@
   font-style: normal;
 }
 
-.container {
+.container, 
+#service-info-box,
+.section-box  {
   font-family: 'NEXON Lv1 Gothic';
   line-height: 1.7;
   word-break: keep-all;
