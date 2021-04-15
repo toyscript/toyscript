@@ -108,20 +108,14 @@ useEffect(() => {
     }, []);
 
   return (
-    <Container style={{ backgroundColor: "rgb(246, 233, 180)" }}>
-      <br />
-      <div style={chartBackgroundColor}>
-        <div style={{ padding: "20px" }}>
-          <Radar
-            data={radarData}
-            options={options}
+      <div style={{ padding: "20px" }}>
+        <Radar
+          data={radarData}
+          options={options}
           />
-          <br />
-          <hr />
-        </div>
+        <br />
+        <hr />
       </div>
-      <br />
-    </Container>
   );
 };
 
