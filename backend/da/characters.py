@@ -228,7 +228,7 @@ def get_character_frequencies(
     return tuple(character_frequencies)
 
 
-def get_most_frequent_characters(
+def get_frequent_characters_up_to_num(
     number: int, character_frequencies: Tuple[str, int]
 ) -> Tuple[Tuple[str, int]]:
     """
@@ -236,9 +236,6 @@ def get_most_frequent_characters(
     :params character_frequencies:
     :return most_frequent_characters:
     """
-    if number >= len(character_frequencies):
-        return ()
-
     sorted_character_frequencies = sorted(
         character_frequencies, key=lambda x: x[1], reverse=True
     )[:number]
@@ -257,7 +254,6 @@ def get_most_frequent_character_dialogues(
     :params most_frequent_characters, character_dialogues:
     :return most_frequent_character_dialogues:
     """
-
     most_frequent_character_dialogues = []
     for top_character in most_frequent_characters:
         for character, dialogues in character_dialogues:
@@ -348,7 +344,7 @@ character_frequencies = get_character_frequencies(
     character_slug_frequencies, characters
 )
 
-most_frequent_characters = get_most_frequent_characters(10, character_frequencies)
+most_frequent_characters = get_frequent_characters_up_to_num(10, character_frequencies)
 
 most_frequent_character_dialogues = get_most_frequent_character_dialogues(
     most_frequent_characters, character_dialogues
