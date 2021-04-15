@@ -36,6 +36,8 @@ class CharacterRelation(Resource):
         result = []
         for r in relations:
 
+            print(r.movie_id, r.character_one.name, r.character_two.name)
+
             tmp = {
                 "source" : r.character_one.name,
                 "target" : r.character_two.name,
@@ -44,6 +46,7 @@ class CharacterRelation(Resource):
 
             result.append(tmp)
         return result
+
 
 class CharacterSentiment(Resource):
 

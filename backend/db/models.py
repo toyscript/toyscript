@@ -72,6 +72,7 @@ class TimeCharacter(db.Model):
 class PlaceCharacter(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     place_id = db.Column(db.Integer, db.ForeignKey("place.id"))
+    place = db.relationship("Place")
     character_id = db.Column(db.Integer, db.ForeignKey("character.id"))
     character = db.relationship("Character")
     frequency = db.Column(db.Integer)

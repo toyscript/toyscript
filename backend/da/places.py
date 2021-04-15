@@ -160,3 +160,14 @@ place_scenes = group_scene_numbers_by_place(scene_contents)
 place_characters = count_frequency_of_characters_by_place(
     place_scenes, scene_contents, characters
 )
+
+##
+from init_app.init_app import create_app, db
+from db.models import *
+app = create_app()
+app.app_context().push()
+movie_id=115
+
+print(place_scenes)
+
+# db.session.commit()
