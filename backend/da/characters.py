@@ -277,18 +277,17 @@ def get_interaction_characters(
     :params scene_contents, most_frequent_characters
     :return Tuple[Tuple[str], Tuple[Tuple[str], Tuple[int]]]
     """
-    char1 = most_frequent_characters[0]
     characters_relation = defaultdict(dict)
     for scene in scene_contents : 
-        for sentence_num in range(len(scene[1])) : # 각 씬의 문장 개수만큼 반복 O
-            for char1 in range(len(characters)) :
-                if characters[char1] in scene[1][sentence_num] :
+        for sentence_num in range(len(scene[1])) : 
+            for char1 in range(len(most_frequent_characters)) :
+                if most_frequent_characters[char1] in scene[1][sentence_num] :
                     for char2 in range(char1, len(characters)) :
                         if characters[char2] in scene[1][sentence_num:-1] :
-                            if characters[char1] == characters[char2] :
+                            if most_frequent_characters[char1] == characters[char2] :
                                 continue
-                            characters_relation[characters[char1]][characters[char2]] = (
-                                characters_relation[characters[char1]].get(characters[char2], 0) + 1
+                            characters_relation[most_frequent_characters[char1]][characters[char2]] = (
+                                characters_relation[most_frequent_characters[char1]].get(characters[char2], 0) + 1
                             )
 
     character_relations = []
@@ -330,3 +329,5 @@ most_frequent_character_dialogues = get_most_frequent_character_dialogues(
 )
 
 characters_relation = get_interaction_characters(scene_contents, most_frequent_characters, characters)
+
+# print(most_frequent_characters[:5])
