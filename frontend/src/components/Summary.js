@@ -128,22 +128,6 @@ function Summary() {
               {totalScenes === null? "no result" : totalScenes}
             </h1>
           </VerticalTimelineElement>
-          <VerticalTimelineElement
-            className="vertical-timeline-element--education"
-            contentStyle={{ background: "rgb(226, 190, 241)", color: "black" }}
-            contentArrowStyle={{
-              borderRight: "7px solid  rgb(226, 190, 241)",
-            }}
-            iconStyle={{ background: "rgb(226, 190, 241)", color: "#fff" }}
-            icon={<PageIcon />}
-          >
-            <h4 className="vertical-timeline-element-title" style={{textAlign: "center", color: "#696969"}}>
-              TOTAL PAGES
-            </h4>
-            <h1 className="vertical-timeline-element-subtitle" style={{textAlign: "center"}}>
-            {totalPages === null? "no result" : totalPages}
-            </h1>
-          </VerticalTimelineElement>
         </VerticalTimeline>
       </div>
       
