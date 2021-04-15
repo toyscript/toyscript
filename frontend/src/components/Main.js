@@ -1,11 +1,11 @@
 import React from "react";
 import { Button, Container, FormControl, InputGroup, Nav } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
-
 import "../main.css"
 import Header from "./Header";
 import Contents from "./Contents";
 import Footer from "./Footer";
+import { Route, Link } from 'react-router-dom';
 
 
 function Main() {
@@ -39,22 +39,15 @@ function Main() {
             aria-describedby="basic-addon2"
           />
           <InputGroup.Append>
-            <a href="#result"><Button variant="outline-danger">GO!</Button></a>
+            <Link to="/result"><Button className="go-button" variant="outline-danger">GO!</Button></Link>
           </InputGroup.Append>
         </InputGroup>
       </Container>
 
-      <hr id="result"/>
       <br/>
       <br/>
       <br/>
-      
 
-      
-      <Contents/>
-      <br/>
-      <br/>
-      <br/>
       <Footer />
     </>
   )
