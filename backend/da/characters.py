@@ -274,18 +274,17 @@ def get_interaction_characters(
     """
     char1 = most_frequent_characters[0]
     characters_relation = defaultdict(dict)
-    for scene in scene_contents:
-        for sentence_num in range(len(scene[1])):  # 각 씬의 문장 개수만큼 반복
-            for sentence_next_num in range(sentence_num + 1, len(scene[1])):
-                for char1 in characters:
-                    if char1 in scene[1][sentence_num]:
-                        for char2 in most_frequent_characters:
-                            if char2 in scene[1][sentence_next_num]:
-                                if char1 == char2:
-                                    continue
-                                characters_relation[char1][char2] = (
-                                    characters_relation[char1].get(char2, 0) + 1
-                                )
+    for scene in scene_contents : 
+        for sentence_num in range(len(scene[1])) : # 각 씬의 문장 개수만큼 반복 O
+            for char1 in range(len(characters)) :
+                if characters[char1] in scene[1][sentence_num] :
+                    for char2 in range(char1, len(characters)) :
+                        if characters[char2] in scene[1][sentence_num:-1] :
+                            if characters[char1] == characters[char2] :
+                                continue
+                            characters_relation[characters[char1]][characters[char2]] = (
+                                characters_relation[characters[char1]].get(characters[char2], 0) + 1
+                            )
 
     character_relations = []
     for character, relations_dict in characters_relation.items():
@@ -296,6 +295,8 @@ def get_interaction_characters(
         character_relations.append((character, tuple(relations)))
     return tuple(character_relations)
 
+
+script_lines = get_lines_of_script()
 
 character_slug_frequencies = count_frequency_of_characters_and_slugs(
     get_lines_with_only_capital(script_lines)
@@ -323,6 +324,4 @@ most_frequent_character_dialogues = get_most_frequent_character_dialogues(
     most_frequent_characters, character_dialogues
 )
 
-characters_relation = get_interaction_characters(
-    scene_contents, most_frequent_characters, characters
-)
+characters_relation = get_interaction_characters(scene_contents, most_frequent_characters, characters)
