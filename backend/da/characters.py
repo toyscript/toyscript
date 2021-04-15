@@ -319,6 +319,6 @@ most_frequent_character_dialogues = get_most_frequent_character_dialogues(
     most_frequent_characters, character_dialogues
 )
 
-characters_relation = get_interaction_characters(scene_contents, most_frequent_characters, characters)
+characters_relation = get_interaction_characters(scene_contents, characters)
 
 # print(characters_relation)
