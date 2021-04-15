@@ -13,7 +13,8 @@ function ControlledTabs() {
 
 
   return (
-    <Container>
+    <>
+    <Container className="Contents">
       <Tabs
         className="Tabs"
         activeKey={key}
@@ -34,7 +35,12 @@ function ControlledTabs() {
         </Tab>
       </Tabs>
     </Container>
-    
+    <img
+        src="/images/buzz.png"
+        className="buzz"
+        alt="helper buzz"
+      />
+  </>
   );
 }
 

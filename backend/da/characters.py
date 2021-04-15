@@ -1,13 +1,11 @@
 from typing import Tuple
 from collections import defaultdict
-from script_lines_from_txt import get_lines_of_script
+from script_lines_from_txt import script_lines
 from script_sections import get_lines_with_only_capital, scene_contents
-import networkx as nx
-import matplotlib.pyplot as plt
-from utils import (
-    place_indicators,
-    script_terms,
-    character_cue_terms,
+from constants import (
+    PLACE_INDICATORS,
+    SCRIPT_TERMS,
+    CHARACTER_CUE_TERMS,
     MAX_BLANK_LINES_BETWEEN_CHARACTER_AND_DIALOGUE,
     MAX_SPLIT_LENGTH_OF_CHARACTER_NAME,
 )
@@ -19,7 +17,7 @@ def remove_terms_on_name(name: str) -> str:
     :params name:
     :return name:
     """
-    for cue_term in character_cue_terms:
+    for cue_term in CHARACTER_CUE_TERMS:
         name = name.replace(f" {cue_term}", "")
 
         start_of_as = name.find("(AS")
@@ -43,13 +41,13 @@ def count_frequency_of_characters_and_slugs(
         if len(line.split()) >= MAX_SPLIT_LENGTH_OF_CHARACTER_NAME:
             continue
 
-        if line[:4] in place_indicators:
+        if line[:4] in PLACE_INDICATORS:
             continue
 
         if line.find("!") != -1 or line.find('"') != -1:
             continue
 
-        for script_term in script_terms:
+        for script_term in SCRIPT_TERMS:
             if line.startswith(script_term):
                 break
         else:
@@ -230,7 +228,7 @@ def get_character_frequencies(
     return tuple(character_frequencies)
 
 
-def get_most_frequent_characters(
+def get_frequent_characters_up_to_num(
     number: int, character_frequencies: Tuple[str, int]
 ) -> Tuple[Tuple[str, int]]:
     """
@@ -238,9 +236,6 @@ def get_most_frequent_characters(
     :params character_frequencies:
     :return most_frequent_characters:
     """
-    if number >= len(character_frequencies):
-        return ()
-
     sorted_character_frequencies = sorted(
         character_frequencies, key=lambda x: x[1], reverse=True
     )[:number]
@@ -259,7 +254,6 @@ def get_most_frequent_character_dialogues(
     :params most_frequent_characters, character_dialogues:
     :return most_frequent_character_dialogues:
     """
-
     most_frequent_character_dialogues = []
     for top_character in most_frequent_characters:
         for character, dialogues in character_dialogues:
@@ -270,9 +264,10 @@ def get_most_frequent_character_dialogues(
 
 
 def get_interaction_characters(
-    scene_contents : Tuple[Tuple[int, Tuple[str]]], 
-    most_frequent_characters : Tuple[str],
-    characters : Tuple[str]) -> Tuple[Tuple[str, Tuple[Tuple[str, int]]]] : 
+    scene_contents: Tuple[Tuple[int, Tuple[str]]],
+    most_frequent_characters: Tuple[str],
+    characters: Tuple[str],
+) -> Tuple[Tuple[str, Tuple[Tuple[str, int]]]]:
     """
     :params scene_contents, most_frequent_characters
     :return Tuple[Tuple[str], Tuple[Tuple[str], Tuple[int]]]
@@ -322,12 +317,10 @@ character_frequencies = get_character_frequencies(
     character_slug_frequencies, characters
 )
 
-most_frequent_characters = get_most_frequent_characters(5, character_frequencies)
+most_frequent_characters = get_frequent_characters_up_to_num(10, character_frequencies)
 
 most_frequent_character_dialogues = get_most_frequent_character_dialogues(
     most_frequent_characters, character_dialogues
 )
 
 characters_relation = get_interaction_characters(scene_contents, most_frequent_characters, characters)
-
-# print(most_frequent_characters[:5])
