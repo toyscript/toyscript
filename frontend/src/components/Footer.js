@@ -5,7 +5,6 @@ import "../footer.css";
 
 function Footer() {
   return (
-    <>
       <Navbar className="menuBar" expand="lg" sticky="bottom">
         <Navbar.Brand href="/aboutus">
           <img src="/images/aboutus.png" className="aboutus" alt="aboutus" />
@@ -15,7 +14,6 @@ function Footer() {
           <Navbar.Text>copyright © 2021 LAM OR NOT LAM. All rights reserved. </Navbar.Text>
         </Navbar.Collapse>
       </Navbar>
-    </>
   );
 }
 
