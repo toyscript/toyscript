@@ -1,5 +1,5 @@
 from typing import Tuple
-from utils import place_indicators
+from constants import PLACE_INDICATORS
 from collections import defaultdict
 from script_lines_from_txt import get_lines_of_script
 
@@ -21,7 +21,7 @@ def contains_place_indicator(line: str) -> bool:
     :params line:
     :return: bool
     """
-    for indicator in place_indicators:
+    for indicator in PLACE_INDICATORS:
         if line.find(indicator) != -1:
             return True
     return False

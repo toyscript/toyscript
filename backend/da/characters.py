@@ -2,10 +2,10 @@ from typing import Tuple
 from collections import defaultdict
 from script_lines_from_txt import get_lines_of_script
 from script_sections import get_lines_with_only_capital, scene_contents
-from utils import (
-    place_indicators,
-    script_terms,
-    character_cue_terms,
+from constants import (
+    PLACE_INDICATORS,
+    SCRIPT_TERMS,
+    CHARACTER_CUE_TERMS,
     MAX_BLANK_LINES_BETWEEN_CHARACTER_AND_DIALOGUE,
     MAX_SPLIT_LENGTH_OF_CHARACTER_NAME,
 )
@@ -17,7 +17,7 @@ def remove_terms_on_name(name: str) -> str:
     :params name:
     :return name:
     """
-    for cue_term in character_cue_terms:
+    for cue_term in CHARACTER_CUE_TERMS:
         name = name.replace(f" {cue_term}", "")
 
         start_of_as = name.find("(AS")
@@ -41,13 +41,13 @@ def count_frequency_of_characters_and_slugs(
         if len(line.split()) >= MAX_SPLIT_LENGTH_OF_CHARACTER_NAME:
             continue
 
-        if line[:4] in place_indicators:
+        if line[:4] in PLACE_INDICATORS:
             continue
 
         if line.find("!") != -1 or line.find('"') != -1:
             continue
 
-        for script_term in script_terms:
+        for script_term in SCRIPT_TERMS:
             if line.startswith(script_term):
                 break
         else:
@@ -268,23 +268,24 @@ def get_most_frequent_character_dialogues(
 
 
 def get_interaction_characters(
-    scene_contents : Tuple[Tuple[int, Tuple[str]]], 
-    most_frequent_characters : Tuple[str],
-    characters : Tuple[str]) -> Tuple[Tuple[str, Tuple[Tuple[str, int]]]] : 
+    scene_contents: Tuple[Tuple[int, Tuple[str]]],
+    most_frequent_characters: Tuple[str],
+    characters: Tuple[str],
+) -> Tuple[Tuple[str, Tuple[Tuple[str, int]]]]:
     """
     :params scene_contents, most_frequent_characters
     :return Tuple[Tuple[str], Tuple[Tuple[str], Tuple[int]]]
     """
     char1 = most_frequent_characters[0]
     characters_relation = defaultdict(dict)
-    for scene in scene_contents : 
-        for sentence_num in range(len(scene[1])) : # 각 씬의 문장 개수만큼 반복
-            for sentence_next_num in range(sentence_num+1, len(scene[1])) :
-                for char1 in characters :
-                    if char1 in scene[1][sentence_num] :
-                        for char2 in most_frequent_characters :
-                            if char2 in scene[1][sentence_next_num] :
-                                if char1 == char2 :
+    for scene in scene_contents:
+        for sentence_num in range(len(scene[1])):  # 각 씬의 문장 개수만큼 반복
+            for sentence_next_num in range(sentence_num + 1, len(scene[1])):
+                for char1 in characters:
+                    if char1 in scene[1][sentence_num]:
+                        for char2 in most_frequent_characters:
+                            if char2 in scene[1][sentence_next_num]:
+                                if char1 == char2:
                                     continue
                                 characters_relation[char1][char2] = (
                                     characters_relation[char1].get(char2, 0) + 1
@@ -353,6 +354,8 @@ most_frequent_character_dialogues = get_most_frequent_character_dialogues(
     most_frequent_characters, character_dialogues
 )
 
-characters_relation = get_interaction_characters(scene_contents, most_frequent_characters, characters)
+characters_relation = get_interaction_characters(
+    scene_contents, most_frequent_characters, characters
+)
 
 # print_interaction_graph(characters_relation)

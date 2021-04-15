@@ -1,5 +1,5 @@
 from typing import Tuple
-from utils import ambiguous_time_modifiers, time_modifiers
+from constants import AMBIGUOUS_TIME_MODIFIERS, TIME_MODIFIERS
 from collections import Counter, defaultdict
 from script_sections import headings, scene_contents
 from characters import characters, remove_terms_on_name
@@ -13,7 +13,7 @@ def get_time_from_heading(heading: str) -> str:
     :return time:
     """
     time = ""
-    for modifier in time_modifiers:
+    for modifier in TIME_MODIFIERS:
         if heading.find(modifier) != -1:
             time = modifier
             break
@@ -30,7 +30,7 @@ def check_ambiguous_time(time: str) -> bool:
     if not time:
         return True
 
-    for modifier in ambiguous_time_modifiers:
+    for modifier in AMBIGUOUS_TIME_MODIFIERS:
         if time.find(modifier) != -1:
             return True
     return False

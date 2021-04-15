@@ -1,5 +1,5 @@
 from typing import Tuple
-from utils import place_indicators, ambiguous_place_indicators
+from constants import PLACE_INDICATORS, AMBIGUOUS_PLACE_INDICATORS
 from collections import defaultdict
 from characters import characters, remove_terms_on_name
 from script_sections import headings, scene_contents
@@ -17,7 +17,7 @@ def check_ambiguous_place(place: str) -> bool:
         return True
 
     place = place.strip()
-    for indicator in ambiguous_place_indicators:
+    for indicator in AMBIGUOUS_PLACE_INDICATORS:
         if place == indicator:
             return True
     return False
