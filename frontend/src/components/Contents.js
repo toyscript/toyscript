@@ -7,12 +7,16 @@ import Place from "./Place";
 import Time from "./Time";
 import Character from "./Character"
 import Kakao from "./Kakao"
+<<<<<<< HEAD
 import Header from "./Header";
 <<<<<<< HEAD
 import CharacterEmotion from "./CharacterEmotion"
 import CharacterWordCloud from "./CharacterWordCloud";
 =======
 >>>>>>> beaf02d2fc3ba123fbc240ea19855c5de8a6f893
+=======
+import CharacterEmotion from "./CharacterEmotion"
+>>>>>>> 4015b76c6252a1cf4a9f3ef3502f0dab96bc3514
 
 function ControlledTabs(prop) {
   let movieId = prop.location.pathname;
@@ -50,6 +54,7 @@ function ControlledTabs(prop) {
                 </p>
               </div>
             </div>
+            {/* <Kakao /> */}
             {/* <Character /> */}
             <br />
           </ Container>

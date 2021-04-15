@@ -8,7 +8,11 @@ import axios from "axios";
 
 const CharacterEmotion = () => {
 const allCharacterEmotionsApiUrl =
+<<<<<<< HEAD
   "http://elice-kdt-ai-track-vm-da-04.koreacentral.cloudapp.azure.com:5000/api/1212/characters/sentiments";
+=======
+  "http://elice-kdt-ai-track-vm-da-04.koreacentral.cloudapp.azure.com:5000/api/115/characters/sentiments";
+>>>>>>> 4015b76c6252a1cf4a9f3ef3502f0dab96bc3514
 const [radarData, setRadarData] = useState({});
 const chartColors = [
     'rgba(255, 99, 132, 0.7)',
@@ -108,6 +112,7 @@ useEffect(() => {
     }, []);
 
   return (
+<<<<<<< HEAD
       <div style={{ padding: "20px" }}>
         <Radar
           data={radarData}
@@ -120,3 +125,23 @@ useEffect(() => {
 };
 
 export default CharacterEmotion;
+=======
+    <Container style={{ backgroundColor: "rgb(246, 233, 180)" }}>
+      <br />
+      <div style={chartBackgroundColor}>
+        <div style={{ padding: "20px" }}>
+          <Radar
+            data={radarData}
+            options={options}
+          />
+          <br />
+          <hr />
+        </div>
+      </div>
+      <br />
+    </Container>
+  );
+};
+
+export default CharacterEmotion;
+>>>>>>> 4015b76c6252a1cf4a9f3ef3502f0dab96bc3514
