@@ -71,7 +71,7 @@
 
 # 4. 프로젝트 구성도
 
-~~스토리보드 최신화 예정~~
+![Story Board](frontend/public/images/storyboard.png)
 
 # 5. 프로젝트 팀원 역할 분담
 
@@ -105,6 +105,7 @@
 
 
 # 6. 버전
+- [프로젝트 제안서](https://docs.google.com/document/d/1qJ_oNsFKahh1kOHVWX_LQd_YqQwb0KIl3PlYwNtnXiE/edit#)
 - 현재 미정
 
 # 7. FAQ

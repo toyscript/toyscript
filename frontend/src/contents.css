@@ -24,9 +24,17 @@
 }
 
 .Kakao #kakao-link-btn {
-  position: absolute;
-  width: 20%;
-  top: 20%;
-  right: -1%;
+  position: fixed;
+  width: 3%;
+  bottom: 10%;
+  right: 8%;
   z-index: 2;
+}
+
+.Kakao #up-btn {
+  position: fixed;
+  width: 3%;
+  bottom: 0;
+  right: 8%;
+  z-index: 0;
 }
