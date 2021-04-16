@@ -5,10 +5,11 @@ import "../contents.css"
 import Summary from "./Summary";
 import Place from "./Place";
 import Time from "./Time";
-import Character from "./Character"
 import Kakao from "./Kakao"
 import Header from "./Header";
+import Character from "./Character"
 import CharacterEmotion from "./CharacterEmotion"
+import CharacterFrequency from "./CharacterFrequency"
 import CharacterWordCloud from "./CharacterWordCloud";
 
 
@@ -43,6 +44,7 @@ function ControlledTabs(prop) {
             <div style={chartBackgroundColor}>
               <div style={{ padding: "20px" }}>
                 <p style={{ padding: "20px" }}>
+                  <CharacterFrequency movieId={movieId} />
                   <CharacterEmotion movieId={movieId} />
                   <Character movieId={movieId} />
                   <CharacterWordCloud movieId={movieId} />
