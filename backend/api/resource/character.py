@@ -92,4 +92,5 @@ class CharacterWord(Resource):
                     {"text": wc.word, "value": wc.frequency}
                 )
 
+        result.append(tmp)
         return result

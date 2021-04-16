@@ -27,6 +27,8 @@ class TimeScene(Resource):
 
             time["scenes"].append(scene.num)
 
+        result.append(time)
+
         return sorted(result[1:], key=lambda x: len(x.get("scenes")), reverse=True)
 
 
@@ -58,6 +60,8 @@ class TimeCharacter(Resource):
             frequency["characterName"] = character.character.name
             frequency["frequency"] = character.frequency
             time["characters"].append(frequency)
+
+        result.append(time)
 
         return result[1:]
 

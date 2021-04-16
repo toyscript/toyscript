@@ -139,5 +139,5 @@ class WordCloud(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     character_id = db.Column(db.Integer, db.ForeignKey("character.id"))
     character = db.relationship("Character")
-    word = db.Column(db.String(20))
+    word = db.Column(db.Text)
     frequency = db.Column(db.Integer)
