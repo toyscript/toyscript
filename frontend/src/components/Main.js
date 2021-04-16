@@ -40,10 +40,13 @@ function Main() {
   }, [term]);
   // console.log(movieIds)
 
-  function sayId(movieIds) {
-    alert(`${movieIds}`);
-    return movieIds;
-  }
+  // movieId 확인
+  // function sayId(movieIds) {
+  //   alert(`${movieIds}`);
+  //   return movieIds;
+  // }
+
+  // console.log(movieIds)
 
   return (
     <>
@@ -56,28 +59,25 @@ function Main() {
             <img src="/images/logo.png" className="logo" alt="logo" />
           </a>
         </center>
-        <img src="/images/woody.png" className="woody" alt="leaning Woody" />
+        {/* <img src="/images/woody.png" className="woody" alt="leaning Woody" /> */}
       </Container>
 
-      <Container className="search">
-        <InputGroup>
-          <FormControl
-            placeholder=" 영화 제목을 입력하세요 !"
-            aria-describedby="basic-addon2"
-            value={term}
-            onChange={(e) => setTerm(e.target.value)}
-          />
-          <InputGroup.Append>
-            <Button className="go-button" variant="outline-danger" onClick={() => sayId(`${movieIds}`)}>
-              <Link
-                to={`result/${movieIds}`}
-              >
-                GO!
-              </Link>
-            </Button>
-          </InputGroup.Append>
-        </InputGroup>
-      </Container>
+      <div className="container h-100">
+        <div className="d-flex justify-content-center h-100">
+          <div className="searchbar">
+            <input
+              className="search_input"
+              type="text"
+              placeholder="영화 제목을 입력하세요 !"
+              value={term}
+              onChange={(e) => setTerm(e.target.value)}
+            />
+            <a href={`result/${movieIds}`} class="search_icon">
+              Go!
+            </a>
+          </div>
+        </div>
+      </div>
 
       <br />
       <br />
