@@ -30,7 +30,10 @@ from times import (
     get_time_list
 )
 
-
+from init_app.init_app import create_app, db
+from db.models import *
+app = create_app()
+app.app_context().push()
 
 movie_paths = [
     "Great Gatsby, The.txt",
@@ -46,12 +49,12 @@ movie_paths = [
     "FANTASTIC FOUR.txt",
     "Zootopia.txt",
     "Pirates of the Caribbean.txt",
-    "toystory3.txt",
     "2012.txt",
 ]
 
 
 for movie_path in movie_paths:
+    movie = Movie.query.filter(Movie.title == movie_path[:-4]).first()
 
 
     """ 
@@ -129,15 +132,26 @@ for movie_path in movie_paths:
 
 
 
+
+
     # 캐릭터별 빈도 수
     character_frequencies = get_character_frequencies(
         character_slug_frequencies, characters
     )
     """ 출력 """
-    # for character, frequency in character_frequencies:
-    #     print(character, ":" , frequency)
+    for character, frequency in character_frequencies:
+        # print(character, ":" , frequency)
+        char = Character(
+            name=character,
+            movie_id=movie.id,
+            lines=frequency
+        )
+        db.session.add(char)
     # print()
     # continue
+    db.session.commit()
+
+
 
 
     # 빈출 캐릭터 목록 (n개 까지)

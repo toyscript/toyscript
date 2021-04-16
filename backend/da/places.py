@@ -166,8 +166,28 @@ from init_app.init_app import create_app, db
 from db.models import *
 app = create_app()
 app.app_context().push()
-movie_id=115
+movie_id=12
+chars = Character.query.filter(Character.movie_id==movie_id).all()
+ids = {}
+for c in chars:
+    ids[c.name] = c.id
 
-print(place_scenes)
+for ps in place_characters:
 
-# db.session.commit()
+    place = Place.query.filter(Place.name==ps[0], Place.movie_id==movie_id).first()
+
+    for character in ps[1]:
+
+        cid = ids.get(character[0])
+        pc = PlaceCharacter(
+            place_id = place.id,
+            character_id = ids.get(character[0]),
+            frequency = character[1])
+        # pc = Scene(
+        #     num = character,
+        #     movie_id = movie_id,
+        #     place_id = place.id
+        # )
+        db.session.add(pc)
+
+db.session.commit()
