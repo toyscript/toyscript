@@ -9,7 +9,7 @@ function ServiceInfo() {
     <>
       <Header />
       <center>
-        <img className="toyscript" src="/images/toyscript!.png" />
+        <img className="toyscript" src="/images/toyscript!.png" alt="logo" />
       </center>
       <div id="service-info-box">
         <div className="desc">
