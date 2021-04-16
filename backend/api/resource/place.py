@@ -61,6 +61,7 @@ class PlaceCharacter(Resource):
 
             if place_id != p.place_id:
                 place_id = p.place_id
+
                 result.append(place)
                 place = {}
                 place["place"] = place_ids[p.place_id]
@@ -70,5 +71,8 @@ class PlaceCharacter(Resource):
             frequency["characterName"] = p.character.name
             frequency["frequency"] = p.frequency
             place["characters"].append(frequency)
+
+
+        result.append(place)
 
         return sorted(result[1:], key=lambda x: len(x.get("characters")), reverse=True)

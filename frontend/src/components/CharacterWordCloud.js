@@ -5,7 +5,7 @@ import axios from "axios";
 import WordCloud from "react-d3-cloud";
 
 
-const CharacterWordCloud = () => {
+const CharacterWordCloud = ({ movieId }) => {
   
   const [characterNamesData, setcharacterNamesData] = useState([]);
   const [wordsFreqData, setWordsFreqData] = useState({ list: [] });
@@ -19,7 +19,7 @@ const CharacterWordCloud = () => {
   ];
   
   const allCharacterWordCloudsApiUrl =
-    "http://elice-kdt-ai-track-vm-da-04.koreacentral.cloudapp.azure.com:5000/api/1212/characters/words";
+    `http://elice-kdt-ai-track-vm-da-04.koreacentral.cloudapp.azure.com:5000/api/${movieId}/characters/words`;
 
   useEffect(() => {
     const fetchAllCharacterWordsFreqData = async () => {

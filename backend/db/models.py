@@ -30,7 +30,7 @@ class Movie(db.Model):
 
 class Scene(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    num = db.Column(db.Integer, unique=True)
+    num = db.Column(db.Integer, unique=False)
     movie_id = db.Column(db.Integer, db.ForeignKey("movie.id"))
     place_id = db.Column(db.Integer, db.ForeignKey("place.id"))
     place = db.relationship("Place")
@@ -40,6 +40,7 @@ class Scene(db.Model):
 
 
 class Line(db.Model):
+    __table_args__ = {"extend_existing": True}
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     character_id = db.Column(
         db.Integer,
@@ -71,6 +72,7 @@ class TimeCharacter(db.Model):
 class PlaceCharacter(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     place_id = db.Column(db.Integer, db.ForeignKey("place.id"))
+    place = db.relationship("Place")
     character_id = db.Column(db.Integer, db.ForeignKey("character.id"))
     character = db.relationship("Character")
     frequency = db.Column(db.Integer)
@@ -78,6 +80,7 @@ class PlaceCharacter(db.Model):
 
 
 class Sentiment(db.Model):
+    __table_args__ = {"extend_existing": True}
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     character_id = db.Column(db.Integer, db.ForeignKey("character.id"))
     character = db.relationship("Character")
@@ -89,7 +92,6 @@ class Sentiment(db.Model):
     sadness = db.Column(db.Integer)
     surprise = db.Column(db.Integer)
     trust = db.Column(db.Integer)
-    __suram = True
 
     def __init__(self, sentiments: tuple, character_id: int) -> None:
         self.character_id = character_id
@@ -104,7 +106,7 @@ class Sentiment(db.Model):
 
     @staticmethod
     def get_sentiment_name():
-        return list(Sentiment.__dict__.keys())[4:12]
+        return ['anger','anticipation','disgust','fear','joy','sadness','surprise','trust']
 
     def get_sentiments(self):
         return [
@@ -128,9 +130,12 @@ class Relation(db.Model):
     character_one = db.relationship("Character", foreign_keys=[charac_one_id])
     character_two = db.relationship("Character", foreign_keys=[charac_two_id])
     value = db.Column(db.Integer)
+    test = db.Column(db.BOOLEAN)
+    test3 = db.Column(db.BOOLEAN)
 
 
 class WordCloud(db.Model):
+    __table_args__ = {"extend_existing": True}
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     character_id = db.Column(db.Integer, db.ForeignKey("character.id"))
     character = db.relationship("Character")
