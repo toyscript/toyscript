@@ -46,7 +46,8 @@ class Kakao extends Component {
     return (
       <div className="Kakao">
         {/* <button id="kakao-link-btn" onClick={this.onClickKakao}> <img src='images/buzz.png' alt="kakao" /></button> */}
-        <img id="kakao-link-btn" onClick={this.onClickKakao} src='images/buzz.png' alt="kakao" />
+        {/* <img id="kakao-link-btn" onClick={this.onClickKakao} src={`${movieId}/images/kakaologo.png`} alt="kakao" /> */}
+        <img id="kakao-link-btn" onClick={this.onClickKakao} src={"/images/kakaologo.png"} alt="kakao" />
       </div>
     );
   }

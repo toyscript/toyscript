@@ -25,8 +25,8 @@
 
 .Kakao #kakao-link-btn {
   position: absolute;
-  width: 20%;
-  top: 20%;
-  right: -1%;
+  width: 3%;
+  bottom: 10%;
+  right: 10.4%;
   z-index: 2;
 }
