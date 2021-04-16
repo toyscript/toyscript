@@ -3,7 +3,12 @@ from flask import Blueprint, jsonify, request
 
 from api.resource.place import PlaceFrequency, PlaceScene, PlaceCharacter
 from api.resource.movie import QueryMovie, Summary
-from api.resource.character import CharacterFrequency, CharacterRelation, CharacterSentiment, CharacterWord
+from api.resource.character import (
+    CharacterFrequency,
+    CharacterRelation,
+    CharacterSentiment,
+    CharacterWord,
+)
 from api.resource.time import TimeScene, TimeCharacter, TimeFrequency
 from api.errors import *
 
@@ -30,7 +35,7 @@ api.add_resource(QueryMovie, "/movies")
 def not_found_error(error):
 
     payload = dict()
-    payload['message'] = "해당 url은 지원하지 않음."
+    payload["message"] = "해당 url은 지원하지 않음."
 
     return jsonify(payload), 400
 
@@ -40,9 +45,9 @@ def movie_error_handling(error):
 
     payload = dict()
     body = dict()
-    body['status'] = error.status
-    body['message'] = error.message
-    payload['error'] = body
+    body["status"] = error.status
+    body["message"] = error.message
+    payload["error"] = body
 
     return jsonify(payload), 404
 
@@ -50,11 +55,12 @@ def movie_error_handling(error):
 @toyScriptApi.before_request
 def is_movie_exist():
 
-    movie_id = request.view_args.get('movie_id')
+    movie_id = request.view_args.get("movie_id")
 
-    if movie_id is not None :
+    if movie_id is not None:
 
         from db.models import Movie
+
         movie = Movie.query.get(movie_id)
 
         if movie is None:
