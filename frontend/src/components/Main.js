@@ -53,6 +53,7 @@ function Main() {
       <Header />
 
       <br />
+      <main id="main">
       <Container>
         <center>
           <a href="/">
@@ -62,8 +63,8 @@ function Main() {
         {/* <img src="/images/woody.png" className="woody" alt="leaning Woody" /> */}
       </Container>
 
-      <div className="container h-100">
-        <div className="d-flex justify-content-center h-100">
+      <div className="container">
+        <div className="d-flex justify-content-center">
           <div className="searchbar">
             <input
               className="search_input"
@@ -71,7 +72,7 @@ function Main() {
               placeholder="영화 제목을 입력하세요 !"
               value={term}
               onChange={(e) => setTerm(e.target.value)}
-            />
+              />
             <a href={`result/${movieIds}`} class="search_icon">
               Go!
             </a>
@@ -79,10 +80,7 @@ function Main() {
         </div>
       </div>
 
-      <br />
-      <br />
-      <br />
-
+      </main>
       <Footer />
     </>
   );
