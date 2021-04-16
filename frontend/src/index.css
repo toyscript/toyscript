@@ -5,15 +5,20 @@
   font-style: normal;
 }
 
-.container, 
+#main {
+  height: 100vh;
+}
+
+.container,
 #service-info-box,
-.section-box  {
+.section-box {
   font-family: 'NEXON Lv1 Gothic';
   line-height: 1.7;
   word-break: keep-all;
 }
 
 body {
+  height: 100%;
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
