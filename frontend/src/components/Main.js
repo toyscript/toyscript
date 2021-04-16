@@ -41,10 +41,12 @@ function Main() {
   }, [term]);
 
   const handleGoClick = (movieIds) => {
-    if (movieIds.length === 0) {
+    if (movieIds.length === 0 || movieIdString.includes(',')) {
       alert("영화 제목을 다시 확인해주세요.")
     }
   }
+
+  let movieIdString = movieIds.toString();
   
 
   return (
@@ -69,7 +71,7 @@ function Main() {
                 value={term}
                 onChange={(e) => setTerm(e.target.value)}
               />
-              {movieIds.length === 0?
+              {movieIds.length === 0 || movieIdString.includes(',')?
               <Link to="/" onClick={() => handleGoClick(movieIds)}> Go!</Link>
               :
               <Link to={`result/${movieIds}`}> Go!</Link>}

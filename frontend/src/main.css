@@ -45,7 +45,6 @@ html {
   outline: 0;
   background: none;
   width: 500px;
-  caret-color: transparent;
   line-height: 40px;
   transition: width 0.4s linear;
   padding: 0 10px;
