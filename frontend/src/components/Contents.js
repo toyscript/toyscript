@@ -43,9 +43,9 @@ function ControlledTabs(prop) {
             <div style={chartBackgroundColor}>
               <div style={{ padding: "20px" }}>
                 <p style={{ padding: "20px" }}>
-                  <CharacterEmotion />
-                  {/* <Character movieId={movieId} /> */}
-                  <CharacterWordCloud />
+                  <CharacterEmotion movieId={movieId} />
+                  <Character movieId={movieId} />
+                  <CharacterWordCloud movieId={movieId} />
                 </p>
               </div>
             </div>
