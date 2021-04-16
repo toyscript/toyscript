@@ -7,8 +7,7 @@ import { Graph } from "react-d3-graph";
 const Character = ({ movieId }) => {
   const allCharactersRelationApiUrl =
     `http://elice-kdt-ai-track-vm-da-04.koreacentral.cloudapp.azure.com:5000/api/${movieId}/characters/relations`;
-    // `http://elice-kdt-ai-track-vm-da-04.koreacentral.cloudapp.azure.com:5000/api/${movieId}/characters/relations?test=1`;
-    // "http://elice-kdt-ai-track-vm-da-04.koreacentral.cloudapp.azure.com:5000/api/1212/characters/relations?test3=1";
+    // `http://elice-kdt-ai-track-vm-da-04.koreacentral.cloudapp.azure.com:5000/api/1212/characters/relations?test=1`;
   const [data, setData] = useState({});
 
   const style = {
