@@ -42,11 +42,9 @@ function Main() {
 
   const handleGoClick = (movieIds) => {
     if (movieIds.length === 0) {
-      alert("no result")
+      alert("영화 제목을 다시 확인해주세요.")
     }
   }
-
-  console.log(movieIds)
   
 
   return (
@@ -81,11 +79,17 @@ function Main() {
             </div>
           </div>
         </div>
-            {movieTitles.map((movietitle) => {
+            {term.length === 0?
+            ""
+            :
+            movieTitles.map((movietitle) => {
               return (
-                <ul>
+                <div className="d-flex justify-content-center">
+                  <ul>
                   <li>{movietitle}</li> 
                 </ul>
+                </div>
+                
               );
             })}
       </main>
