@@ -1,10 +1,14 @@
 from init_app.init_app import create_app, db
 from db.models import Character, Relation, Sentiment
 import sys, os
-sys.path.append(os.path.abspath('../da'))
+
+sys.path.append(os.path.abspath("../da"))
 
 from da.characters import character_dialogues, characters_relation
-from da.characterAnalysis import character_emotion_frequencies, character_word_frequencies
+from da.characterAnalysis import (
+    character_emotion_frequencies,
+    character_word_frequencies,
+)
 
 app = create_app()
 app.app_context().push()
@@ -36,4 +40,3 @@ s = Sentiment()
 #
 #     for word in r[1]:
 #         print(word)
-

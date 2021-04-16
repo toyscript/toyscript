@@ -7,10 +7,35 @@ from collections import Counter
 from nltk.corpus import stopwords
 from nltk.stem import PorterStemmer, WordNetLemmatizer
 from nltk.tokenize import word_tokenize, WordPunctTokenizer
-from characters import character_dialogues, most_frequent_character_dialogues
 
 
-def preprocess_data(data: str, tokenizer) -> Tuple[str]:
+__file_name = "NRC-Emotion-Lexicon-Wordlevel-v0.92.txt"
+__dir_path = os.path.join(os.path.dirname(os.getcwd()), "all_data_process/resources")
+
+__file_path = os.path.join(__dir_path, __file_name)
+
+__stop_words = set(stopwords.words("english"))
+__stop_words.update(("mon", "one", "two", "three"))
+
+__tokenizer = WordPunctTokenizer()
+
+__stemmer = PorterStemmer()
+
+__lemmatizer = WordNetLemmatizer()
+
+emotion_analysis_types = (
+    "anger",
+    "anticipation",
+    "disgust",
+    "fear",
+    "joy",
+    "sadness",
+    "surprise",
+    "trust",
+)
+
+
+def preprocess_data(data: str, tokenizer=__tokenizer) -> Tuple[str]:
     """
     데이터를 토큰화하고, 토큰화한 데이터에서 불용어와 특수 문자를 제거합니다.
     :params data, tokenizer:
@@ -19,7 +44,7 @@ def preprocess_data(data: str, tokenizer) -> Tuple[str]:
     tokens = tokenizer.tokenize(data)
     lower_tokens = [token.lower() for token in tokens]
     stopped_words = [
-        token for token in lower_tokens if len(token) > 2 and token not in stop_words
+        token for token in lower_tokens if len(token) > 2 and token not in __stop_words
     ]
     processed_data = [token for token in stopped_words if token not in PUNCTUATIONS]
     return processed_data
@@ -31,7 +56,7 @@ def extract_stemmed_words(data: Tuple[str], stemmer) -> Tuple[str]:
     :params data:
     :return stemmed_words:
     """
-    return [stemmer.stem(token.lower()) for token in data]
+    return [stemmer.stem(token) for token in data]
 
 
 def lemmatize_words(data: Tuple[str], lemmatizer) -> Tuple[str]:
@@ -43,7 +68,7 @@ def lemmatize_words(data: Tuple[str], lemmatizer) -> Tuple[str]:
     return [lemmatizer.lemmatize(token) for token in data]
 
 
-def analyze_data_with_lexicons(file_path: str):
+def analyze_data_with_lexicons(file_path: str = __file_path):
     """
     감정 분석을 위해 감정 어휘 목록을 구합니다.
     :params file_path:
@@ -101,9 +126,9 @@ def count_frequency_of_emotions(all_emotions: Tuple[str]) -> Tuple[Tuple[str, in
 
 def get_emotion_frequencies_by_character(
     most_frequent_character_dialogues: Tuple[Tuple[str, int]],
-    tokenizer,
-    stemmer,
-    file_path: str,
+    file_path: str = __file_path,
+    tokenizer=__tokenizer,
+    stemmer=__stemmer,
 ) -> Tuple[Tuple[str, Tuple[Tuple[str, int]]]]:
     """
     캐릭터별로 감정 빈도 수를 구하고, 이를 목록으로 반환합니다.
@@ -135,17 +160,17 @@ def get_emotion_frequencies_by_character(
 
 def get_word_frequencies_by_character(
     most_frequent_character_dialogues: Tuple[Tuple[str, int]],
-    tokenizer,
-    lemmatizer,
     min_frequency,
+    tokenizer=__tokenizer,
+    lemmatizer=__lemmatizer,
 ) -> Tuple[Tuple[str, Tuple[Tuple[str, int]]]]:
     """
     캐릭터별로 단어 빈도 수를 구하고, 이를 목록으로 반환합니다.
     :params
         most_frequent_character_dialogues,
+        min_frequency
         tokenizer,
         lemmatizer,
-        min_frequency
     :return character_word_frequencies:
     """
     character_word_frequencies = []
@@ -156,41 +181,8 @@ def get_word_frequencies_by_character(
 
         word_counts = Counter(lemmatized_words)
         word_counts = tuple(
-            filter(lambda x: x[1] > min_frequency, word_counts.most_common())
+            filter(lambda x: x[1] > min_frequency, word_counts.most_common()[:40])
         )
 
         character_word_frequencies.append((character, word_counts))
     return tuple(character_word_frequencies)
-
-
-file_name = "NRC-Emotion-Lexicon-Wordlevel-v0.92.txt"
-dir_path = os.path.join(os.path.dirname(os.getcwd()), "da")
-file_path = os.path.join(dir_path, file_name)
-
-stop_words = set(stopwords.words("english"))
-stop_words.update(("mon", "one", "two", "three"))
-
-tokenizer = WordPunctTokenizer()
-
-p_stemmer = PorterStemmer()
-
-lemmatizer = WordNetLemmatizer()
-
-emotion_analysis_types = (
-    "anger",
-    "anticipation",
-    "disgust",
-    "fear",
-    "joy",
-    "sadness",
-    "surprise",
-    "trust",
-)
-
-character_emotion_frequencies = get_emotion_frequencies_by_character(
-    most_frequent_character_dialogues, tokenizer, p_stemmer, file_path
-)
-
-character_word_frequencies = get_word_frequencies_by_character(
-    most_frequent_character_dialogues, tokenizer, lemmatizer, 2
-)

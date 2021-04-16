@@ -3,7 +3,6 @@ from bs4 import BeautifulSoup
 
 
 def get_script_url(title):
-
     url = "https://imsdb.com/Movie Scripts/"
     url += title + " Script.html"
     url = url.replace(" ", "%20")
@@ -12,14 +11,13 @@ def get_script_url(title):
     if response.status_code == 200:
         html = response.text
         soup = BeautifulSoup(html, "html.parser")
-        movie_list = soup.select(
-            "#mainbody > table:nth-child(3) > tr > td > td >table > tr > td > a[href]"
+        a_list = soup.select(
+            "#mainbody > table:nth-child(3) > tr > td > td > table > tr > td > a[href]"
         )
 
-        for m in movie_list:
-
-            if m.get_text().startswith("Read"):
-                script_url = "https://imsdb.com/" + m["href"]
+        for a in a_list:
+            if a.get_text().startswith("Read"):
+                script_url = "https://imsdb.com/" + a["href"]
                 return script_url
 
     return None
@@ -52,6 +50,20 @@ def get_script_txt(script_url, title):
             file.write(script_text)
 
 
-title = "2012"
-script_url = get_script_url(title)
-get_script_txt(script_url, title)
+def get_authors(title):
+    url = "https://imsdb.com/Movie Scripts/"
+    url += title + " Script.html"
+    url = url.replace(" ", "%20")
+    response = requests.get(url)
+
+    if response.status_code == 200:
+        html = response.text
+        soup = BeautifulSoup(html, "html.parser")
+        td_elements = soup.select("#mainbody > table:nth-child(3) > tr > td > table")
+        print(td_elements)
+        for a in td_elements:
+            if a.get_text().startswith("Read"):
+                script_url = "https://imsdb.com/" + a["href"]
+                return script_url
+
+    return None
