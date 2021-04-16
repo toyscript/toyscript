@@ -89,7 +89,7 @@ class CharacterWord(Resource):
 
             else:
                 tmp.get(wc.character.id).append(
-                    {"word": wc.word, "frequency": wc.frequency}
+                    {"text": wc.word, "value": wc.frequency}
                 )
 
         return result
