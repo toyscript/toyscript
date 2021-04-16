@@ -28,8 +28,8 @@ const CharacterWordCloud = ({ movieId }) => {
         
         await axios.get(allCharacterWordCloudsApiUrl).then((response) => {
           const characterWordsFrequencies = response.data;
-          
-          for (let i=0; i<5;i++) {
+
+          for (let i=0; i < characterWordsFrequencies.length; i++) {
             characterNames.push(characterWordsFrequencies[i].characterName);
             wordsFrequenciesList.push(characterWordsFrequencies[i].words);
           }
