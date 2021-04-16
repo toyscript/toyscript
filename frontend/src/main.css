@@ -37,9 +37,9 @@ html{
   border-radius: 30px;
   padding: 10px;
   border: gray 1px solid;
-  }
+}
 
-  .search_input{
+.search_input{
   color: red;
   border: 0;
   outline: 0;
@@ -49,14 +49,14 @@ html{
   line-height: 40px;
   transition: width 0.4s linear;
   padding: 0 10px;
-  }
+}
 
-  .searchbar:hover > .search_icon{
+.searchbar:hover > .search_icon{
   background: white;
   color: #e74c3c;
-  }
+}
 
-  .search_icon{
+.search_icon{
   height: 40px;
   width: 40px;
   float: right;
@@ -67,4 +67,4 @@ html{
   color:white;
   text-decoration:none;
   color: #e74c3c;
-  }
+}

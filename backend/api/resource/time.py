@@ -32,7 +32,6 @@ class TimeScene(Resource):
 
 class TimeCharacter(Resource):
     def get(self, movie_id):
-        # 시간대별 등장인물 목록 반환
 
         time_characters = (
             TimeCharacterM.query.filter(TimeCharacterM.movie_id == movie_id)
