@@ -92,5 +92,7 @@ class CharacterWord(Resource):
                     {"text": wc.word, "value": wc.frequency}
                 )
 
+        tmp["characterName"] = character.name
+        tmp["words"] = tmp.pop(character.id)
         result.append(tmp)
         return result

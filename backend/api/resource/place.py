@@ -55,8 +55,8 @@ class PlaceCharacter(Resource):
         )
         place_id = -1
         result = []
-
         place = {}
+
         for p in place_characters:
 
             if place_id != p.place_id:
@@ -71,7 +71,6 @@ class PlaceCharacter(Resource):
             frequency["characterName"] = p.character.name
             frequency["frequency"] = p.frequency
             place["characters"].append(frequency)
-
 
         result.append(place)
 
