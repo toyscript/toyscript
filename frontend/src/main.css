@@ -1,5 +1,5 @@
-html{
-	scroll-behavior: smooth;
+html {
+  scroll-behavior: smooth;
 }
 
 .input {
@@ -8,7 +8,7 @@ html{
 
 .logo {
   position: relative;
-  margin-top: 100px;
+  margin-top: 60px;
   margin-bottom: 50px;
   width: 350px;
   height: 200px;
@@ -29,7 +29,7 @@ html{
 
 
 
-.searchbar{
+.searchbar {
   margin-bottom: auto;
   margin-top: auto;
   height: 60px;
@@ -39,24 +39,24 @@ html{
   border: gray 1px solid;
 }
 
-.search_input{
+.search_input {
   color: red;
   border: 0;
   outline: 0;
   background: none;
   width: 500px;
-  caret-color:transparent;
+  caret-color: transparent;
   line-height: 40px;
   transition: width 0.4s linear;
   padding: 0 10px;
 }
 
-.searchbar:hover > .search_icon{
+.searchbar:hover>.search_icon {
   background: white;
   color: #e74c3c;
 }
 
-.search_icon{
+.search_icon {
   height: 40px;
   width: 40px;
   float: right;
@@ -64,8 +64,8 @@ html{
   justify-content: center;
   align-items: center;
   border-radius: 50%;
-  color:white;
-  text-decoration:none;
+  color: white;
+  text-decoration: none;
   color: #e74c3c;
 }
 
@@ -73,6 +73,7 @@ a {
   color: #e74c3c;
   padding: 10px;
 }
+
 a:hover {
   color: #e74c3c;
 }

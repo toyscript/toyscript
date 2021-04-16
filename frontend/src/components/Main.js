@@ -52,8 +52,6 @@ function Main() {
   return (
     <>
       <Header />
-
-      <br />
       <main id="main">
         <Container>
           <center>
@@ -61,7 +59,6 @@ function Main() {
               <img src="/images/logo.png" className="logo" alt="logo" />
             </a>
           </center>
-          {/* <img src="/images/woody.png" className="woody" alt="leaning Woody" /> */}
         </Container>
 
         <div className="container">
