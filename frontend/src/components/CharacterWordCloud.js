@@ -8,8 +8,7 @@ import WordCloud from "react-d3-cloud";
 const CharacterWordCloud = () => {
   
   const [characterNamesData, setcharacterNamesData] = useState([]);
-  const [wordsFreqData, setWordsFreqData] = useState([]);
-
+  const [wordsFreqData, setWordsFreqData] = useState({ list: [] });
 
   const data = [
     { text: "Hey", value: 1000 },
@@ -29,35 +28,65 @@ const CharacterWordCloud = () => {
         
         await axios.get(allCharacterWordCloudsApiUrl).then((response) => {
           const characterWordsFrequencies = response.data;
-          characterWordsFrequencies.forEach(characterWordsFrequency => {
-            characterNames.push(characterWordsFrequency.characterName);
-            wordsFrequenciesList.push(characterWordsFrequency.words);
-          });
+          
+          for (let i=0; i<5;i++) {
+            characterNames.push(characterWordsFrequencies[i].characterName);
+            wordsFrequenciesList.push(characterWordsFrequencies[i].words);
+          }
         });
         setcharacterNamesData(characterNames.slice());
-        setWordsFreqData(wordsFrequenciesList[0].slice());
+        setWordsFreqData({
+          list: wordsFrequenciesList
+        })
       }
       fetchAllCharacterWordsFreqData();
     }, []);
     
-  console.log(wordsFreqData);
   const fontSizeMapper = word => Math.log2(word.value) * 16;
   const rotate = word => word.value % 360;
-    
+  
+  const topStyle = {
+    maxWidth: "100%",
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center"
+  }
+
+  const nameStyle = {
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    fontSize: "20px",
+    fontWeight: "bold",
+    padding: "20px",
+    paddingTop: "10px",
+    paddingBottom: "10px",
+    borderBottom: "1px solid rgb(212, 212, 212)",
+    marginLeft: 220,
+    marginRight: 220
+  };
+
+  const wordCloudStyle = {
+    maxWidth: "100%",
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    padding: "20px",
+    paddingBottom: "80px"
+  };
+
+  const wordClouds = wordsFreqData.list;
+  console.log(wordClouds);
+
   return (
       <div style={{ padding: "20px" }}>
-        <div style={{
-          maxWidth: "100%",
-          height: "100vh",
-          display: "block",
-          padding: "200px",
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center"
-        }}>
-          <p>{characterNamesData[0]}</p>
-          <WordCloud data={wordsFreqData} fontSizeMapper={fontSizeMapper} rotate={rotate} width={500} height={500}/>
-        </div>
+        {wordsFreqData.list.map((wordsFreq, i) => 
+            <div>
+              <div style={topStyle}>TOP {i+1}</div>
+              <div style={nameStyle}>{characterNamesData[i]}</div>
+              <div style={wordCloudStyle}><WordCloud data={wordsFreq} fontSizeMapper={fontSizeMapper} rotate={rotate} width={500} height={300}/></div>
+            </div>
+          )}
         <br />
         <hr />
       </div>
