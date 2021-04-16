@@ -150,6 +150,15 @@ const Place = ({ movieId }) => {
                 text: "영화에 나오는 전체 장소",
                 fontSize: 20,
               },
+              scales: {
+                yAxes: [
+                  {
+                    ticks: {
+                      beginAtZero: true,
+                    },
+                  },
+                ],
+              },
               legend: {
                 display: true,
                 position: "top",
