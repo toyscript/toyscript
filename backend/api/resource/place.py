@@ -68,8 +68,8 @@ class PlaceCharacter(Resource):
                 place["characters"] = []
 
             frequency = {}
-            frequency['characterName'] = p.character.name
-            frequency['frequency']=p.frequency
+            frequency["characterName"] = p.character.name
+            frequency["frequency"] = p.frequency
             place["characters"].append(frequency)
 
 

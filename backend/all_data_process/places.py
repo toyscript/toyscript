@@ -1,5 +1,5 @@
 from typing import Tuple
-from utils import place_indicators, ambiguous_place_indicators
+from constants import PLACE_INDICATORS, AMBIGUOUS_PLACE_INDICATORS
 from collections import defaultdict
 from characters import remove_terms_on_name
 from script_lines_from_txt import get_lines_of_script
@@ -16,7 +16,7 @@ def check_ambiguous_place(place: str) -> bool:
         return True
 
     place = place.strip()
-    for indicator in ambiguous_place_indicators:
+    for indicator in AMBIGUOUS_PLACE_INDICATORS:
         if place == indicator:
             return True
     return False
@@ -91,8 +91,7 @@ def get_place_from_heading(heading: str) -> str:
 
 
 def group_scene_numbers_by_place(
-    scene_contents: Tuple[str],
-    headings
+    scene_contents: Tuple[str], headings
 ) -> Tuple[Tuple[str, Tuple[int]]]:
     """
     장소별 장면 번호 목록을 그룹화합니다.
