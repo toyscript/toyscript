@@ -9,10 +9,6 @@ const Character = ({ movieId }) => {
     `http://elice-kdt-ai-track-vm-da-04.koreacentral.cloudapp.azure.com:5000/api/${movieId}/characters/relations`;
   const [data, setData] = useState({});
 
-  const style = {
-    backgroundColor: "rgb(246, 233, 180)",
-  };
-
   const chartBackgroundColor = {
     backgroundColor: "white",
     borderRadius: "20px",
@@ -204,8 +200,6 @@ const Character = ({ movieId }) => {
   }
 
   return (
-    <Container style={style}>
-      <br />
       <div style={chartBackgroundColor}>
         <Graph
           id="graph-id" 
@@ -217,9 +211,9 @@ const Character = ({ movieId }) => {
           data={data}
           config={myConfig2}
         />
-      </div>
       <br />
-    </Container>
+      <hr />
+      </div>
   );
 };
 
