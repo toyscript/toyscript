@@ -67,7 +67,7 @@ const Character = ({ movieId }) => {
     "focusAnimationDuration": 0.75,
     "focusZoom": 1,
     "freezeAllDragEvents": false,
-    "height": 400,
+    "height": 600,
     "highlightDegree": 1, // 관계 차수를 결정하는 옵션
     // "highlightDegree": 2,
     "highlightOpacity": 0.2,
@@ -78,7 +78,7 @@ const Character = ({ movieId }) => {
     "panAndZoom": false,
     "staticGraph": false,
     "staticGraphWithDragAndDrop": false,
-    "width": 800,
+    "width": 900,
     "d3": {
       "alphaTarget": 0.05,
       "gravity": -400,
@@ -138,7 +138,7 @@ const Character = ({ movieId }) => {
     "focusAnimationDuration": 0.75,
     "focusZoom": 1,
     "freezeAllDragEvents": false,
-    "height": 400,
+    "height": 600,
     "highlightDegree": 2,
     "highlightOpacity": 0.2,
     "linkHighlightBehavior": true,
@@ -148,7 +148,7 @@ const Character = ({ movieId }) => {
     "panAndZoom": false,
     "staticGraph": false,
     "staticGraphWithDragAndDrop": false,
-    "width": 800,
+    "width": 900,
     "d3": {
       "alphaTarget": 0.05,
       "gravity": -400,
@@ -214,18 +214,31 @@ const Character = ({ movieId }) => {
           TOY SCRIPT는 등장인물의 관계를 편하게 파악할 수 있도록
           등장인물의 이름 위에 마우스 커서를 올리면 
           해당 등장인물과 관계가 있는 등장인물들이 표시됩니다!
-          <br />
-          또한 상단의 네트워크 그래프에서는 등장인물 간의 1차 관계를 확인할 수 있고,
-          하단의 네트워크 그래프에선 관계에서 새로운 관계로 이어지는 2차 관계도 확인할 수 있습니다.
-          주연 등장인물로부터 파생되는 관계를 확인해보시면
-          등장인물들이 얼마나 유기적으로 연결되어 있는지 한 눈에 보이실겁니다!
           <br /> 
+        </p>
+        <p>
+          <center>
+            <b>1차 관계 네트워크</b>
+          </center>
+          같은 씬에 등장하는 인물들의 1차원적인 연결 관계를 확인할 수 있습니다.
+          <br />
         </p>
         <Graph
           id="graph-id" 
           data={data}
           config={myConfig}
         />
+        <br />
+        <hr />
+        <p>
+          <center>
+            <b>2차 관계 네트워크</b>
+          </center>
+          관계에서 새로운 관계로 이어지는 2차 관계도 확인할 수 있습니다.
+          주연 등장인물로부터 파생되는 관계를 확인해보시면
+          등장인물들이 얼마나 유기적으로 연결되어 있는지 한 눈에 보이실겁니다!
+          <br />
+        </p>
         <Graph
           id="graph-id2" 
           data={data}
