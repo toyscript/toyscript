@@ -42,12 +42,15 @@ class Kakao extends Component {
   onClickKakao = () => {
     window.open('https://sharer.kakao.com/talk/friends/picker/link')
   }
+  onClickUpBtn = () => {
+    window.scrollTo(0,0)
+  }
+
   render() {
     return (
       <div className="Kakao">
-        {/* <button id="kakao-link-btn" onClick={this.onClickKakao}> <img src='images/buzz.png' alt="kakao" /></button> */}
-        {/* <img id="kakao-link-btn" onClick={this.onClickKakao} src={`${movieId}/images/kakaologo.png`} alt="kakao" /> */}
-        <img id="kakao-link-btn" onClick={this.onClickKakao} src={"/images/kakaologo.png"} alt="kakao" />
+        <img id="up-btn" onClick={this.onClickUpBtn} src={"/images/up-arrow.png"} alt="맨 위로" />
+        <img id="kakao-link-btn" onClick={this.onClickKakao} src={"/images/kakaologo2.png"} alt="kakao" />
       </div>
     );
   }
