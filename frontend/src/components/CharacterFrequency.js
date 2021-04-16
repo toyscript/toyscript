@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Bar, Radar } from "react-chartjs-2";
+import { Bar } from "react-chartjs-2";
 import "bootstrap/dist/css/bootstrap.min.css";
 import axios from "axios";
 
@@ -14,28 +14,12 @@ useEffect(() => {
     const fetchAllCharacterFrequencyData = async () => {
         const characterNames = [];
         const characterFrequencies = [];
-        let [red, green, blue] = [30, 100, 100];
-        let greenList = [105];
-        let blueList = [105];
-        let rgbList = [];
         await axios.get(allCharacterFrequencyApiUrl).then((response) => {
             const allCharacterFrequencies = response.data;
             for(let i=0 ; i < 5 ; i++) {
               const characterFreq = allCharacterFrequencies[i];
               characterNames.push(characterFreq.character);
               characterFrequencies.push(characterFreq.frequency);
-            }
-            for (let i = 0; i < response.data.length; i++) {
-              if (green <= 255 && blue <= 255) {
-                green += 30;
-                greenList.push(green);
-                blue += 30;
-                blueList.push(blue);
-              }
-            }
-            for (let i = 0; i < greenList.length; i++) {
-              let rgb = `rgb(${red}, ${greenList[i]}, ${blueList[i]})`;
-              rgbList.push(rgb);
             }
         });
         setCharacterFrequencyData({
@@ -44,7 +28,12 @@ useEffect(() => {
               {
                 label: "빈도",
                 data: characterFrequencies,
-                backgroundColor: rgbList,
+                backgroundColor: [
+                  "rgba(224, 187, 228, 0.8)", 
+                  "rgba(149, 125, 173, 0.8)", 
+                  "rgba(210, 145, 188, 0.8)", 
+                  "rgba(254, 200, 216, 0.8)", 
+                  "rgba(255, 223, 211, 0.8)"],
               },
             ]
           });

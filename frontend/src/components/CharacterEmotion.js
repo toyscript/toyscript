@@ -25,11 +25,6 @@ const effectColors = {
   };
 
 
-const chartBackgroundColor = {
-    backgroundColor: "white",
-    borderRadius: "20px",
-  };
-
 const options = {
     legend: {
       position: 'bottom',
