@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 
 class Kakao extends Component {
   componentDidMount() {
-    window.Kakao.init('63a907a131e033a58e0744429adc5add');
+    window.Kakao.init("63a907a131e033a58e0744429adc5add"); // 노출되어도 괜찮은 javascript key입니다. 허용한 url에서 api호출만 허용합니다.
 
     window.Kakao.Link.createDefaultButton({
       container: '#kakao-link-btn',
@@ -23,17 +23,17 @@ class Kakao extends Component {
       },
       buttons: [
         {
-          title: '웹으로 보기',
+          title: '대본 분석하기',
           link: {
             mobileWebUrl: 'http://elice-kdt-ai-track-vm-da-04.koreacentral.cloudapp.azure.com:3000/',
             webUrl: 'http://elice-kdt-ai-track-vm-da-04.koreacentral.cloudapp.azure.com:3000/'
           }
         },
         {
-          title: '앱으로 보기',
+          title: '팀 소개',
           link: {
-            mobileWebUrl: 'http://elice-kdt-ai-track-vm-da-04.koreacentral.cloudapp.azure.com:3000/',
-            webUrl: 'http://elice-kdt-ai-track-vm-da-04.koreacentral.cloudapp.azure.com:3000/'
+            mobileWebUrl: 'http://elice-kdt-ai-track-vm-da-04.koreacentral.cloudapp.azure.com:3000/aboutus',
+            webUrl: 'http://elice-kdt-ai-track-vm-da-04.koreacentral.cloudapp.azure.com:3000/aboutus'
           }
         }
       ]
