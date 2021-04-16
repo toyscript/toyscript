@@ -1,16 +1,11 @@
 import React, { useEffect, useState } from "react";
 import {
-  Button,
   Container,
-  FormControl,
-  InputGroup,
-  Nav,
 } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "../main.css";
 import Header from "./Header";
 import Footer from "./Footer";
-import { Link } from "react-router-dom";
 import axios from "axios";
 
 function Main() {
@@ -38,15 +33,6 @@ function Main() {
       search();
     }
   }, [term]);
-  // console.log(movieIds)
-
-  // movieId 확인
-  // function sayId(movieIds) {
-  //   alert(`${movieIds}`);
-  //   return movieIds;
-  // }
-
-  // console.log(movieIds)
 
   return (
     <>

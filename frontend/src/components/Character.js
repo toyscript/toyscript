@@ -7,7 +7,6 @@ import { Graph } from "react-d3-graph";
 const Character = ({ movieId }) => {
   const allCharactersRelationApiUrl =
     `http://elice-kdt-ai-track-vm-da-04.koreacentral.cloudapp.azure.com:5000/api/${movieId}/characters/relations`;
-    // `http://elice-kdt-ai-track-vm-da-04.koreacentral.cloudapp.azure.com:5000/api/1212/characters/relations?test=1`;
   const [data, setData] = useState({});
 
   const style = {
@@ -67,15 +66,15 @@ const Character = ({ movieId }) => {
   }, []);
 
   const myConfig = {
-    "automaticRearrangeAfterDropNode": false, //nodeHighlightBehavior, staticGraph와 함께 사용할 수 없다.
+    "automaticRearrangeAfterDropNode": false, // Cannot use with nodeHighlightBehavior, staticGraph
     "collapsible": false,
     "directed": true,
     "focusAnimationDuration": 0.75,
     "focusZoom": 1,
     "freezeAllDragEvents": false,
     "height": 400,
-    "highlightDegree": 1, // 관계 차수를 결정하는 옵션, 가장 중요하다. 2차로 하면 source-target-target으로 이어진다.
-    // "highlightDegree": 2, // 2차 관계가 보기엔 멋있는데, 관계 자체를 파악하긴 어렵다.
+    "highlightDegree": 1, // 관계 차수를 결정하는 옵션
+    // "highlightDegree": 2,
     "highlightOpacity": 0.2,
     "linkHighlightBehavior": true,
     "maxZoom": 12,
@@ -138,15 +137,14 @@ const Character = ({ movieId }) => {
   }
 
   const myConfig2 = {
-    "automaticRearrangeAfterDropNode": false, //nodeHighlightBehavior, staticGraph와 함께 사용할 수 없다.
+    "automaticRearrangeAfterDropNode": false, 
     "collapsible": false,
     "directed": true,
     "focusAnimationDuration": 0.75,
     "focusZoom": 1,
     "freezeAllDragEvents": false,
     "height": 400,
-    // "highlightDegree": 1, // 관계 차수를 결정하는 옵션, 가장 중요하다. 2차로 하면 source-target-target으로 이어진다.
-    "highlightDegree": 2, // 2차 관계가 보기엔 멋있는데, 관계 자체를 파악하긴 어렵다.
+    "highlightDegree": 2,
     "highlightOpacity": 0.2,
     "linkHighlightBehavior": true,
     "maxZoom": 12,
@@ -173,7 +171,6 @@ const Character = ({ movieId }) => {
       "highlightFontWeight": "bold",
       "highlightStrokeColor": "white",
       "highlightStrokeWidth": 2,
-      // "labelPosition" : "right",
       "mouseCursor": "pointer",
       "opacity": 0.9,
       "renderLabel": true,
@@ -192,7 +189,6 @@ const Character = ({ movieId }) => {
       "highlightFontSize": 12,
       "highlightFontWeight": "normal",
       "labelProperty": "label",
-      // "labelProperty": true,
       "mouseCursor": "pointer",
       "opacity": 0.5,
       "renderLabel": false,
@@ -200,7 +196,6 @@ const Character = ({ movieId }) => {
       "strokeWidth": 4,
       "markerHeight": 5,
       "markerWidth": 5,
-      // "type" : "STRAIGHT",
       "type" : "CURVE_SMOOTH",
       "strokeDasharray": 0,
       "strokeDashoffset": 0,

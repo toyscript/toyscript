@@ -274,7 +274,7 @@ def get_interaction_characters(
     """
     characters_relation = defaultdict(dict)
     for scene in scene_contents:
-        for sentence_num in range(len(scene[1])):  # 각 씬의 문장 개수만큼 반복 O
+        for sentence_num in range(len(scene[1])):
             for char1 in range(len(characters)):
                 if characters[char1] in scene[1][sentence_num]:
                     for char2 in range(char1, len(characters)):
