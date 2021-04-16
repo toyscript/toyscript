@@ -6,7 +6,9 @@ import { Graph } from "react-d3-graph";
 
 const Character = () => {
   const allCharactersRelationApiUrl =
-    "http://elice-kdt-ai-track-vm-da-04.koreacentral.cloudapp.azure.com:5000/api/1212/characters/relations";
+    // "http://elice-kdt-ai-track-vm-da-04.koreacentral.cloudapp.azure.com:5000/api/1212/characters/relations";
+    "http://elice-kdt-ai-track-vm-da-04.koreacentral.cloudapp.azure.com:5000/api/1212/characters/relations?test=1";
+    // "http://elice-kdt-ai-track-vm-da-04.koreacentral.cloudapp.azure.com:5000/api/1212/characters/relations?test3=1";
   const [data, setData] = useState({});
 
   const style = {
@@ -25,17 +27,22 @@ const Character = () => {
       const target = [];
       const links = [];
       const nodes = [];
-      // const weight = [];
+
 
       await axios.get(allCharactersRelationApiUrl).then((response) => {
-        // console.log(response.data)
+
         for (let dataObj of response.data) {
           source.push(dataObj.source);
           target.push(dataObj.target);
-          // weight.push(dataObj.value);
+
         }
-        let uniqueSourceSet = new Set(source);
+        let allSource = source.slice();
+        for (let i in target) {
+          allSource.push(target[i]);
+        }
+        let uniqueSourceSet = new Set(allSource);
         let uniqueSourceList = [...uniqueSourceSet];
+
         for (let i = 0; i < uniqueSourceList.length; i++) {
           const dict = {
             id: uniqueSourceList[i],
@@ -46,26 +53,10 @@ const Character = () => {
           const dict = {
             source: source[i],
             target: target[i],
-            // strokeWidth : weight[i]
+
           }
           links.push(dict);
-          
-        //   for (let j = 0; j < Math.sqrt(weight/(weight.length-1)); j++) {
-        //     links.push(dict);
-        //   }
         }
-        // console.log(nodes);
-        //(54) [{…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}]
-        // 0: {id: "ONE-EYED BART"}
-        // 1: {id: "WOODY"}
-        // 2: {id: "JESSIE"}
-        // console.log(links);
-        //(291) [{…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, …]
-        // 0: {source: "ONE-EYED BART", target: "WOODY"}
-        // 1: {source: "ONE-EYED BART", target: "JESSIE"}
-        // 2: {source: "ONE-EYED BART", target: "BUZZ"}
-        // console.log(weight);
-        // (291) [50, 31, 25, 1, 220, 363, 198, 268, 115, 175, 99, 242, 76, 287, 218, 107, 49, 116, 83, 80, 194, 116, 39, 12, 22, 11, 12, 7, 7, 5, 17, 11, 41, 12, 22, 11, 12, 7, 7, 6, 17, 11, 373, 141, 141, 104, 81, 123, 77, 182, 98, 137, 62, 50, 66, 41, 44, 33, 37, 89, 37, 177, 291, 97, 67, 80, 94, 60, 145, 93, 229, 103, 27, 47, 54, 45, 67, 4, 1, 16, 3, 133, 48, 14, 16, 7, 9, 14, 53, 15, 24, 21, 66, 21, 26, 6, 49, 80, 93, 104, …]
 
       });
       setData({
@@ -77,14 +68,15 @@ const Character = () => {
   }, []);
 
   const myConfig = {
-    "automaticRearrangeAfterDropNode": true,
-    "collapsible": true,
+    "automaticRearrangeAfterDropNode": false, //nodeHighlightBehavior, staticGraph와 함께 사용할 수 없다.
+    "collapsible": false,
     "directed": true,
     "focusAnimationDuration": 0.75,
     "focusZoom": 1,
     "freezeAllDragEvents": false,
     "height": 400,
-    "highlightDegree": 2,
+    "highlightDegree": 1, // 관계 차수를 결정하는 옵션, 가장 중요하다. 2차로 하면 source-target-target으로 이어진다.
+    // "highlightDegree": 2, // 2차 관계가 보기엔 멋있는데, 관계 자체를 파악하긴 어렵다.
     "highlightOpacity": 0.2,
     "linkHighlightBehavior": true,
     "maxZoom": 12,
@@ -96,25 +88,26 @@ const Character = () => {
     "width": 800,
     "d3": {
       "alphaTarget": 0.05,
-      "gravity": -250,
-      "linkLength": 120,
-      "linkStrength": 2,
-      "disableLinkForce": false
+      "gravity": -400,
+      "linkLength": 100,
+      "linkStrength": 1,
+      "disableLinkForce": false,
     },
     "node": {
       "color": "white",
       "fontColor": "black",
-      "fontSize": 20,
+      "fontSize": 25,
       "fontWeight": "bold",
-      "highlightColor": "red",
-      "highlightFontSize": 35,
+      "highlightColor": "purple",
+      "highlightFontSize": 45,
       "highlightFontWeight": "bold",
-      "highlightStrokeColor": "red",
-      "highlightStrokeWidth": 1.5,
+      "highlightStrokeColor": "white",
+      "highlightStrokeWidth": 2,
+      // "labelPosition" : "right",
       "mouseCursor": "pointer",
       "opacity": 0.9,
       "renderLabel": true,
-      "size": 1000,
+      "size": 800,
       "strokeColor": "black",
       "strokeWidth": 1.5,
       "svg": "",
@@ -125,18 +118,91 @@ const Character = () => {
       "fontColor": "black",
       "fontSize": 4,
       "fontWeight": "normal",
-      "highlightColor": "red",
+      "highlightColor": "purple",
       "highlightFontSize": 12,
       "highlightFontWeight": "normal",
       "labelProperty": "label",
+      // "labelProperty": true,
       "mouseCursor": "pointer",
-      "opacity": 1,
+      "opacity": 0.5,
       "renderLabel": false,
       "semanticStrokeWidth": true,
       "strokeWidth": 4,
       "markerHeight": 5,
       "markerWidth": 5,
-      "type" : "STRAIGHT",
+      // "type" : "STRAIGHT",
+      "type" : "CURVE_SMOOTH",
+      "strokeDasharray": 0,
+      "strokeDashoffset": 0,
+      "strokeLinecap": "butt"
+    }
+  }
+
+  const myConfig2 = {
+    "automaticRearrangeAfterDropNode": false, //nodeHighlightBehavior, staticGraph와 함께 사용할 수 없다.
+    "collapsible": false,
+    "directed": true,
+    "focusAnimationDuration": 0.75,
+    "focusZoom": 1,
+    "freezeAllDragEvents": false,
+    "height": 400,
+    // "highlightDegree": 1, // 관계 차수를 결정하는 옵션, 가장 중요하다. 2차로 하면 source-target-target으로 이어진다.
+    "highlightDegree": 2, // 2차 관계가 보기엔 멋있는데, 관계 자체를 파악하긴 어렵다.
+    "highlightOpacity": 0.2,
+    "linkHighlightBehavior": true,
+    "maxZoom": 12,
+    "minZoom": 0.05,
+    "nodeHighlightBehavior": true,
+    "panAndZoom": false,
+    "staticGraph": false,
+    "staticGraphWithDragAndDrop": false,
+    "width": 800,
+    "d3": {
+      "alphaTarget": 0.05,
+      "gravity": -400,
+      "linkLength": 100,
+      "linkStrength": 1,
+      "disableLinkForce": false,
+    },
+    "node": {
+      "color": "white",
+      "fontColor": "black",
+      "fontSize": 25,
+      "fontWeight": "bold",
+      "highlightColor": "orange",
+      "highlightFontSize": 45,
+      "highlightFontWeight": "bold",
+      "highlightStrokeColor": "white",
+      "highlightStrokeWidth": 2,
+      // "labelPosition" : "right",
+      "mouseCursor": "pointer",
+      "opacity": 0.9,
+      "renderLabel": true,
+      "size": 800,
+      "strokeColor": "black",
+      "strokeWidth": 1.5,
+      "svg": "",
+      "symbolType": "circle"
+    },
+    "link": {
+      "color": "white",
+      "fontColor": "black",
+      "fontSize": 4,
+      "fontWeight": "normal",
+      "highlightColor": "orange",
+      "highlightFontSize": 12,
+      "highlightFontWeight": "normal",
+      "labelProperty": "label",
+      // "labelProperty": true,
+      "mouseCursor": "pointer",
+      "opacity": 0.5,
+      "renderLabel": false,
+      "semanticStrokeWidth": true,
+      "strokeWidth": 4,
+      "markerHeight": 5,
+      "markerWidth": 5,
+      // "type" : "STRAIGHT",
+      "type" : "CURVE_SMOOTH",
       "strokeDasharray": 0,
       "strokeDashoffset": 0,
       "strokeLinecap": "butt"
@@ -151,6 +217,11 @@ const Character = () => {
           id="graph-id" 
           data={data}
           config={myConfig}
+        />
+        <Graph
+          id="graph-id2" 
+          data={data}
+          config={myConfig2}
         />
       </div>
       <br />
