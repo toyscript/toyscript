@@ -17,6 +17,11 @@
   word-break: keep-all;
 }
 
+#footer-text {
+  font-size: 13px;
+  font-family: 'NEXON Lv1 Gothic';
+}
+
 body {
   height: 100%;
   margin: 0;

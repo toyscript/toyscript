@@ -8,22 +8,20 @@ function Header() {
   return(
     <>
       <Navbar className="menuBar" expand="lg" sticky="top">
-        <Nav className="mr-auto">
-          <Nav.Link href="/">
-            <img
-              src="/images/home.png"
-              className="home"
-              alt="home"
-            />
-          </Nav.Link>
-        </Nav>
-          <Nav.Link href="/ServiceInfo">
-            <img
-              src="/images/menu1.png"
-              className="info"
-              alt="Service information"
-            />
-          </Nav.Link>
+        <Nav.Link href="/">
+          <img
+            src="/images/home.png"
+            className="home"
+            alt="home"
+          />
+        </Nav.Link>
+        <Nav.Link className="ml-auto" href="/ServiceInfo">
+          <img
+            src="/images/menu1.png"
+            className="info"
+            alt="Service information"
+          />
+        </Nav.Link>
       </Navbar>
     </>
   )
