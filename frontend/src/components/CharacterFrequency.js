@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Bar } from "react-chartjs-2";
+import { Bar, HorizontalBar } from "react-chartjs-2";
 import "bootstrap/dist/css/bootstrap.min.css";
 import axios from "axios";
 
@@ -43,7 +43,7 @@ useEffect(() => {
 
   return (
       <>
-      <Bar
+      <HorizontalBar
           data={characterFrequencyData}
           options={{
             title: {
