@@ -68,3 +68,11 @@ html{
   text-decoration:none;
   color: #e74c3c;
 }
+
+a {
+  color: #e74c3c;
+  padding: 10px;
+}
+a:hover {
+  color: #e74c3c;
+}

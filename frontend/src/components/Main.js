@@ -1,17 +1,20 @@
 import React, { useEffect, useState } from "react";
 import {
-  Container,
+  Alert,
+  Container
 } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "../main.css";
 import Header from "./Header";
 import Footer from "./Footer";
 import axios from "axios";
+import { Link } from "react-router-dom";
 
 function Main() {
   const MovieListApiUrl = `http://elice-kdt-ai-track-vm-da-04.koreacentral.cloudapp.azure.com:5000/api/movies`;
   const [term, setTerm] = useState("");
   const [movieIds, setMovieIds] = useState([]);
+  const [movieTitles, setMovieTitles] = useState([]);
 
   useEffect(() => {
     const search = async () => {
@@ -23,10 +26,13 @@ function Main() {
         })
         .then((response) => {
           let movieIdList = [];
+          let movieTitleList = [];
           for (let dataObj of response.data) {
             movieIdList.push(dataObj.movieId);
+            movieTitleList.push(dataObj.title);
           }
           setMovieIds(movieIdList);
+          setMovieTitles(movieTitleList);
         });
     };
     if (term) {
@@ -34,38 +40,54 @@ function Main() {
     }
   }, [term]);
 
+  const handleGoClick = (movieIds) => {
+    if (movieIds.length === 0) {
+      alert("no result")
+    }
+  }
+
+  console.log(movieIds)
+  
+
   return (
     <>
       <Header />
 
       <br />
       <main id="main">
-      <Container>
-        <center>
-          <a href="/">
-            <img src="/images/logo.png" className="logo" alt="logo" />
-          </a>
-        </center>
-        {/* <img src="/images/woody.png" className="woody" alt="leaning Woody" /> */}
-      </Container>
-
-      <div className="container">
-        <div className="d-flex justify-content-center">
-          <div className="searchbar">
-            <input
-              className="search_input"
-              type="text"
-              placeholder="영화 제목을 입력하세요 !"
-              value={term}
-              onChange={(e) => setTerm(e.target.value)}
-              />
-            <a href={`result/${movieIds}`} class="search_icon">
-              Go!
+        <Container>
+          <center>
+            <a href="/">
+              <img src="/images/logo.png" className="logo" alt="logo" />
             </a>
+          </center>
+          {/* <img src="/images/woody.png" className="woody" alt="leaning Woody" /> */}
+        </Container>
+
+        <div className="container">
+          <div className="d-flex justify-content-center">
+            <div className="searchbar">
+              <input
+                className="search_input"
+                type="text"
+                placeholder="영화 제목을 입력하세요 !"
+                value={term}
+                onChange={(e) => setTerm(e.target.value)}
+              />
+              {movieIds.length === 0?
+              <Link to="/" onClick={() => handleGoClick(movieIds)}> Go!</Link>
+              :
+              <Link to={`result/${movieIds}`}> Go!</Link>}
+            </div>
           </div>
         </div>
-      </div>
-
+            {movieTitles.map((movietitle) => {
+              return (
+                <ul>
+                  <li>{movietitle}</li> 
+                </ul>
+              );
+            })}
       </main>
       <Footer />
     </>
