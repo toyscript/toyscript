@@ -15,7 +15,7 @@ useEffect(() => {
     const fetchAllCharacterFrequencyData = async () => {
         const characterNames = [];
         const characterFrequencies = [];
-        let [red, green, blue] = [10, 200, 200];
+        let [red, green, blue] = [30, 100, 100];
         let greenList = [105];
         let blueList = [105];
         let rgbList = [];
@@ -44,7 +44,6 @@ useEffect(() => {
             datasets: [
               {
                 label: "빈도",
-                padding: 20,
                 data: characterFrequencies,
                 backgroundColor: rgbList,
               },
@@ -72,7 +71,10 @@ useEffect(() => {
             maintainAspectRatio: true,
             scales: {
               xAxes: [{
-                  barPercentage: 0.4
+                  barPercentage: 0.4,
+                  ticks: {
+                    fontSize: 16
+                  }
               }]
             }
           }}
