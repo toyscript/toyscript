@@ -1,5 +1,5 @@
 from flask_restful import Resource
-from model.models import Time, TimeCharacter as TimeCharacterM, Scene
+from db.models import Time, TimeCharacter as TimeCharacterM, Scene
 
 
 class TimeScene(Resource):
@@ -55,7 +55,7 @@ class TimeCharacter(Resource):
                 time["characters"] = []
 
             frequency = {}
-            frequency['character-name'] = character.character.name
+            frequency['characterName'] = character.character.name
             frequency['frequency'] = character.frequency
             time["characters"].append(frequency)
 

@@ -2,11 +2,11 @@ MAX_BLANK_LINES_BETWEEN_CHARACTER_AND_DIALOGUE = 20
 
 MAX_SPLIT_LENGTH_OF_CHARACTER_NAME = 5
 
-place_indicators = ("EXT.", "INT.", "EXT/", "INT/")
+PLACE_INDICATORS = ("EXT.", "INT.", "EXT/", "INT/")
 
-ambiguous_place_indicators = ("SAME",)
+AMBIGUOUS_PLACE_INDICATORS = ("SAME",)
 
-ambiguous_time_modifiers = (
+AMBIGUOUS_TIME_MODIFIERS = (
     "CONTINUOUS",
     "MOMENT",
     "MOMENTS",
@@ -16,7 +16,28 @@ ambiguous_time_modifiers = (
     "SAME",
 )
 
-script_terms = (
+
+TIME_MODIFIERS = (
+    "DAWN",
+    "SUNRISE",
+    "SUNSET",
+    "MORNING",
+    "BRUNCH",
+    "FORENOON",
+    "MIDNOON",
+    "AFTERNOON",
+    "NOON",
+    "GOLDEN HOUR",
+    "DUSK",
+    "TWILIGHT",
+    "EVENING",
+    "MIDNIGHT",
+    "NIGHT",
+    "DAY",
+)
+
+
+SCRIPT_TERMS = (
     "CUT TO",
     "JUMP TO",
     "SMASH TO:",
@@ -46,7 +67,7 @@ script_terms = (
     "SHOOTING SCRIPT",
 )
 
-character_cue_terms = (
+CHARACTER_CUE_TERMS = (
     "(CONT)",
     "(CONT'D)",
     "(CONT’D)",
@@ -64,26 +85,7 @@ character_cue_terms = (
     "..",
 )
 
-time_modifiers = (
-    "DAWN",
-    "SUNRISE",
-    "SUNSET",
-    "MORNING",
-    "BRUNCH",
-    "FORENOON",
-    "MIDNOON",
-    "AFTERNOON",
-    "NOON",
-    "GOLDEN HOUR",
-    "DUSK",
-    "TWILIGHT",
-    "EVENING",
-    "MIDNIGHT",
-    "NIGHT",
-    "DAY",
-)
-
-punctuations = (
+PUNCTUATIONS = (
     "!",
     '"',
     "”",
@@ -120,6 +122,19 @@ punctuations = (
     "‘",
     "’",
     "“",
+    ".'",
+    ".)",
+    "?!",
+    "!”",
+    "!!",
+    "!!!",
     "...",
+    "...'",
+    "...?",
     "....",
+    "?!?!",
+    "...!",
+    "...?!",
+    "...!!!",
+    "--...",
 )
