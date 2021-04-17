@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
 import {
   VerticalTimeline,
   VerticalTimelineElement,
@@ -13,41 +12,17 @@ import {ReactComponent as WriterIcon} from "./icons/writing-tool.svg";
 import {ReactComponent as MinionIcon} from "./icons/minion.svg";
 
 
-function Summary({movieId}) {
-  // console.log(movieId) // 1212
-  const style = {
-    backgroundColor: "rgb(246, 233, 180)",
-  };
-  const chartBackgroundColor = {
-    backgroundColor: "white",
-    borderRadius: "20px",
-    padding: "20px",
-  };
-  const summaryApiUrl =
-    `http://elice-kdt-ai-track-vm-da-04.koreacentral.cloudapp.azure.com:5000/api/movies/${movieId}`;
-  const [author, setAuthor] = useState("");
-  const [title, setTitle] = useState("");
-  const [totalCharacters, setTotalCharacters] = useState(0);
-  const [totalScenes, setTotalScenes] = useState(0);
-  const [totalPlaces, setTotalPlaces] = useState(0);
-
-  useEffect(() => {
-    const fetchSummaryData = async () => {
-      await axios.get(summaryApiUrl).then((response) => {
-        setAuthor(response.data.author);
-        setTitle(response.data.title);
-        setTotalCharacters(response.data.totalCharacters);
-        setTotalPlaces(response.data.totalPlaces);
-        setTotalScenes(response.data.totalScenes);
-      });
-    };
-    fetchSummaryData();
-  }, []);
+const Summary = ({
+  author, 
+  title, 
+  totalCharacters, 
+  totalPlaces,
+  totalScenes
+}) => {
 
   return (
-    <Container style={style}>
-      <br />
-      <div style={chartBackgroundColor}>
+    <Container className="TabContents">
+      <div className="TabContentsInner">
         <VerticalTimeline>
           <VerticalTimelineElement
             className="vertical-timeline-element--work"
@@ -127,8 +102,6 @@ function Summary({movieId}) {
           </VerticalTimelineElement>
         </VerticalTimeline>
       </div>
-      
-      <br />
     </Container>
   );
 }

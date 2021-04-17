@@ -9,14 +9,6 @@ const CharacterWordCloud = ({ movieId }) => {
   const [characterNamesData, setcharacterNamesData] = useState([]);
   const [wordsFreqData, setWordsFreqData] = useState({ list: [] });
 
-  const data = [
-    { text: "Hey", value: 1000 },
-    { text: "lol", value: 200 },
-    { text: "first impression", value: 800 },
-    { text: "very cool", value: 1000000 },
-    { text: "duck", value: 10 }
-  ];
-  
   const allCharacterWordCloudsApiUrl =
     `http://elice-kdt-ai-track-vm-da-04.koreacentral.cloudapp.azure.com:5000/api/${movieId}/characters/words`;
 
@@ -28,20 +20,22 @@ const CharacterWordCloud = ({ movieId }) => {
         await axios.get(allCharacterWordCloudsApiUrl).then((response) => {
           const characterWordsFrequencies = response.data;
 
-          for (let i=0; i < characterWordsFrequencies.length; i++) {
+          for (let i=0; i < 2; i++) {
             characterNames.push(characterWordsFrequencies[i].characterName);
-            wordsFrequenciesList.push(characterWordsFrequencies[i].words);
+            wordsFrequenciesList.push(characterWordsFrequencies[i].words.slice(0,50));
           }
         });
+
         setcharacterNamesData(characterNames.slice());
         setWordsFreqData({
           list: wordsFrequenciesList
         })
       }
+      console.log(wordsFreqData);
       fetchAllCharacterWordsFreqData();
     }, []);
     
-  const fontSizeMapper = word => Math.log2(word.value) * 16;
+  const fontSizeMapper = word => Math.log2(word.value + 0.5) * 15;
   const rotate = word => word.value % 360;
   
   const topStyle = {
@@ -83,7 +77,14 @@ const CharacterWordCloud = ({ movieId }) => {
             <div>
               <div style={topStyle}>TOP {i+1}</div>
               <div style={nameStyle}>{characterNamesData[i]}</div>
-              <div style={wordCloudStyle}><WordCloud data={wordsFreq} fontSizeMapper={fontSizeMapper} rotate={rotate} width={500} height={300}/></div>
+              <div style={wordCloudStyle}>
+                <WordCloud 
+                  data={wordsFreq} 
+                  fontSizeMapper={fontSizeMapper} 
+                  rotate={rotate} 
+                  width={600} 
+                  height={500}/>
+                </div>
             </div>
           )}
         <br />
