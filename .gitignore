@@ -3,6 +3,7 @@
 # dependencies
 venv/
 frontend/node_modules
+frontend/package-lock.json
 backend/venv
 backend/.idea
 *.pyc
@@ -10,12 +11,13 @@ backend/python-env
 backend/migrations
 /.pnp
 .pnp.js
+.vscode/
 
 # testing
 /coverage
 
 # production
-/build
+frontend/build
 
 # misc
 .DS_Store

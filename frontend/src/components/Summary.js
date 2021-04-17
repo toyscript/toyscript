@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
 import {
   VerticalTimeline,
   VerticalTimelineElement,
@@ -10,47 +9,20 @@ import {ReactComponent as SceneIcon} from "./icons/cut-scene.svg";
 import {ReactComponent as PlaceIcon} from "./icons/maps.svg";
 import {ReactComponent as MovieIcon} from "./icons/video-camera.svg";
 import {ReactComponent as WriterIcon} from "./icons/writing-tool.svg";
-import {ReactComponent as PageIcon} from "./icons/paper.svg";
 import {ReactComponent as MinionIcon} from "./icons/minion.svg";
 
 
-function Summary() {
-  const style = {
-    backgroundColor: "rgb(246, 233, 180)",
-  };
-  const chartBackgroundColor = {
-    backgroundColor: "white",
-    borderRadius: "20px",
-    padding: "20px",
-  };
-  const summaryApiUrl =
-    "http://elice-kdt-ai-track-vm-da-04.koreacentral.cloudapp.azure.com:5000/api/movies/1212";
-  const [author, setAuthor] = useState("");
-  const [title, setTitle] = useState("");
-  const [totalCharacters, setTotalCharacters] = useState(0);
-  const [totalPages, setTotalPages] = useState(0);
-  const [totalScenes, setTotalScenes] = useState(0);
-  const [totalPlaces, setTotalPlaces] = useState(0);
-
-  useEffect(() => {
-    const fetchSummaryData = async () => {
-      await axios.get(summaryApiUrl).then((response) => {
-        setAuthor(response.data.author);
-        setTitle(response.data.title);
-        setTotalCharacters(response.data.totalCharacters);
-        setTotalPages(response.data.totalPages);
-        setTotalPlaces(response.data.totalPlaces);
-        setTotalScenes(response.data.totalScenes);
-      });
-      // console.log(author, title, totalCharacters, totalPages, totalPlaces, totalScenes);
-    };
-    fetchSummaryData();
-  }, []);
+const Summary = ({
+  author, 
+  title, 
+  totalCharacters, 
+  totalPlaces,
+  totalScenes
+}) => {
 
   return (
-    <Container style={style}>
-      <br />
-      <div style={chartBackgroundColor}>
+    <Container className="TabContents">
+      <div className="TabContentsInner">
         <VerticalTimeline>
           <VerticalTimelineElement
             className="vertical-timeline-element--work"
@@ -65,7 +37,7 @@ function Summary() {
               TITLE
             </h4>
             <h1 className="vertical-timeline-element-title" style={{textAlign: "center"}}>
-              {title === null? "no result" : title}
+              {title === null? "No result" : title}
             </h1>
           </VerticalTimelineElement>
           <VerticalTimelineElement
@@ -79,8 +51,8 @@ function Summary() {
           >
             <h4 className="vertical-timeline-element-title" style={{textAlign: "center", color: "#696969"}}>
               AUTHOR</h4>
-            <h1 className="vertical-timeline-element-subtitle"  style={{textAlign: "center"}}>
-            {author === null? "no result" : author}
+            <h1 className="vertical-timeline-element-subtitle" style={{textAlign: "center", fontSize: "31px"}}>
+            {author === null? "No result" : author}
             </h1>
           </VerticalTimelineElement>
           <VerticalTimelineElement
@@ -95,7 +67,7 @@ function Summary() {
             <h4 className="vertical-timeline-element-title" style={{textAlign: "center", color: "#696969"}}>
               TOTAL CHARACTERS</h4>
             <h1 className="vertical-timeline-element-subtitle"style={{textAlign: "center"}}>
-              {totalCharacters === null? "no result" : totalCharacters}
+              {totalCharacters === null? "No result" : totalCharacters}
             </h1>
           </VerticalTimelineElement>
           <VerticalTimelineElement
@@ -109,7 +81,7 @@ function Summary() {
           >
             <h4 className="vertical-timeline-element-title" style={{textAlign: "center", color: "#696969"}}>TOTAL PLACES</h4>
             <h1 className="vertical-timeline-element-subtitle" style={{textAlign: "center"}}>
-            {totalPlaces === null? "no result" : totalPlaces}
+            {totalPlaces === null? "No result" : totalPlaces}
             </h1>
           </VerticalTimelineElement>
           <VerticalTimelineElement
@@ -125,29 +97,11 @@ function Summary() {
               TOTAL SCENES
             </h4>
             <h1 className="vertical-timeline-element-subtitle"  style={{textAlign: "center"}}>
-              {totalScenes === null? "no result" : totalScenes}
-            </h1>
-          </VerticalTimelineElement>
-          <VerticalTimelineElement
-            className="vertical-timeline-element--education"
-            contentStyle={{ background: "rgb(226, 190, 241)", color: "black" }}
-            contentArrowStyle={{
-              borderRight: "7px solid  rgb(226, 190, 241)",
-            }}
-            iconStyle={{ background: "rgb(226, 190, 241)", color: "#fff" }}
-            icon={<PageIcon />}
-          >
-            <h4 className="vertical-timeline-element-title" style={{textAlign: "center", color: "#696969"}}>
-              TOTAL PAGES
-            </h4>
-            <h1 className="vertical-timeline-element-subtitle" style={{textAlign: "center"}}>
-            {totalPages === null? "no result" : totalPages}
+              {totalScenes === null? "No result" : totalScenes}
             </h1>
           </VerticalTimelineElement>
         </VerticalTimeline>
       </div>
-      
-      <br />
     </Container>
   );
 }

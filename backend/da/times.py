@@ -1,9 +1,7 @@
 from typing import Tuple
 from constants import AMBIGUOUS_TIME_MODIFIERS, TIME_MODIFIERS
 from collections import Counter, defaultdict
-from script_sections import headings, scene_contents
-from characters import characters, remove_terms_on_name
-from script_lines_from_txt import get_lines_of_script
+from characters import remove_terms_on_name
 
 
 def get_time_from_heading(heading: str) -> str:
@@ -64,7 +62,7 @@ def count_frequency_of_times(headings: Tuple[str]) -> Tuple[Tuple[str, int]]:
 
 
 def group_scene_numbers_by_time(
-    scene_contents: Tuple[str],
+    scene_contents: Tuple[str], headings: Tuple[str]
 ) -> Tuple[Tuple[str, Tuple[int]]]:
     """
     시간대별 장면 번호 목록을 그룹화합니다.
@@ -121,10 +119,11 @@ def count_frequency_of_characters_by_time(
     return time_characters
 
 
-time_frequencies = count_frequency_of_times(headings)
-
-time_scenes = group_scene_numbers_by_time(scene_contents)
-
-time_characters = count_frequency_of_characters_by_time(
-    time_scenes, scene_contents, characters
-)
+def get_time_list(time_frequencies: Tuple[str]) -> Tuple[str]:
+    """
+    대본 내 장소 목록을 구합니다.
+    :params time_frequencies:
+    :return times:
+    """
+    times = [time_freq[0] for time_freq in time_frequencies]
+    return tuple(times)

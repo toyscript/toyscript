@@ -13,9 +13,7 @@ class PlaceFrequency(Resource):
         placeFrequency = []
 
         for place in places:
-            frequency = {}
-            frequency["place"] = place.name
-            frequency["frequency"] = place.frequency
+            frequency = {"place": place.name, "frequency": place.frequency}
             placeFrequency.append(frequency)
 
         return placeFrequency
@@ -25,18 +23,14 @@ class PlaceScene(Resource):
     def get(self, movie_id):
 
         places = Place.query.filter(Place.movie_id == movie_id).all()
-        placeScene = []
+        place_scenes = []
 
         for place in places:
-
-            scene = {}
-            scene["place"] = place.name
             scenes = Scene.query.filter(Scene.place_id == place.id).all()
-            scene["scenes"] = [s.num for s in scenes]
+            scene = {"place": place.name, "scenes": [s.num for s in scenes]}
+            place_scenes.append(scene)
 
-            placeScene.append(scene)
-
-        return sorted(placeScene, key=lambda x: len(x["scenes"]), reverse=True)
+        return sorted(place_scenes, key=lambda x: len(x["scenes"]), reverse=True)
 
 
 class PlaceCharacter(Resource):
@@ -55,20 +49,22 @@ class PlaceCharacter(Resource):
         )
         place_id = -1
         result = []
-
         place = {}
+
         for p in place_characters:
 
             if place_id != p.place_id:
                 place_id = p.place_id
+
                 result.append(place)
                 place = {}
                 place["place"] = place_ids[p.place_id]
                 place["characters"] = []
 
-            frequency = {}
-            frequency['characterName'] = p.character.name
-            frequency['frequency']=p.frequency
+            frequency = {"characterName": p.character.name, "characters": p.frequency}
+
             place["characters"].append(frequency)
+
+        result.append(place)
 
         return sorted(result[1:], key=lambda x: len(x.get("characters")), reverse=True)

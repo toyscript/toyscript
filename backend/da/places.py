@@ -1,9 +1,7 @@
 from typing import Tuple
 from constants import PLACE_INDICATORS, AMBIGUOUS_PLACE_INDICATORS
 from collections import defaultdict
-from characters import characters, remove_terms_on_name
-from script_sections import headings, scene_contents
-from script_lines_from_txt import get_lines_of_script
+from characters import remove_terms_on_name
 
 
 def check_ambiguous_place(place: str) -> bool:
@@ -92,7 +90,7 @@ def get_place_from_heading(heading: str) -> str:
 
 
 def group_scene_numbers_by_place(
-    scene_contents: Tuple[str],
+    scene_contents: Tuple[str], headings
 ) -> Tuple[Tuple[str, Tuple[int]]]:
     """
     장소별 장면 번호 목록을 그룹화합니다.
@@ -147,16 +145,3 @@ def count_frequency_of_characters_by_place(
 
         place_characters.append((place, tuple(character_frequencies)))
     return place_characters
-
-
-script_lines = get_lines_of_script()
-
-place_frequencies = count_frequency_of_places(headings)
-
-places = get_place_list(place_frequencies)
-
-place_scenes = group_scene_numbers_by_place(scene_contents)
-
-place_characters = count_frequency_of_characters_by_place(
-    place_scenes, scene_contents, characters
-)

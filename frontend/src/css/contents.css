@@ -1,0 +1,42 @@
+.Contents {
+  position: relative;
+  z-index: 1;
+}
+
+.Contents .Tabs #summary {
+  background-color: rgb(157, 212, 47);
+  color: rgb(255, 255, 255);
+}
+
+.Contents .Tabs #character {
+  background-color: rgb(154, 59, 189);
+  color: rgb(255, 255, 255);
+}
+
+.Contents .Tabs #place {
+  background-color: rgb(221, 74, 64);
+  color: rgb(255, 255, 255);
+}
+
+.Contents .Tabs #time {
+  background-color: rgb(158, 158, 158);
+  color: rgb(255, 255, 255);
+}
+
+.Kakao #kakao-link-btn {
+  position: fixed;
+  width: 3%;
+  bottom: 10%;
+  right: 8%;
+  z-index: 2;
+  cursor: pointer;
+}
+
+.Kakao #up-btn {
+  position: fixed;
+  width: 3%;
+  bottom: 3%;
+  right: 8%;
+  z-index: 2;
+  cursor: pointer;
+}

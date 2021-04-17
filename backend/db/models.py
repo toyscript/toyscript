@@ -3,7 +3,6 @@ from db.init_db import db
 
 class Place(db.Model):
     __table_args__ = {"extend_existing": True}
-
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     movie_id = db.Column(db.Integer, db.ForeignKey("movie.id"))
     name = db.Column(db.String(50))
@@ -12,7 +11,6 @@ class Place(db.Model):
 
 class Character(db.Model):
     __table_args__ = {"extend_existing": True}
-
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     movie_id = db.Column(db.Integer, db.ForeignKey("movie.id", onupdate="cascade"))
     name = db.Column(db.String(50))
@@ -21,7 +19,6 @@ class Character(db.Model):
 
 class Movie(db.Model):
     __table_args__ = {"extend_existing": True}
-
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     title = db.Column(db.String(200))
     author = db.Column(db.String(100))
@@ -32,17 +29,18 @@ class Movie(db.Model):
 
 
 class Scene(db.Model):
+    __table_args__ = {"extend_existing": True}
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    num = db.Column(db.Integer, unique=True)
+    num = db.Column(db.Integer, unique=False)
     movie_id = db.Column(db.Integer, db.ForeignKey("movie.id"))
     place_id = db.Column(db.Integer, db.ForeignKey("place.id"))
     place = db.relationship("Place")
     time_id = db.Column(db.Integer, db.ForeignKey("time.id"))
     time = db.relationship("Time")
-    __table_args__ = {"extend_existing": True}
 
 
 class Line(db.Model):
+    __table_args__ = {"extend_existing": True}
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     character_id = db.Column(
         db.Integer,
@@ -53,14 +51,15 @@ class Line(db.Model):
 
 
 class Time(db.Model):
+    __table_args__ = {"extend_existing": True}
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     name = db.Column(db.String(50))
     movie_id = db.Column(db.Integer, db.ForeignKey("movie.id"))
     frequency = db.Column(db.Integer)
-    __table_args__ = {"extend_existing": True}
 
 
 class TimeCharacter(db.Model):
+    __table_args__ = {"extend_existing": True}
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     movie_id = db.Column(db.Integer, db.ForeignKey("movie.id"))
     time_id = db.Column(db.Integer, db.ForeignKey("time.id"))
@@ -68,19 +67,20 @@ class TimeCharacter(db.Model):
     character_id = db.Column(db.Integer, db.ForeignKey("character.id"))
     character = db.relationship("Character")
     frequency = db.Column(db.Integer)
-    __table_args__ = {"extend_existing": True}
 
 
 class PlaceCharacter(db.Model):
+    __table_args__ = {"extend_existing": True}
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     place_id = db.Column(db.Integer, db.ForeignKey("place.id"))
+    place = db.relationship("Place")
     character_id = db.Column(db.Integer, db.ForeignKey("character.id"))
     character = db.relationship("Character")
     frequency = db.Column(db.Integer)
-    __table_args__ = {"extend_existing": True}
 
 
 class Sentiment(db.Model):
+    __table_args__ = {"extend_existing": True}
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     character_id = db.Column(db.Integer, db.ForeignKey("character.id"))
     character = db.relationship("Character")
@@ -92,7 +92,6 @@ class Sentiment(db.Model):
     sadness = db.Column(db.Integer)
     surprise = db.Column(db.Integer)
     trust = db.Column(db.Integer)
-    __suram = True
 
     def __init__(self, sentiments: tuple, character_id: int) -> None:
         self.character_id = character_id
@@ -107,7 +106,16 @@ class Sentiment(db.Model):
 
     @staticmethod
     def get_sentiment_name():
-        return list(Sentiment.__dict__.keys())[4:12]
+        return [
+            "anger",
+            "anticipation",
+            "disgust",
+            "fear",
+            "joy",
+            "sadness",
+            "surprise",
+            "trust",
+        ]
 
     def get_sentiments(self):
         return [
@@ -131,11 +139,14 @@ class Relation(db.Model):
     character_one = db.relationship("Character", foreign_keys=[charac_one_id])
     character_two = db.relationship("Character", foreign_keys=[charac_two_id])
     value = db.Column(db.Integer)
+    test = db.Column(db.BOOLEAN)
+    test3 = db.Column(db.BOOLEAN)
 
 
 class WordCloud(db.Model):
+    __table_args__ = {"extend_existing": True}
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     character_id = db.Column(db.Integer, db.ForeignKey("character.id"))
     character = db.relationship("Character")
-    word = db.Column(db.String(20))
+    word = db.Column(db.Text)
     frequency = db.Column(db.Integer)

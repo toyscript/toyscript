@@ -2,11 +2,20 @@
   width: 765px;
   height: 80px;
   margin-top: 120px;
-  margin-bottom: 150px;
+  margin-bottom: 100px;
 }
 
+
 .desc {
-  padding: 50px 100px 100px;
+  width: 960px;
+  margin: 50px auto;
+  padding-top: 15px;
+  padding-right: 15px;
+  padding-left: 15px;
+  padding-bottom: 5px;
+  align-self: center;
+  font-size: 17px;
+  border: 1px solid #e2e2e2;
 }
 
 .section-box.first {
@@ -17,7 +26,7 @@
   width: 960px;
   margin: 0 auto;
   padding-top: 50px;
-  padding-bottom: 147px;
+  padding-bottom: 100px;
 }
 
 .section-tit {
@@ -25,8 +34,8 @@
   margin-bottom: 70px;
   border-top: 1px solid #e2e2e2;
 }
-.guide-service .head
-li:first-child {
+
+.guide-service .head li:first-child {
   margin-left: 0;
 }
 
@@ -86,16 +95,16 @@ ul {
   right: -60px;
   width: 30px;
   height: 30px;
-  background: url(./asset/rightarrow.png) no-repeat 100% 100%;
+  background: url(../asset/rightarrow.png) no-repeat 100% 100%;
   background-size: 80%;
- 
+
 }
 
 .guide-service .cont .step1 {
   padding-top: 50px;
   padding-left: 568px;
   padding-bottom: 50px;
-  background: url(./asset/mainpage.png) no-repeat 5% -200%;
+  background: url(../asset/mainpage.png) no-repeat 5% -200%;
   background-size: 50%;
 }
 
@@ -103,7 +112,7 @@ ul {
   padding-top: 50px;
   padding-bottom: 50px;
   padding-right: 400px;
-  background: url(./asset/toyscript_2.png) no-repeat 100% 55%;
+  background: url(../asset/toyscript_2.png) no-repeat 100% 55%;
   background-size: 40%;
 }
 
@@ -111,7 +120,7 @@ ul {
   padding-top: 50px;
   padding-left: 568px;
   padding-bottom: 50px;
-  background: url(./asset/toyscript_3.png) no-repeat 5% 50%;
+  background: url(../asset/toyscript_3.png) no-repeat 5% 50%;
   background-size: 40%;
 }
 
