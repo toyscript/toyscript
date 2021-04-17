@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Container, Tab, Tabs } from "react-bootstrap";
 import axios from "axios";
-import "../contents.css"
+import "../css/contents.css"
 import Header from "./Header";
 import Summary from "./Summary";
 import Character from "./Character";
@@ -29,7 +29,13 @@ function ControlledTabs(prop) {
       const fetchSummaryData = async () => {
         await axios.get(summaryApiUrl).then((response) => {
           setAuthor(response.data.author);
-          setTitle(response.data.title);
+          const title = response.data.title;
+          if (title.indexOf(", The") != -1) {
+            const newTitle = "The " + title.replace(", The", "");
+            setTitle(response.data.title.replace(title, newTitle));
+          } else {
+            setTitle(title);
+          }
           setTotalCharacters(response.data.totalCharacters);
           setTotalPlaces(response.data.totalPlaces);
           setTotalScenes(response.data.totalScenes);
@@ -66,7 +72,10 @@ function ControlledTabs(prop) {
           />
         </Tab>
         <Tab id="place" eventKey="place" title="Place">
-          <Place movieId={movieId} />
+          <Place 
+            movieId={movieId} 
+            title={title}
+          />
         </Tab>
         <Tab id="time" eventKey="time" title="Time">
           <Time movieId={movieId} />

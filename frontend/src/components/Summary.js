@@ -37,7 +37,7 @@ const Summary = ({
               TITLE
             </h4>
             <h1 className="vertical-timeline-element-title" style={{textAlign: "center"}}>
-              {title === null? "no result" : title}
+              {title === null? "No result" : title}
             </h1>
           </VerticalTimelineElement>
           <VerticalTimelineElement
@@ -51,8 +51,8 @@ const Summary = ({
           >
             <h4 className="vertical-timeline-element-title" style={{textAlign: "center", color: "#696969"}}>
               AUTHOR</h4>
-            <h1 className="vertical-timeline-element-subtitle"  style={{textAlign: "center"}}>
-            {author === null? "no result" : author}
+            <h1 className="vertical-timeline-element-subtitle" style={{textAlign: "center", fontSize: "31px"}}>
+            {author === null? "No result" : author}
             </h1>
           </VerticalTimelineElement>
           <VerticalTimelineElement
@@ -67,7 +67,7 @@ const Summary = ({
             <h4 className="vertical-timeline-element-title" style={{textAlign: "center", color: "#696969"}}>
               TOTAL CHARACTERS</h4>
             <h1 className="vertical-timeline-element-subtitle"style={{textAlign: "center"}}>
-              {totalCharacters === null? "no result" : totalCharacters}
+              {totalCharacters === null? "No result" : totalCharacters}
             </h1>
           </VerticalTimelineElement>
           <VerticalTimelineElement
@@ -81,7 +81,7 @@ const Summary = ({
           >
             <h4 className="vertical-timeline-element-title" style={{textAlign: "center", color: "#696969"}}>TOTAL PLACES</h4>
             <h1 className="vertical-timeline-element-subtitle" style={{textAlign: "center"}}>
-            {totalPlaces === null? "no result" : totalPlaces}
+            {totalPlaces === null? "No result" : totalPlaces}
             </h1>
           </VerticalTimelineElement>
           <VerticalTimelineElement
@@ -97,7 +97,7 @@ const Summary = ({
               TOTAL SCENES
             </h4>
             <h1 className="vertical-timeline-element-subtitle"  style={{textAlign: "center"}}>
-              {totalScenes === null? "no result" : totalScenes}
+              {totalScenes === null? "No result" : totalScenes}
             </h1>
           </VerticalTimelineElement>
         </VerticalTimeline>

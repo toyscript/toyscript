@@ -1,6 +1,6 @@
 import React from "react";
 
-import "../serviceInfo.css"
+import "../css/serviceInfo.css"
 import Header from "./Header";
 
 function ServiceInfo() {
