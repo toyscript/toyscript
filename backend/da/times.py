@@ -62,11 +62,11 @@ def count_frequency_of_times(headings: Tuple[str]) -> Tuple[Tuple[str, int]]:
 
 
 def group_scene_numbers_by_time(
-    scene_contents: Tuple[str], headings: Tuple[str]
+    scene_contents: Tuple[Tuple[int, Tuple[str]]], headings: Tuple[str]
 ) -> Tuple[Tuple[str, Tuple[int]]]:
     """
     시간대별 장면 번호 목록을 그룹화합니다.
-    :params scene_contents:
+    :params scene_contents, headings:
     :return time_scenes:
     """
     time_scenes_dict = defaultdict(list)
@@ -90,13 +90,13 @@ def group_scene_numbers_by_time(
 
 
 def count_frequency_of_characters_by_time(
-    time_scenes: Tuple[str, Tuple[str]],
+    time_scenes: Tuple[Tuple[str, Tuple[int]]],
     scene_contents: Tuple[Tuple[int, Tuple[str]]],
     characters: Tuple[str],
 ):
     """
     시간대별 캐릭터 등장 빈도 수를 구합니다.
-    :params time_scenes:
+    :params time_scenes, scene_contents, characters:
     :return time_characters:
     """
     time_characters_dict = defaultdict(dict)
@@ -119,7 +119,7 @@ def count_frequency_of_characters_by_time(
     return time_characters
 
 
-def get_time_list(time_frequencies: Tuple[str]) -> Tuple[str]:
+def get_time_list(time_frequencies: Tuple[Tuple[str, int]]) -> Tuple[str]:
     """
     대본 내 장소 목록을 구합니다.
     :params time_frequencies:

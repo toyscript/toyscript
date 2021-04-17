@@ -9,7 +9,6 @@ def get_script_url(title: str) -> str:
     :params title:
     :return script_url:
     """
-
     url = "https://imsdb.com/Movie Scripts/"
     url += title + " Script.html"
     url = url.replace(" ", "%20")
@@ -28,7 +27,7 @@ def get_script_url(title: str) -> str:
                 return script_url
 
     # TODO 에러 핸들링
-    return []
+    return None
 
 
 def convert_script_to_lines(script_url: str) -> Tuple[str]:
@@ -37,7 +36,6 @@ def convert_script_to_lines(script_url: str) -> Tuple[str]:
     :params script_url:
     :return lines:
     """
-
     url = script_url
     response = requests.get(url)
 
@@ -47,6 +45,6 @@ def convert_script_to_lines(script_url: str) -> Tuple[str]:
         text = soup.find("pre")
         text = text.get_text()
 
-        lines = text.split("\n")
-        lines = [line.replace("\r", "") for line in lines]
+        splitted_lines = text.split("\n")
+        lines = [line.replace("\r", "") for line in splitted_lines]
         return tuple(lines)

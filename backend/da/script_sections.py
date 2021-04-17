@@ -47,7 +47,6 @@ def group_contents_by_scene_number(
     :params script_lines:
     :return scene_contents:
     """
-
     num_of_all_lines = len(script_lines)
     scene_contents_dict = defaultdict(list)
 

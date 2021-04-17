@@ -213,7 +213,7 @@ def get_character_list(character_dialogues: Tuple[str, Tuple[str]]) -> Tuple[str
 
 
 def get_character_frequencies(
-    character_slug_frequencies: Tuple[str, int], characters: Tuple[str]
+    character_slug_frequencies: Tuple[Tuple[str, int]], characters: Tuple[str]
 ) -> Tuple[Tuple[str, int]]:
     """
     캐릭터 또는 슬러그 라인별 빈도 데이터에서 캐릭터별로 등장 빈도 수를 계산합니다.
@@ -228,8 +228,8 @@ def get_character_frequencies(
 
 
 def get_frequent_characters_up_to_num(
-    number: int, character_frequencies: Tuple[str, int]
-) -> Tuple[Tuple[str, int]]:
+    number: int, character_frequencies: Tuple[Tuple[str, int]]
+) -> Tuple[str]:
     """
     캐릭터 중 대사 개수가 가장 많은 캐릭터를 number만큼 구합니다.
     :params character_frequencies:
@@ -246,7 +246,8 @@ def get_frequent_characters_up_to_num(
 
 
 def get_most_frequent_character_dialogues(
-    most_frequent_characters: Tuple[str], character_dialogues: Tuple[str, int]
+    most_frequent_characters: Tuple[str],
+    character_dialogues: Tuple[Tuple[str, Tuple[str]]],
 ) -> Tuple[str]:
     """
     대사 개수가 가장 많은 캐릭터별 대사 목록을 구합니다.
