@@ -12,8 +12,8 @@ class Kakao extends Component {
         description: '대본의 분석요약, 장소, 등장인물, 시간대 분석 결과를 시각화하여 제공합니다.',
         imageUrl: 'https://media.vlpt.us/images/moey920/post/b1332948-dfce-4ce5-9e99-2bcea4374bab/Logo2.png',
         link: {
-          mobileWebUrl: 'http://elice-kdt-ai-track-vm-da-04.koreacentral.cloudapp.azure.com/',
-          webUrl: 'http://elice-kdt-ai-track-vm-da-04.koreacentral.cloudapp.azure.com/'
+          mobileWebUrl: 'http://elice-kdt-ai-track-vm-da-04.koreacentral.cloudapp.azure.com',
+          webUrl: 'http://elice-kdt-ai-track-vm-da-04.koreacentral.cloudapp.azure.com'
         }
       },
       social: {
@@ -23,10 +23,10 @@ class Kakao extends Component {
       },
       buttons: [
         {
-          title: '대본 분석하기',
+          title: '분석 결과 확인',
           link: {
-            mobileWebUrl: 'http://elice-kdt-ai-track-vm-da-04.koreacentral.cloudapp.azure.com/',
-            webUrl: 'http://elice-kdt-ai-track-vm-da-04.koreacentral.cloudapp.azure.com/'
+            mobileWebUrl: window.location.href,
+            webUrl: window.location.href
           }
         },
         {
