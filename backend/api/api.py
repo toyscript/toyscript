@@ -34,25 +34,15 @@ api.add_resource(QueryMovie, "/movies")
 
 def not_found_error(error):
 
-    payload = {
-        "error" : {
-            "message" : "해당 url은 지원하지 않음.",
-            "status" : 404
-        }
-    }
+    payload = {"error": {"message": "해당 url은 지원하지 않음.", "status": 404}}
     return jsonify(payload), 404
 
 
 @toyScriptApi.errorhandler(MovieDoesNotExist)
 def movie_error_handling(error):
 
-    body = {
-        'status' : error.status,
-        'message' : error.message
-    }
-    payload = {
-        'error' : body
-    }
+    body = {"status": error.status, "message": error.message}
+    payload = {"error": body}
 
     return jsonify(payload), 404
 
@@ -65,6 +55,7 @@ def is_movie_exist():
     if movie_id is not None:
 
         from db.models import Movie
+
         movie = Movie.query.get(movie_id)
 
         if movie is None:

@@ -10,7 +10,7 @@ from nltk.tokenize import word_tokenize, WordPunctTokenizer
 
 
 __file_name = "NRC-Emotion-Lexicon-Wordlevel-v0.92.txt"
-__dir_path = os.path.join(os.path.dirname(os.getcwd()), "all_data_process/resources")
+__dir_path = os.path.join(os.path.dirname(os.getcwd()), "da/resources")
 
 __file_path = os.path.join(__dir_path, __file_name)
 
@@ -128,15 +128,15 @@ def get_emotion_frequencies_by_character(
     most_frequent_character_dialogues: Tuple[Tuple[str, int]],
     file_path: str = __file_path,
     tokenizer=__tokenizer,
-    stemmer=__stemmer,
+    lemmatizer=__lemmatizer,
 ) -> Tuple[Tuple[str, Tuple[Tuple[str, int]]]]:
     """
     캐릭터별로 감정 빈도 수를 구하고, 이를 목록으로 반환합니다.
     :params
         most_frequent_character_dialogues,
-        tokenizer,
-        stemmer,
         file_path:
+        tokenizer,
+        lemmatizer,
     :return character_emotion_frequencies:
     """
     character_emotion_frequencies = [emotion_analysis_types]
@@ -144,10 +144,10 @@ def get_emotion_frequencies_by_character(
         joined_dialogues = " ".join(dialogues)
 
         processed_data = preprocess_data(joined_dialogues, tokenizer)
-        stemmed_words = extract_stemmed_words(processed_data, stemmer)
+        lemmatized_words = lemmatize_words(processed_data, lemmatizer)
 
         emotion_lexicons = analyze_data_with_lexicons(file_path)
-        match_words = get_match_words(stemmed_words, tuple(emotion_lexicons[0]))
+        match_words = get_match_words(lemmatized_words, tuple(emotion_lexicons[0]))
         all_emotions = get_all_emotions(match_words, emotion_lexicons)
         emotion_frequencies = count_frequency_of_emotions(all_emotions)
         emotion_frequencies = sorted(emotion_frequencies, key=lambda x: x[0])

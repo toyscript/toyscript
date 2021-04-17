@@ -1,6 +1,5 @@
 from typing import Tuple
 from collections import defaultdict
-from script_lines_from_txt import get_lines_of_script
 from script_sections import get_lines_with_only_capital
 from constants import (
     PLACE_INDICATORS,

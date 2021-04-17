@@ -2,7 +2,6 @@ from typing import Tuple
 from constants import AMBIGUOUS_TIME_MODIFIERS, TIME_MODIFIERS
 from collections import Counter, defaultdict
 from characters import remove_terms_on_name
-from script_lines_from_txt import get_lines_of_script
 
 
 def get_time_from_heading(heading: str) -> str:

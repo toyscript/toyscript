@@ -54,8 +54,8 @@ class TimeCharacter(Resource):
                 time["characters"] = []
 
             frequency = {
-                "characterName" : character.character.name,
-                "frequency" : character.frequency
+                "characterName": character.character.name,
+                "frequency": character.frequency,
             }
             time["characters"].append(frequency)
 
@@ -72,10 +72,7 @@ class TimeFrequency(Resource):
 
         for time in times:
 
-            tmp = {
-                'time' : time.name,
-                'frequency' : time.frequency
-            }
+            tmp = {"time": time.name, "frequency": time.frequency}
             result.append(tmp)
 
         return sorted(result, key=lambda x: x.get("frequency"), reverse=True)

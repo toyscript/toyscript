@@ -9,10 +9,7 @@ class CharacterFrequency(Resource):
         characters = Character.query.filter(Character.movie_id == movie_id).all()
 
         for character in characters:
-            tmp = {
-                'character' : character.name,
-                'frequency' : character.lines
-            }
+            tmp = {"character": character.name, "frequency": character.lines}
             characterFrequency.append(tmp)
 
         return sorted(characterFrequency, key=lambda x: x["frequency"], reverse=True)
@@ -50,9 +47,7 @@ class CharacterSentiment(Resource):
 
         sentiments = Sentiment.query.filter(Sentiment.character_id.in_(ids)).all()
 
-        result = {
-            'sentimentType' : Sentiment.get_sentiment_name()
-        }
+        result = {"sentimentType": Sentiment.get_sentiment_name()}
         sentiments = sorted(sentiments, key=lambda x: x.character.lines, reverse=True)
         characters = []
 

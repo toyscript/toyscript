@@ -2,7 +2,6 @@ from typing import Tuple
 from constants import PLACE_INDICATORS, AMBIGUOUS_PLACE_INDICATORS
 from collections import defaultdict
 from characters import remove_terms_on_name
-from script_lines_from_txt import get_lines_of_script
 
 
 def check_ambiguous_place(place: str) -> bool:
