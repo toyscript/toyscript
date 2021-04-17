@@ -11,16 +11,16 @@ class TimeScene(Resource):
             .all()
         )
         result = []
-        timeid = -1
+        time_id = -1
         time = {}
         for scene in scenes:
 
             if scene.time is None:
                 continue
 
-            if timeid != scene.time_id:
+            if time_id != scene.time_id:
                 result.append(time)
-                timeid = scene.time_id
+                time_id = scene.time_id
                 time = {}
                 time["time"] = scene.time.name
                 time["scenes"] = []
@@ -34,31 +34,29 @@ class TimeScene(Resource):
 
 class TimeCharacter(Resource):
     def get(self, movie_id):
-        # 시간대별 등장인물 목록 반환
 
         time_characters = (
             TimeCharacterM.query.filter(TimeCharacterM.movie_id == movie_id)
             .group_by(TimeCharacterM.time_id, TimeCharacterM.character_id)
             .all()
         )
-
         result = []
-        timeid = -1
+        time_id = -1
         time = {}
 
         for character in time_characters:
 
-            if timeid != character.time_id:
-
+            if time_id != character.time_id:
                 result.append(time)
-                timeid = character.time_id
+                time_id = character.time_id
                 time = {}
                 time["time"] = character.time.name
                 time["characters"] = []
 
-            frequency = {}
-            frequency["characterName"] = character.character.name
-            frequency["frequency"] = character.frequency
+            frequency = {
+                "characterName" : character.character.name,
+                "frequency" : character.frequency
+            }
             time["characters"].append(frequency)
 
         result.append(time)
@@ -74,9 +72,10 @@ class TimeFrequency(Resource):
 
         for time in times:
 
-            time_frequency = {}
-            time_frequency["time"] = time.name
-            time_frequency["frequency"] = time.frequency
-            result.append(time_frequency)
+            tmp = {
+                'time' : time.name,
+                'frequency' : time.frequency
+            }
+            result.append(tmp)
 
         return sorted(result, key=lambda x: x.get("frequency"), reverse=True)
