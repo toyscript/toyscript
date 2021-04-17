@@ -38,7 +38,7 @@ const options = {
     title: {
       display: true,
       padding: 25,
-      text: 'Top 5  캐릭터 감정 분석',
+      text: 'Top 5  캐릭터 감성 분석',
       fontSize: 25,
       fontFamily: 'NEXON Lv1 Gothic',
     },
@@ -102,14 +102,10 @@ useEffect(() => {
     }, []);
 
   return (
-      <div style={{ padding: "20px" }}>
-        <Radar
-          data={radarData}
-          options={options}
-          />
-        <br />
-        <hr />
-      </div>
+      <Radar
+        data={radarData}
+        options={options}
+      />
   );
 };
 
