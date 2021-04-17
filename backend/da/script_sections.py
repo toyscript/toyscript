@@ -1,7 +1,6 @@
 from typing import Tuple
 from constants import PLACE_INDICATORS
 from collections import defaultdict
-from script_lines_from_txt import get_lines_of_script
 
 
 def get_lines_with_only_capital(script_lines: Tuple[str]) -> Tuple[str]:

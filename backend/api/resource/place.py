@@ -13,10 +13,7 @@ class PlaceFrequency(Resource):
         placeFrequency = []
 
         for place in places:
-            frequency = {
-                'place' : place.name,
-                'frequency' : place.frequency
-            }
+            frequency = {"place": place.name, "frequency": place.frequency}
             placeFrequency.append(frequency)
 
         return placeFrequency
@@ -30,10 +27,7 @@ class PlaceScene(Resource):
 
         for place in places:
             scenes = Scene.query.filter(Scene.place_id == place.id).all()
-            scene = {
-                'place' : place.name,
-                'scenes' : [s.num for s in scenes]
-            }
+            scene = {"place": place.name, "scenes": [s.num for s in scenes]}
             place_scenes.append(scene)
 
         return sorted(place_scenes, key=lambda x: len(x["scenes"]), reverse=True)
@@ -67,10 +61,7 @@ class PlaceCharacter(Resource):
                 place["place"] = place_ids[p.place_id]
                 place["characters"] = []
 
-            frequency = {
-                'characterName' : p.character.name,
-                'characters' : p.frequency
-            }
+            frequency = {"characterName": p.character.name, "characters": p.frequency}
 
             place["characters"].append(frequency)
 

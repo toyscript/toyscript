@@ -106,7 +106,16 @@ class Sentiment(db.Model):
 
     @staticmethod
     def get_sentiment_name():
-        return ['anger','anticipation','disgust','fear','joy','sadness','surprise','trust']
+        return [
+            "anger",
+            "anticipation",
+            "disgust",
+            "fear",
+            "joy",
+            "sadness",
+            "surprise",
+            "trust",
+        ]
 
     def get_sentiments(self):
         return [

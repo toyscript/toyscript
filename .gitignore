@@ -11,7 +11,7 @@ backend/python-env
 backend/migrations
 /.pnp
 .pnp.js
-.vscode
+.vscode/
 
 # testing
 /coverage
