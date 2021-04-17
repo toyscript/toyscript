@@ -19,8 +19,7 @@ def create_app():
         app,
         resources={
             r"*": {
-                "origins": ["http://elice-kdt-ai-track-vm-da-04.koreacentral.cloudapp.azure.com:3000",
-                            "http://elice-kdt-ai-track-vm-da-04.koreacentral.cloudapp.azure.com"]
+                "origins": ["http://elice-kdt-ai-track-vm-da-04.koreacentral.cloudapp.azure.com"]
             }
         },
     )
