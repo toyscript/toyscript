@@ -4,7 +4,7 @@ import {
   Container
 } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
-import "../main.css";
+import "../css/main.css";
 import Header from "./Header";
 import Footer from "./Footer";
 import axios from "axios";

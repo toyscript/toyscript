@@ -159,7 +159,7 @@ const Time = ({ movieId }) => {
           return (
             <ul>
               <li key={index} style={{ listStyle: "none" }}>
-                <strong>{scenes.time}</strong> 시간대에 포함된 씬은, &nbsp;<strong>[{scenesList}]</strong>{" "}
+                <strong>{scenes.time}</strong> 시간대에 포함된 씬은 &nbsp;<strong>[{scenesList}]</strong>{" "}
                 입니다.
               </li>
             </ul>

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Container, Tab, Tabs } from "react-bootstrap";
 import axios from "axios";
-import "../contents.css"
+import "../css/contents.css"
 import Header from "./Header";
 import Summary from "./Summary";
 import Character from "./Character";

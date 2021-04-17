@@ -206,8 +206,8 @@ const Place = ({ movieId, title }) => {
             return (
               <ul>
                 <li key={index} style={{ listStyle: "none" }}>
-                  장소 <b>{scenes.place}</b>에 포함되는 씬은,&nbsp;&nbsp;
-                  <b>[ {scenesList} ]</b> 입니다.
+                  장소 <b>{scenes.place}</b>에 포함되는 씬은, <br />
+                  <b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[ {scenesList} ]</b> 입니다.
                 </li>
               </ul>
             );
