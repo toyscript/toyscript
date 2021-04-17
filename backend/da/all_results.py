@@ -83,10 +83,10 @@ if __name__ == "__main__":
         # 장면 번호별 장면 내용
         scene_contents = group_contents_by_scene_number(all_lines)
         """ 출력 """
-        for scene_num, contents in scene_contents:
-            print(scene_num, ":" , contents)
-        print()
-        continue
+        # for scene_num, contents in scene_contents:
+        #     print(scene_num, ":", contents)
+        # print()
+        # continue
 
         # 총 장면 번호 수
         num_of_scenes = len(scene_contents)
@@ -148,7 +148,7 @@ if __name__ == "__main__":
             5, character_frequencies
         )
         """ 출력 """
-        # print('\n'.join(sorted(most_frequent_characters)), '\n')
+        # print("\n".join(sorted(most_frequent_characters)), "\n")
         # continue
 
         # 빈출 캐릭터별 대사 목록

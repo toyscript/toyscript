@@ -48,7 +48,7 @@ def count_frequency_of_places(headings: Tuple[str]) -> Tuple[Tuple[str, int]]:
     return tuple(place_frequencies)
 
 
-def get_place_list(place_frequencies: Tuple[str]) -> Tuple[str]:
+def get_place_list(place_frequencies: Tuple[Tuple[str, int]]) -> Tuple[str]:
     """
     대본 내 장소 목록을 구합니다.
     :params place_frequencies:
@@ -90,11 +90,11 @@ def get_place_from_heading(heading: str) -> str:
 
 
 def group_scene_numbers_by_place(
-    scene_contents: Tuple[str], headings
+    scene_contents: Tuple[str], headings: Tuple[str]
 ) -> Tuple[Tuple[str, Tuple[int]]]:
     """
     장소별 장면 번호 목록을 그룹화합니다.
-    :params scene_contents:
+    :params scene_contents, headings:
     :return place_scenes:
     """
     place_scenes_dict = defaultdict(list)
@@ -118,13 +118,13 @@ def group_scene_numbers_by_place(
 
 
 def count_frequency_of_characters_by_place(
-    place_scenes: Tuple[str, Tuple[str]],
+    place_scenes: Tuple[Tuple[str, Tuple[int]]],
     scene_contents: Tuple[Tuple[int, Tuple[str]]],
     characters: Tuple[str],
 ):
     """
     장소별 캐릭터 등장 빈도 수를 구합니다.
-    :params place_scenes:
+    :params place_scenes, scene_contents, characters:
     :return place_characters:
     """
     place_characters_dict = defaultdict(dict)

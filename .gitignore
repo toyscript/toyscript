@@ -12,6 +12,7 @@ backend/migrations
 /.pnp
 .pnp.js
 .vscode/
+launch.json
 
 # testing
 /coverage

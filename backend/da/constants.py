@@ -101,7 +101,20 @@ PUNCTUATIONS = (
     "!...",
     "?!?!",
     "...!",
+    "..!!!",
+    "--...",
     "...?!",
     "...!!!",
-    "--...",
+    "...?!!!",
+)
+
+EMOTION_ANALYSIS_TYPES = (
+    "anger",
+    "anticipation",
+    "disgust",
+    "fear",
+    "joy",
+    "sadness",
+    "surprise",
+    "trust",
 )
