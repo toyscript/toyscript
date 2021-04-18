@@ -1,0 +1,67 @@
+@font-face {
+  font-family: 'NEXON Lv1 Gothic';
+  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@2.1/NEXON Lv1 Gothic OTF.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+
+body {
+  height: 100%;
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+strong {
+  font-size: 18px;
+}
+
+pre {
+  overflow: scroll;
+}
+
+#main {
+  min-height: calc(100vh - 129px);
+}
+
+.TabContents {
+  padding: 30px;
+  background-color: rgb(246, 233, 180);
+}
+
+.TabContents .TabContentsInner {
+  padding: 60px;
+  border-radius: 20px;
+  background-color: #ffffff;
+}
+
+.TabContents .TabContentsInner .TabDescription {
+  margin-bottom: 40px;
+}
+
+.ChartWrap {
+  margin-bottom: 100px;
+}
+
+.container,
+.container-fluid,
+#service-info-box,
+.section-box,
+.pre {
+  font-family: 'NEXON Lv1 Gothic';
+  line-height: 1.7;
+  word-break: keep-all;
+}
+
+#footer-text {
+  font-size: 13px;
+  font-family: 'NEXON Lv1 Gothic';
+}
