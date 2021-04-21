@@ -1,6 +1,5 @@
 from typing import Tuple
 from collections import defaultdict
-from script_lines_from_txt import get_lines_of_script
 from script_sections import get_lines_with_only_capital
 from constants import (
     PLACE_INDICATORS,
@@ -214,7 +213,7 @@ def get_character_list(character_dialogues: Tuple[str, Tuple[str]]) -> Tuple[str
 
 
 def get_character_frequencies(
-    character_slug_frequencies: Tuple[str, int], characters: Tuple[str]
+    character_slug_frequencies: Tuple[Tuple[str, int]], characters: Tuple[str]
 ) -> Tuple[Tuple[str, int]]:
     """
     캐릭터 또는 슬러그 라인별 빈도 데이터에서 캐릭터별로 등장 빈도 수를 계산합니다.
@@ -229,8 +228,8 @@ def get_character_frequencies(
 
 
 def get_frequent_characters_up_to_num(
-    number: int, character_frequencies: Tuple[str, int]
-) -> Tuple[Tuple[str, int]]:
+    number: int, character_frequencies: Tuple[Tuple[str, int]]
+) -> Tuple[str]:
     """
     캐릭터 중 대사 개수가 가장 많은 캐릭터를 number만큼 구합니다.
     :params character_frequencies:
@@ -247,7 +246,8 @@ def get_frequent_characters_up_to_num(
 
 
 def get_most_frequent_character_dialogues(
-    most_frequent_characters: Tuple[str], character_dialogues: Tuple[str, int]
+    most_frequent_characters: Tuple[str],
+    character_dialogues: Tuple[Tuple[str, Tuple[str]]],
 ) -> Tuple[str]:
     """
     대사 개수가 가장 많은 캐릭터별 대사 목록을 구합니다.
@@ -274,7 +274,7 @@ def get_interaction_characters(
     """
     characters_relation = defaultdict(dict)
     for scene in scene_contents:
-        for sentence_num in range(len(scene[1])):  # 각 씬의 문장 개수만큼 반복 O
+        for sentence_num in range(len(scene[1])):
             for char1 in range(len(characters)):
                 if characters[char1] in scene[1][sentence_num]:
                     for char2 in range(char1, len(characters)):

@@ -1,6 +1,6 @@
 import React from "react";
 
-import "../serviceInfo.css"
+import "../css/serviceInfo.css"
 import Header from "./Header";
 
 function ServiceInfo() {
@@ -9,7 +9,7 @@ function ServiceInfo() {
     <>
       <Header />
       <center>
-        <img className="toyscript" src="/images/toyscript!.png" />
+        <img className="toyscript" src="/images/toyscript!.png" alt="logo" />
       </center>
       <div id="service-info-box">
         <div className="desc">
@@ -89,7 +89,7 @@ function ServiceInfo() {
                   공유하기
                 </dt>
                 <dd>
-                  <p className="dsc">버즈가 분석된 정보를 카카오톡으로 보내줍니다.</p>
+                  <p className="dsc">우측 하단의 카카오톡 아이콘을 클릭하시면 해당 정보를 카카오톡으로 공유할 수 있습니다.</p>
                 </dd>
               </dl>
             </li>

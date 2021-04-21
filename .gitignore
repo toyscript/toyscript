@@ -11,13 +11,14 @@ backend/python-env
 backend/migrations
 /.pnp
 .pnp.js
-.vscode
+.vscode/
+launch.json
 
 # testing
 /coverage
 
 # production
-/build
+frontend/build
 
 # misc
 .DS_Store

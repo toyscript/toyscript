@@ -5,15 +5,8 @@
   font-style: normal;
 }
 
-.container, 
-#service-info-box,
-.section-box  {
-  font-family: 'NEXON Lv1 Gothic';
-  line-height: 1.7;
-  word-break: keep-all;
-}
-
 body {
+  height: 100%;
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
@@ -25,4 +18,50 @@ body {
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+
+strong {
+  font-size: 18px;
+}
+
+pre {
+  overflow: scroll;
+}
+
+#main {
+  min-height: calc(100vh - 129px);
+}
+
+.TabContents {
+  padding: 30px;
+  background-color: rgb(246, 233, 180);
+}
+
+.TabContents .TabContentsInner {
+  padding: 60px;
+  border-radius: 20px;
+  background-color: #ffffff;
+}
+
+.TabContents .TabContentsInner .TabDescription {
+  margin-bottom: 40px;
+}
+
+.ChartWrap {
+  margin-bottom: 100px;
+}
+
+.container,
+.container-fluid,
+#service-info-box,
+.section-box,
+.pre {
+  font-family: 'NEXON Lv1 Gothic';
+  line-height: 1.7;
+  word-break: keep-all;
+}
+
+#footer-text {
+  font-size: 13px;
+  font-family: 'NEXON Lv1 Gothic';
 }

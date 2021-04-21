@@ -1,5 +1,4 @@
-import os
-from script_lines_from_txt import get_lines_of_script
+from script_crawling import get_script_url, convert_script_to_lines
 from script_sections import (
     group_contents_by_scene_number,
     get_lines_with_only_capital,
@@ -39,50 +38,45 @@ from times import (
 
 if __name__ == "__main__":
 
-    __file_paths = [
-        "30 Minutes or Less.txt",
-        "2012.txt",
-        "Avatar.txt",
-        "Big Sick, The.txt",
-        "Cars 2.txt",
-        "CAST AWAY.txt",
-        "FANTASTIC FOUR.txt",
-        "Great Gatsby, The.txt",
-        "Hostage.txt",
-        "Inception.txt",
-        "Kung Fu Panda.txt",
-        "Mission Impossible.txt",
-        "Pirates of the Caribbean.txt",
-        "Shrek the Third.txt",
-        "Terminator Salvation.txt",
-        "toystory3.txt",
-        "UP.txt",
-        "Zootopia.txt",
+    __movie_titles = [
+        "Avatar",
+        "30 Minutes or Less",
+        "UP",
+        "Terminator Salvation",
+        "2012",
+        "Big Sick, The",
+        "Cars 2",
+        "CAST AWAY",
+        "FANTASTIC FOUR",
+        "Great Gatsby, The",
+        "Hostage",
+        "Inception",
+        "Kung Fu Panda",
+        "Mission Impossible",
+        "Pirates of the Caribbean",
+        "Shrek the Third",
+        "Zootopia",
     ]
 
-    __dir_path = os.path.join(
-        os.path.dirname(os.getcwd()), "all_data_process/movie_scripts"
-    )
-
-    __script_paths = [os.path.join(__dir_path, file_path) for file_path in __file_paths]
-
-    for script_path in __script_paths:
+    for title in __movie_titles:
 
         """
-        Script Sectons
-        대본 영역을 나눈다 생각하면 됨
+        Script Sections
         """
+        script_url = get_script_url(title)
 
         # 대본 전체 줄 목록
-        all_lines = get_lines_of_script(script_path)
+        all_lines = convert_script_to_lines(script_url)
 
         # 대문자로만 이루어진 문장
-        # 1. 장면 제목(헤딩), 2. 캐릭터 이름, 3. 슬러그 라인이 대문자로만 구성됨
-        # (슬러그 라인 -> 강조하고픈 캐릭터의 이름이나 장소 이름 등)
+        # 1) 장면 제목(헤딩)
+        # 2) 캐릭터 이름
+        # 3) 슬러그 라인 이 대문자로만 구성됨
+        # (슬러그 라인 -> 캐릭터의 이름이나 장소 이름을 강조하고 싶을 때 사용)
         all_capital_lines = get_lines_with_only_capital(all_lines)
 
         # 장면 제목(헤딩)
-        # 장면 제목은 EXT. 또는 INT., EXT/ 또는 INT/ 로 시작함
+        # 장면 제목은 'EXT.' 또는 'INT.' , 'EXT/' 또는 'INT/' 로 시작함
         # 장면 제목에서 추후 장소 및 시간대 정보 추출
         headings = get_all_headings(all_lines)
 
@@ -90,12 +84,12 @@ if __name__ == "__main__":
         scene_contents = group_contents_by_scene_number(all_lines)
         """ 출력 """
         # for scene_num, contents in scene_contents:
-        #     print(scene_num, ":" , contents)
+        #     print(scene_num, ":", contents)
         # print()
         # continue
 
         # 총 장면 번호 수
-        # num_of_scenes = len(scene_contents)
+        num_of_scenes = len(scene_contents)
         """ 출력 """
         # print(num_of_scenes, '\n')
         # continue
@@ -154,7 +148,7 @@ if __name__ == "__main__":
             5, character_frequencies
         )
         """ 출력 """
-        # print('\n'.join(sorted(most_frequent_characters)), '\n')
+        # print("\n".join(sorted(most_frequent_characters)), "\n")
         # continue
 
         # 빈출 캐릭터별 대사 목록
@@ -172,7 +166,6 @@ if __name__ == "__main__":
             most_frequent_character_dialogues
         )
         """ 출력 """
-        # print(character_emotion_frequencies[0])
         # for character, emotion_frequencies in character_emotion_frequencies[1:]:
         #     print(character, ":" , emotion_frequencies)
         # print()

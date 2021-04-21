@@ -1,7 +1,6 @@
 from typing import Tuple
 from constants import PLACE_INDICATORS
 from collections import defaultdict
-from script_lines_from_txt import get_lines_of_script
 
 
 def get_lines_with_only_capital(script_lines: Tuple[str]) -> Tuple[str]:
@@ -48,7 +47,6 @@ def group_contents_by_scene_number(
     :params script_lines:
     :return scene_contents:
     """
-
     num_of_all_lines = len(script_lines)
     scene_contents_dict = defaultdict(list)
 

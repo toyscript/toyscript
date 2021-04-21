@@ -1,14 +1,13 @@
 import React, { useEffect, useState } from "react";
-import { Container } from "react-bootstrap";
 import { Radar } from "react-chartjs-2";
 import "bootstrap/dist/css/bootstrap.min.css";
 import axios from "axios";
 
 
 
-const CharacterEmotion = () => {
+const CharacterEmotion = ({ movieId }) => {
 const allCharacterEmotionsApiUrl =
-  "http://elice-kdt-ai-track-vm-da-04.koreacentral.cloudapp.azure.com:5000/api/1212/characters/sentiments";
+  `http://elice-kdt-ai-track-vm-da-04.koreacentral.cloudapp.azure.com:5000/api/${movieId}/characters/sentiments`;
 const [radarData, setRadarData] = useState({});
 const chartColors = [
     'rgba(255, 99, 132, 0.7)',
@@ -26,11 +25,6 @@ const effectColors = {
   };
 
 
-const chartBackgroundColor = {
-    backgroundColor: "white",
-    borderRadius: "20px",
-  };
-
 const options = {
     legend: {
       position: 'bottom',
@@ -44,7 +38,7 @@ const options = {
     title: {
       display: true,
       padding: 25,
-      text: 'Top 5  캐릭터 감정 분석',
+      text: 'Top 5  캐릭터 감성 분석',
       fontSize: 25,
       fontFamily: 'NEXON Lv1 Gothic',
     },
@@ -108,14 +102,10 @@ useEffect(() => {
     }, []);
 
   return (
-      <div style={{ padding: "20px" }}>
-        <Radar
-          data={radarData}
-          options={options}
-          />
-        <br />
-        <hr />
-      </div>
+      <Radar
+        data={radarData}
+        options={options}
+      />
   );
 };
 

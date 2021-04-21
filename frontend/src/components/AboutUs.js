@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "../aboutUs.css";
+import "../css/aboutUs.css";
 import {
   faSearch,
   faBlog

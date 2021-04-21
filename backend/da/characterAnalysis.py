@@ -2,37 +2,39 @@ import os
 import numpy as np
 import pandas as pd
 from typing import Tuple
-from constants import PUNCTUATIONS
+from constants import PUNCTUATIONS, EMOTION_ANALYSIS_TYPES
 from collections import Counter
 from nltk.corpus import stopwords
 from nltk.stem import PorterStemmer, WordNetLemmatizer
-from nltk.tokenize import word_tokenize, WordPunctTokenizer
+from nltk.tokenize import WordPunctTokenizer
 
 
 __file_name = "NRC-Emotion-Lexicon-Wordlevel-v0.92.txt"
-__dir_path = os.path.join(os.path.dirname(os.getcwd()), "all_data_process/resources")
+__dir_path = os.path.join(os.path.dirname(os.getcwd()), "da/resources")
 
 __file_path = os.path.join(__dir_path, __file_name)
 
 __stop_words = set(stopwords.words("english"))
-__stop_words.update(("mon", "one", "two", "three"))
+__stop_words.update(
+    (
+        "mon",
+        "one",
+        "two",
+        "three",
+        "hawwwwwwwwww",
+        "yeeeeeeeeeeeeeee",
+        "hooooooooooo",
+        "yes",
+        "no",
+        "okay",
+    )
+)
 
 __tokenizer = WordPunctTokenizer()
 
 __stemmer = PorterStemmer()
 
 __lemmatizer = WordNetLemmatizer()
-
-emotion_analysis_types = (
-    "anger",
-    "anticipation",
-    "disgust",
-    "fear",
-    "joy",
-    "sadness",
-    "surprise",
-    "trust",
-)
 
 
 def preprocess_data(data: str, tokenizer=__tokenizer) -> Tuple[str]:
@@ -52,7 +54,7 @@ def preprocess_data(data: str, tokenizer=__tokenizer) -> Tuple[str]:
 
 def extract_stemmed_words(data: Tuple[str], stemmer) -> Tuple[str]:
     """
-    NLTK의 PorterStemmer를 이용해 데이터 목록에서 어간을 추출합니다.
+    stemmer를 이용해 데이터 목록에서 어간을 추출합니다.
     :params data:
     :return stemmed_words:
     """
@@ -61,7 +63,7 @@ def extract_stemmed_words(data: Tuple[str], stemmer) -> Tuple[str]:
 
 def lemmatize_words(data: Tuple[str], lemmatizer) -> Tuple[str]:
     """
-    NLTK의 WordNetLemmatizer를 이용해 데이터 목록에서 표제어를 추출합니다.
+    lemmatizer를 이용해 데이터 목록에서 표제어를 추출합니다.
     :params data:
     :return lemmatized_words:
     """
@@ -88,7 +90,7 @@ def get_match_words(stemmed_words: Tuple[str], lexicons: Tuple[str]) -> Tuple[st
     """
     감정 어휘 목록에 있는 단어와 일치하는 단어들의 목록을 구합니다.
     :params stemmed_words, lexicons:
-    :return match_words
+    :return match_words:
     """
     return [token for token in stemmed_words if token in lexicons]
 
@@ -97,7 +99,7 @@ def get_all_emotions(match_words: Tuple[str], lexicons) -> Tuple[str]:
     """
     각 어휘가 나타내는 감정들을 구하고 이를 목록으로 만들어 반환합니다.
     :params match_words, lexicons:
-    :return all_emotions
+    :return all_emotions:
     """
     all_emotions = []
     for word in match_words:
@@ -114,7 +116,7 @@ def count_frequency_of_emotions(all_emotions: Tuple[str]) -> Tuple[Tuple[str, in
     """
     emotion_frequencies_series = pd.Series(all_emotions).value_counts()
     emotion_frequencies_dict = emotion_frequencies_series.reindex(
-        emotion_analysis_types, fill_value=0
+        EMOTION_ANALYSIS_TYPES, fill_value=0
     ).to_dict()
 
     emotion_frequencies = []
@@ -128,26 +130,26 @@ def get_emotion_frequencies_by_character(
     most_frequent_character_dialogues: Tuple[Tuple[str, int]],
     file_path: str = __file_path,
     tokenizer=__tokenizer,
-    stemmer=__stemmer,
+    lemmatizer=__lemmatizer,
 ) -> Tuple[Tuple[str, Tuple[Tuple[str, int]]]]:
     """
     캐릭터별로 감정 빈도 수를 구하고, 이를 목록으로 반환합니다.
     :params
         most_frequent_character_dialogues,
-        tokenizer,
-        stemmer,
         file_path:
+        tokenizer,
+        lemmatizer,
     :return character_emotion_frequencies:
     """
-    character_emotion_frequencies = [emotion_analysis_types]
+    character_emotion_frequencies = [EMOTION_ANALYSIS_TYPES]
     for character, dialogues in most_frequent_character_dialogues:
         joined_dialogues = " ".join(dialogues)
 
         processed_data = preprocess_data(joined_dialogues, tokenizer)
-        stemmed_words = extract_stemmed_words(processed_data, stemmer)
+        lemmatized_words = lemmatize_words(processed_data, lemmatizer)
 
         emotion_lexicons = analyze_data_with_lexicons(file_path)
-        match_words = get_match_words(stemmed_words, tuple(emotion_lexicons[0]))
+        match_words = get_match_words(lemmatized_words, tuple(emotion_lexicons[0]))
         all_emotions = get_all_emotions(match_words, emotion_lexicons)
         emotion_frequencies = count_frequency_of_emotions(all_emotions)
         emotion_frequencies = sorted(emotion_frequencies, key=lambda x: x[0])

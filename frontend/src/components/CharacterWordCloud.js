@@ -1,25 +1,16 @@
 import React, { useEffect, useState } from "react";
-import { Container } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 import axios from "axios";
 import WordCloud from "react-d3-cloud";
 
 
-const CharacterWordCloud = () => {
+const CharacterWordCloud = ({ movieId }) => {
   
   const [characterNamesData, setcharacterNamesData] = useState([]);
   const [wordsFreqData, setWordsFreqData] = useState({ list: [] });
 
-  const data = [
-    { text: "Hey", value: 1000 },
-    { text: "lol", value: 200 },
-    { text: "first impression", value: 800 },
-    { text: "very cool", value: 1000000 },
-    { text: "duck", value: 10 }
-  ];
-  
   const allCharacterWordCloudsApiUrl =
-    "http://elice-kdt-ai-track-vm-da-04.koreacentral.cloudapp.azure.com:5000/api/1212/characters/words";
+    `http://elice-kdt-ai-track-vm-da-04.koreacentral.cloudapp.azure.com:5000/api/${movieId}/characters/words`;
 
   useEffect(() => {
     const fetchAllCharacterWordsFreqData = async () => {
@@ -28,21 +19,23 @@ const CharacterWordCloud = () => {
         
         await axios.get(allCharacterWordCloudsApiUrl).then((response) => {
           const characterWordsFrequencies = response.data;
-          
-          for (let i=0; i<5;i++) {
+
+          for (let i=0; i < 2; i++) {
             characterNames.push(characterWordsFrequencies[i].characterName);
-            wordsFrequenciesList.push(characterWordsFrequencies[i].words);
+            wordsFrequenciesList.push(characterWordsFrequencies[i].words.slice(0,50));
           }
         });
+
         setcharacterNamesData(characterNames.slice());
         setWordsFreqData({
           list: wordsFrequenciesList
         })
       }
+      console.log(wordsFreqData);
       fetchAllCharacterWordsFreqData();
     }, []);
     
-  const fontSizeMapper = word => Math.log2(word.value) * 16;
+  const fontSizeMapper = word => Math.log2(word.value + 0.5) * 15;
   const rotate = word => word.value % 360;
   
   const topStyle = {
@@ -84,7 +77,14 @@ const CharacterWordCloud = () => {
             <div>
               <div style={topStyle}>TOP {i+1}</div>
               <div style={nameStyle}>{characterNamesData[i]}</div>
-              <div style={wordCloudStyle}><WordCloud data={wordsFreq} fontSizeMapper={fontSizeMapper} rotate={rotate} width={500} height={300}/></div>
+              <div style={wordCloudStyle}>
+                <WordCloud 
+                  data={wordsFreq} 
+                  fontSizeMapper={fontSizeMapper} 
+                  rotate={rotate} 
+                  width={600} 
+                  height={500}/>
+                </div>
             </div>
           )}
         <br />

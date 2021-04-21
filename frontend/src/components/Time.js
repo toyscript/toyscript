@@ -4,7 +4,6 @@ import { Bar, Pie } from "react-chartjs-2";
 import axios from "axios";
 
 const Time = ({ movieId }) => {
-  // console.log(movieId) // 1212
   const allTimeApiUrl =
     `http://elice-kdt-ai-track-vm-da-04.koreacentral.cloudapp.azure.com:5000/api/${movieId}/times/frequencys`;
   const allScenesPerTimeApiUrl =
@@ -105,23 +104,23 @@ const Time = ({ movieId }) => {
   }, []);
 
   return (
-    <Container style={style}>
-      <br />
-      <div style={chartBackgroundColor}>
-        <div style={{padding: "20px"}}>
+    <Container className="TabContents">
+      <div className="TabContentsInner">
         <p style={{ padding: "20px" }}>
-            앞선 자료에서는 장소별 그래프를 보셨으니 이제 시간대별 그래프도 확인하셔야겠죠.
-            전체 대본에서 어떤 시간대의 장면이 얼마나 있는지 대본을 보지 않고도 미리 알 수 있다면 
-            영화를 더욱 효율적으로 촬영하실 수 있을 테니까요.
+            앞선 자료에서는 장소별 그래프를 보셨으니 이제 시간대별 그래프도 확인해보겠습니다. <br />
+            전체 대본에서 어떤 시간대의 장면이 얼마나 있는지 대본을 보지 않고도 미리 알 수 있다면 <br />
+            영화를 더욱 효율적으로 촬영할 수 있을 테니까요. 
+            <br />
             <br />
             이 탭에서는 대본에 나오는 모든 시간대의 목록과 그 빈도를 그래프로 보실 수 있습니다.
             <br />
-            현재 보고 계시는 대본에서 가장 많이 나온 시간대는 <b>{mostData.firstTime}</b>이고, 
-            <b>{mostData.firstFreq}</b>번 나왔네요. 두번째로 많이 나온 시간대도 한 번 살펴볼까요?
+            현재 보고 계시는 대본에서 가장 많이 나온 시간대는 &nbsp;<strong>{mostData.firstTime}</strong> 이고,&nbsp;&nbsp; 
+            <strong>{mostData.firstFreq}</strong> 번 나왔네요. <br /><br /> 
+            두번째로 많이 나온 시간대도 한 번 살펴볼까요?
             <br />
-            이 대본에서 두번째로 많이 나온 시간대는 <b>{mostData.secondTime}</b>
-            이고, <b>{mostData.secondFreq}</b>번 나왔습니다. 
-            다른 시간대와 빈도를 보고 싶으시다면 그래프에 마우스를 올려보세요.
+            이 대본에서 두번째로 많이 나온 시간대는 &nbsp;<strong>{mostData.secondTime}</strong> 이고,
+            &nbsp;<strong>{mostData.secondFreq}</strong> 번 나왔습니다. <br />
+            다른 시간대와 빈도를 알고 싶으시다면 그래프에 마우스를 올려보세요.
           </p>
         <Pie
           data={allTimeData}
@@ -143,8 +142,8 @@ const Time = ({ movieId }) => {
           <hr />
           <br />
         <p style={{ padding: "20px" }}>
-            각 장소별로 씬 번호를 알려드렸던 것처럼, TOY SCRIPT는 시간대별로 들어가는 씬 번호도 당연히 제공합니다.
-            바로 아래에서 확인해보세요!
+            각 장소별로 씬 번호를 알려드렸던 것처럼, TOY SCRIPT는 시간대별로 들어가는 씬 번호도 모두 제공합니다. <br />
+            바로 아래에서 각각의 내용을 확인해보세요!
           </p>
         {allScenesPerTimeData.map((scenes, index) => {
           let scenesList = [];
@@ -160,7 +159,7 @@ const Time = ({ movieId }) => {
           return (
             <ul>
               <li key={index} style={{ listStyle: "none" }}>
-                <b>{scenes.time}</b> 시간대에 포함된 씬은 <b>[{scenesList}]</b>{" "}
+                <strong>{scenes.time}</strong> 시간대에 포함된 씬은 &nbsp;<strong>[{scenesList}]</strong>{" "}
                 입니다.
               </li>
             </ul>
@@ -172,14 +171,14 @@ const Time = ({ movieId }) => {
         <p style={{ padding: "20px" }}>
             그렇다면 가장 많은 캐릭터가 출연한 시간대는 언제일까요?
             <br />
-            아래 다섯개 그래프는 출연하는 캐릭터의 수가 많은 시간대 TOP 5를 뽑아,
-            어떤 시간대에 어떤 캐릭터가 얼마나 자주 출연하는지 그 빈도를 확인하는 그래프입니다.
-            이 설명으로는 한 번에 이해하시기 어려울 수도 있으니 바로 아래에 있는 그래프를 기준으로 설명 드리겠습니다.
-            <br />
-            아래 {mostChartData.time} 그래프는 총 <b>{mostChartData.actors}</b>명의 캐릭터가 출연했습니다.
+            아래 다섯개 그래프는 출연하는 캐릭터의 수가 많은 시간대 TOP 5를 뽑아, <br />
+            어떤 시간대에 어떤 캐릭터가 얼마나 자주 출연하는지 빈도를 확인하는 그래프입니다. <br />
+            이 설명으로는 한 번에 이해하기 어려울 수도 있으니 바로 아래 그래프를 예시로 들어 설명하겠습니다.
+            <br /> <br />
+            아래 그래프에서 &nbsp;<strong>{mostChartData.time}</strong> 시간대에는 
+            총 <strong>{mostChartData.actors}</strong>명의 캐릭터가 출연했습니다. <br />
             각 캐릭터의 출연 빈도는 그래프의 바에 마우스를 올려서 확인하실 수 있습니다.
-
-          </p>
+        </p>
         {topCharactersData.map((data) => {
           let label = [data.time];
           let labelList = [];
@@ -244,7 +243,6 @@ const Time = ({ movieId }) => {
             </>
           );
         })}
-        </div>
       </div>
       <br />
     </Container>
