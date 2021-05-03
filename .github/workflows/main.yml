@@ -5,7 +5,7 @@ on:
 
 env:
   AZURE_WEBAPP_NAME: toyscriptapi # set this to your application's name
-  AZURE_WEBAPP_PACKAGE_PATH: 'backend' # set this to the path to your web app project, defaults to the repository root
+  AZURE_WEBAPP_PACKAGE_PATH: '.' # set this to the path to your web app project, defaults to the repository root
   NODE_VERSION: '14.x'
   
 jobs:
@@ -31,7 +31,7 @@ jobs:
         # Build and test the project, then
         # deploy to Azure Web App.
         echo $PWD
-        cd ../frontend
+        cd ./frontend
         npm install
         npm run build --if-present
       working-directory: my-app-path
