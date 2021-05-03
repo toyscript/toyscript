@@ -30,6 +30,7 @@ jobs:
       run: |
         # Build and test the project, then
         # deploy to Azure Web App.
+        pwd
         cd frontend
         npm install
         npm run build --if-present
