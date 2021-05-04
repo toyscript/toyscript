@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { Container } from "react-bootstrap";
 import { Bar, Doughnut } from "react-chartjs-2";
-import "bootstrap/dist/css/bootstrap.min.css";
 import axios from "axios";
+import Container from '@material-ui/core/Container';
 
 const Place = ({ movieId, title }) => {
   
