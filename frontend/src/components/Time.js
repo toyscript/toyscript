@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { Container } from "react-bootstrap";
 import { Bar, Pie } from "react-chartjs-2";
 import axios from "axios";
+import Container from '@material-ui/core/Container';
 
 const Time = ({ movieId }) => {
   const allTimeApiUrl =
