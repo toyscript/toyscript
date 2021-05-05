@@ -170,6 +170,7 @@ if __name__ == "__main__":
         character_emotion_frequencies = get_emotion_frequencies_by_character(
             most_frequent_character_dialogues
         )
+        character_emotion_frequencies_df = pd.DataFrame(character_emotion_frequencies[1:], columns=['character', 'character_emotion_frequencies'])
         """ 출력 """
         # for character, emotion_frequencies in character_emotion_frequencies[1:]:
         #     print(character, ":" , emotion_frequencies)
@@ -180,6 +181,7 @@ if __name__ == "__main__":
         character_word_frequencies = get_word_frequencies_by_character(
             most_frequent_character_dialogues, 0
         )
+        character_word_frequencies_df = pd.DataFrame(character_word_frequencies, columns=['character', 'character_word_frequencies'])
         """ 출력 """
         # for character, word_frequencies in character_word_frequencies:
         #     print(character, ":", word_frequencies)
@@ -188,6 +190,7 @@ if __name__ == "__main__":
 
         # 캐릭터별 주변 인물 관계도
         character_relations = get_interaction_characters(scene_contents, characters)
+        character_relations_df = pd.DataFrame(character_relations, columns=['character', 'character_relations'])
         """ 출력 """
         # for character, relations in character_relations:
         #     print(character, ":", relations)
@@ -286,34 +289,24 @@ if __name__ == "__main__":
         # num of place df는 병합하지 못했음(Key가 없음)
         place_with_frequencies_df = pd.merge(places_df, place_frequencies_df)
         place_with_frequencies_and_characters_df = pd.merge(place_with_frequencies_df, place_characters_df)
-        place_with_frequencies_and_characters_and_scenes_df = pd.merge(place_with_frequencies_and_characters_df, place_scenes_df)
-        print(place_with_frequencies_and_characters_and_scenes_df)
+        all_places_df = pd.merge(place_with_frequencies_and_characters_df, place_scenes_df)
+        print(all_places_df)
         
         '''
         시간 관련 DataFrame
         '''
         time_with_frequencies_df = pd.merge(times_df, time_frequencies_df)
         time_with_frequencies_and_characters_df = pd.merge(time_with_frequencies_df, time_characters_df)
-        time_with_frequencies_and_characters_and_scenes_df = pd.merge(time_with_frequencies_and_characters_df, time_scenes_df)
-        print(time_with_frequencies_and_characters_and_scenes_df)
+        all_times_df = pd.merge(time_with_frequencies_and_characters_df, time_scenes_df)
+        print(all_times_df)
         
         '''
         캐릭터 관련 DataFrame
         '''
         sorted_character_frequencies_df = character_frequencies_df.sort_values('character_frequencies', ascending=False)
         sorted_character_frequencies_with_dialogues_df = pd.merge(sorted_character_frequencies_df, character_dialogues_df)
-        # all_df = pd.merge(
-        #     times_df, time_frequencies_df, time_characters_df, #merge 할 df 객체명
-        #     how='left', # left, rigth, inner (default), outer, inner는 공통값이 없으면 삭제된다.
-        #     on='time', # merge의 기준이 되는 Key 변수
-        #     left_on=None, # 왼쪽 DataFrame의 변수를 Key로 사용
-        #     right_on=None, # 오른쪽 DataFrame의 변수를 Key로 사용
-        #     left_index=False, # 만약 True 라면, 왼쪽 DataFrame의 index를 merge Key로 사용
-        #     right_index=False, # 만약 True 라면, 오른쪽 DataFrame의 index를 merge Key로 사용
-        #     sort=True, # merge 된 후의 DataFrame을 join Key 기준으로 정렬
-        #     suffixes=('_x', '_y'), # 중복되는 변수 이름에 대해 접두사 부여 (defaults to '_x', '_y'
-        #     copy=True, # merge할 DataFrame을 복사
-        #     indicator=False # 병합된 이후의 DataFrame에 left_only, right_only, both 등의 출처를 알 수 있는 부가 정보 변수 추가
-        # )
-        
-        # print(all_df)
+        sorted_character_frequencies_with_dialogues_and_emotions_df = pd.merge(sorted_character_frequencies_with_dialogues_df, character_emotion_frequencies_df, how='outer')
+        sorted_character_frequencies_with_dialogues_and_emotions_and_word_frequencies_df = pd.merge(sorted_character_frequencies_with_dialogues_and_emotions_df, character_word_frequencies_df, how='outer')
+        all_character_df = pd.merge(sorted_character_frequencies_with_dialogues_and_emotions_and_word_frequencies_df, character_relations_df)
+        print(all_character_df)
+    
