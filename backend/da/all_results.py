@@ -1,3 +1,5 @@
+import pandas as pd
+import numpy as np
 from script_crawling import get_script_url, convert_script_to_lines
 from script_sections import (
     group_contents_by_scene_number,
@@ -40,22 +42,22 @@ if __name__ == "__main__":
 
     __movie_titles = [
         "Avatar",
-        "30 Minutes or Less",
-        "UP",
-        "Terminator Salvation",
-        "2012",
-        "Big Sick, The",
-        "Cars 2",
-        "CAST AWAY",
-        "FANTASTIC FOUR",
-        "Great Gatsby, The",
-        "Hostage",
-        "Inception",
-        "Kung Fu Panda",
-        "Mission Impossible",
-        "Pirates of the Caribbean",
-        "Shrek the Third",
-        "Zootopia",
+        # "30 Minutes or Less",
+        # "UP",
+        # "Terminator Salvation",
+        # "2012",
+        # "Big Sick, The",
+        # "Cars 2",
+        # "CAST AWAY",
+        # "FANTASTIC FOUR",
+        # "Great Gatsby, The",
+        # "Hostage",
+        # "Inception",
+        # "Kung Fu Panda",
+        # "Mission Impossible",
+        # "Pirates of the Caribbean",
+        # "Shrek the Third",
+        # "Zootopia",
     ]
 
     for title in __movie_titles:
@@ -119,6 +121,7 @@ if __name__ == "__main__":
         character_dialogues = get_dialogues_by_characters(
             all_lines, character_slug_keys, num_of_blank_lines
         )
+        character_dialogues_df = pd.DataFrame(character_dialogues, columns=['character', 'character_dialogues'])
         """ 출력 """
         # for character, dialogues in character_dialogues:
         #     print(character, ":" , dialogues)
@@ -137,6 +140,8 @@ if __name__ == "__main__":
         character_frequencies = get_character_frequencies(
             character_slug_frequencies, characters
         )
+        character_frequencies_df = pd.DataFrame(character_frequencies, columns=['character', 'character_frequencies'])
+
         """ 출력 """
         # for character, frequency in character_frequencies:
         #     print(character, ":" , frequency)
@@ -165,6 +170,7 @@ if __name__ == "__main__":
         character_emotion_frequencies = get_emotion_frequencies_by_character(
             most_frequent_character_dialogues
         )
+        character_emotion_frequencies_df = pd.DataFrame(character_emotion_frequencies[1:], columns=['character', 'character_emotion_frequencies'])
         """ 출력 """
         # for character, emotion_frequencies in character_emotion_frequencies[1:]:
         #     print(character, ":" , emotion_frequencies)
@@ -175,6 +181,7 @@ if __name__ == "__main__":
         character_word_frequencies = get_word_frequencies_by_character(
             most_frequent_character_dialogues, 0
         )
+        character_word_frequencies_df = pd.DataFrame(character_word_frequencies, columns=['character', 'character_word_frequencies'])
         """ 출력 """
         # for character, word_frequencies in character_word_frequencies:
         #     print(character, ":", word_frequencies)
@@ -183,6 +190,7 @@ if __name__ == "__main__":
 
         # 캐릭터별 주변 인물 관계도
         character_relations = get_interaction_characters(scene_contents, characters)
+        character_relations_df = pd.DataFrame(character_relations, columns=['character', 'character_relations'])
         """ 출력 """
         # for character, relations in character_relations:
         #     print(character, ":", relations)
@@ -195,6 +203,7 @@ if __name__ == "__main__":
 
         # 장소별 장면 번호 목록
         place_scenes = group_scene_numbers_by_place(scene_contents, headings)
+        place_scenes_df = pd.DataFrame(place_scenes, columns=['place', 'place_scenes'])
         """ 출력 """
         # for place, scenes in place_scenes:
         #     print(place, ":", scenes)
@@ -203,6 +212,7 @@ if __name__ == "__main__":
 
         # 장소별 빈도 수
         place_frequencies = count_frequency_of_places(headings)
+        place_frequencies_df = pd.DataFrame(place_frequencies, columns=['place', 'place_frequencies'])
         """ 출력 """
         # for place, frequencies in place_frequencies:
         #     print(place, ":", frequencies)
@@ -213,6 +223,7 @@ if __name__ == "__main__":
         place_characters = count_frequency_of_characters_by_place(
             place_scenes, scene_contents, characters
         )
+        place_characters_df = pd.DataFrame(place_characters, columns=['place', 'place_characters'])
         """ 출력 """
         # for place, characters in place_characters:
         #     print(place, ":", characters)
@@ -221,6 +232,7 @@ if __name__ == "__main__":
 
         # 장소 목록
         places = get_place_list(place_frequencies)
+        places_df = pd.DataFrame(places, columns=['place'])
         """ 출력 """
         # print('\n'.join(places), '\n')
         # continue
@@ -236,6 +248,7 @@ if __name__ == "__main__":
         """
         # 시간대별 장면 번호 목록
         time_scenes = group_scene_numbers_by_time(scene_contents, headings)
+        time_scenes_df = pd.DataFrame(time_scenes, columns=['time', 'time_scenes'])
         """ 출력 """
         # for time, scenes in time_scenes:
         #     print(time, ":", scenes)
@@ -244,6 +257,7 @@ if __name__ == "__main__":
 
         # 시간대별 빈도 수
         time_frequencies = count_frequency_of_times(headings)
+        time_frequencies_df = pd.DataFrame(time_frequencies, columns=['time', 'time_frequencies'])
         """ 출력 """
         # for time, frequencies in time_frequencies:
         #     print(time, ":", frequencies)
@@ -254,7 +268,8 @@ if __name__ == "__main__":
         time_characters = count_frequency_of_characters_by_time(
             time_scenes, scene_contents, characters
         )
-        """ 출력 """
+        time_characters_df = pd.DataFrame(time_characters, columns=['time', 'time_characters'])
+        # """ 출력 """
         # for time, characters in time_characters:
         #     print(time, ":", characters)
         # print()
@@ -262,6 +277,36 @@ if __name__ == "__main__":
 
         # 시간대 목록
         times = get_time_list(time_frequencies)
+        times_df = pd.DataFrame(times, columns=['time'])
+        # print(times_df)
         """ 출력 """
         # print('\n'.join(times), '\n')
         # continue
+        
+        '''
+        장소 관련 DataFrame
+        '''
+        # num of place df는 병합하지 못했음(Key가 없음)
+        place_with_frequencies_df = pd.merge(places_df, place_frequencies_df)
+        place_with_frequencies_and_characters_df = pd.merge(place_with_frequencies_df, place_characters_df)
+        all_places_df = pd.merge(place_with_frequencies_and_characters_df, place_scenes_df)
+        print(all_places_df)
+        
+        '''
+        시간 관련 DataFrame
+        '''
+        time_with_frequencies_df = pd.merge(times_df, time_frequencies_df)
+        time_with_frequencies_and_characters_df = pd.merge(time_with_frequencies_df, time_characters_df)
+        all_times_df = pd.merge(time_with_frequencies_and_characters_df, time_scenes_df)
+        print(all_times_df)
+        
+        '''
+        캐릭터 관련 DataFrame
+        '''
+        sorted_character_frequencies_df = character_frequencies_df.sort_values('character_frequencies', ascending=False)
+        sorted_character_frequencies_with_dialogues_df = pd.merge(sorted_character_frequencies_df, character_dialogues_df)
+        sorted_character_frequencies_with_dialogues_and_emotions_df = pd.merge(sorted_character_frequencies_with_dialogues_df, character_emotion_frequencies_df, how='outer')
+        sorted_character_frequencies_with_dialogues_and_emotions_and_word_frequencies_df = pd.merge(sorted_character_frequencies_with_dialogues_and_emotions_df, character_word_frequencies_df, how='outer')
+        all_character_df = pd.merge(sorted_character_frequencies_with_dialogues_and_emotions_and_word_frequencies_df, character_relations_df)
+        print(all_character_df)
+    
