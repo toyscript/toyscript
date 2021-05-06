@@ -1,6 +1,8 @@
-MAX_BLANK_LINES_BETWEEN_CHARACTER_AND_DIALOGUE = 20
+MAX_BLANK_LINE_COUNT = 20
 
-MAX_SPLIT_LENGTH_OF_CHARACTER_NAME = 5
+MAX_DIALOGUES_LINE_COUNT = 50
+
+MAX_CHARACTER_NAME_SPLIT_SIZE = 5
 
 PLACE_INDICATORS = ("EXT.", "INT.", "EXT/", "INT/")
 
@@ -108,7 +110,7 @@ PUNCTUATIONS = (
     "...?!!!",
 )
 
-EMOTION_ANALYSIS_TYPES = (
+EMOTION_TYPES = (
     "anger",
     "anticipation",
     "disgust",
@@ -118,3 +120,4 @@ EMOTION_ANALYSIS_TYPES = (
     "surprise",
     "trust",
 )
+
