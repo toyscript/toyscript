@@ -2,7 +2,7 @@ import os
 import numpy as np
 import pandas as pd
 from typing import Tuple
-from constants import PUNCTUATIONS, EMOTION_ANALYSIS_TYPES
+from constants import PUNCTUATIONS, EMOTION_TYPES
 from collections import Counter
 from nltk.corpus import stopwords
 from nltk.stem import PorterStemmer, WordNetLemmatizer
@@ -116,7 +116,7 @@ def count_frequency_of_emotions(all_emotions: Tuple[str]) -> Tuple[Tuple[str, in
     """
     emotion_frequencies_series = pd.Series(all_emotions).value_counts()
     emotion_frequencies_dict = emotion_frequencies_series.reindex(
-        EMOTION_ANALYSIS_TYPES, fill_value=0
+        EMOTION_TYPES, fill_value=0
     ).to_dict()
 
     emotion_frequencies = []
@@ -141,7 +141,7 @@ def get_emotion_frequencies_by_character(
         lemmatizer,
     :return character_emotion_frequencies:
     """
-    character_emotion_frequencies = [EMOTION_ANALYSIS_TYPES]
+    character_emotion_frequencies = [EMOTION_TYPES]
     for character, dialogues in most_frequent_character_dialogues:
         joined_dialogues = " ".join(dialogues)
 

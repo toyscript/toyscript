@@ -5,8 +5,9 @@ from constants import (
     PLACE_INDICATORS,
     SCRIPT_TERMS,
     CHARACTER_CUE_TERMS,
-    MAX_BLANK_LINES_BETWEEN_CHARACTER_AND_DIALOGUE,
-    MAX_SPLIT_LENGTH_OF_CHARACTER_NAME,
+    MAX_BLANK_LINE_COUNT,
+    MAX_DIALOGUES_LINE_COUNT,
+    MAX_CHARACTER_NAME_SPLIT_SIZE,
 )
 
 
@@ -37,7 +38,7 @@ def count_frequency_of_characters_and_slugs(
     """
     character_slug_counts_dict = {}
     for line in all_capital_lines:
-        if len(line.split()) >= MAX_SPLIT_LENGTH_OF_CHARACTER_NAME:
+        if len(line.split()) >= MAX_CHARACTER_NAME_SPLIT_SIZE:
             continue
 
         if line[:4] in PLACE_INDICATORS:
@@ -100,7 +101,7 @@ def count_number_of_blank_lines(
             line = script_lines[i]
             if line.startswith(" ") and character in line:
                 for j in range(
-                    i + 1, i + MAX_BLANK_LINES_BETWEEN_CHARACTER_AND_DIALOGUE
+                    i + 1, i + MAX_BLANK_LINE_COUNT
                 ):
                     is_character_found = True
                     if script_lines[j]:
@@ -124,7 +125,7 @@ def get_dialogues_by_characters(
         num_of_blank_lines:
     :return character_dialogues:
     """
-    chunks = defaultdict(list)
+    character_dialogues_dict = dict()
     for i in range(len(script_lines)):
         line = script_lines[i]
 
@@ -144,6 +145,7 @@ def get_dialogues_by_characters(
                 len_of_tokens = len(tokens)
                 len_of_character_names = len(character_names)
 
+                # 'A U'와 'A'를 구분하기 위함
                 if (
                     len_of_tokens > 1
                     and len_of_character_names == 1
@@ -151,7 +153,6 @@ def get_dialogues_by_characters(
                     and len(character_names[0]) == 1
                     and tokens[0] == character_names[0]
                 ):
-                    # 'A U'와 'A'를 구분하기 위함
                     continue
 
                 elif (
@@ -180,24 +181,27 @@ def get_dialogues_by_characters(
                     )
                 ):
                     blank_count = 0
-                    for j in range(i + 1, len(script_lines)):
-                        token = script_lines[j]
+                    for j in range(i + 1, i + MAX_DIALOGUES_LINE_COUNT):
+                        line = script_lines[j]
 
-                        if token.startswith("  ") and token.strip()[:-1].isdigit():
+                        if line.startswith("  ") and line.strip()[:-1].isdigit():
                             break
 
-                        token = script_lines[j].strip()
+                        line = script_lines[j].strip()
                         if blank_count > num_of_blank_lines:
                             break
 
-                        if token:
+                        if line.upper().find(character) != -1:
+                            break
+
+                        if line:
                             blank_count = 0
-                            chunks[character].append(token)
+                            character_dialogues_dict[character] = character_dialogues_dict.get(character, []) + [line]
                         else:
                             blank_count += 1
 
     character_dialogues = []
-    for character, dialogues in chunks.items():
+    for character, dialogues in character_dialogues_dict.items():
         character_dialogues.append((character, tuple(dialogues)))
     return tuple(character_dialogues)
 
