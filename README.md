@@ -108,7 +108,7 @@
 # 6. 프로젝트 명세 및 버전
 
 - [프로젝트 제안서](https://docs.google.com/document/d/1qJ_oNsFKahh1kOHVWX_LQd_YqQwb0KIl3PlYwNtnXiE/edit#)
-- [API 설계서](https://docs.google.com/spreadsheets/d/1zTat-rJ86AsZlas2BZ8D2fjeeyK5yYGMqfEV1IKUisE/edit#gid=0)
+- [API 설계서](https://documenter.getpostman.com/view/5729975/TzCV2jQK)
 - [기능 명세서](https://www.notion.so/12723e6587fb479f83d41a823a7b268d?v=c968a118e8204ba99c86255856b89dce)
 - v1.0 : 2021.04.17 00:00 배포
 
