@@ -76,7 +76,13 @@
 ![Story Board](frontend/public/images/storyboard.png)
 
 - ERD
+
 ![toyscript_erd](https://user-images.githubusercontent.com/20367043/120112138-90efbc00-c1af-11eb-92ea-01a07e7cdabf.png)
+
+- 시스템 아키텍쳐 
+
+![토스_시스템아키테겨](https://user-images.githubusercontent.com/20367043/120112467-f3958780-c1b0-11eb-88b5-d51c2ac3f3f4.PNG)
+
 
 
 # 5. 프로젝트 팀원 역할 분담
