@@ -70,9 +70,14 @@
 
 - 기대효과 : 사용자가 감독 혹은 제작자라면 프리 프로덕션 과정의 시간을 절약하고 대본의 전체적인 느낌을 빠르게 파악할 수 있습니다.
 
-# 4. 프로젝트 구성도
+# 4. 프로젝트 구성
 
+- 화면
 ![Story Board](frontend/public/images/storyboard.png)
+
+- ERD
+![toyscript_erd](https://user-images.githubusercontent.com/20367043/120112138-90efbc00-c1af-11eb-92ea-01a07e7cdabf.png)
+
 
 # 5. 프로젝트 팀원 역할 분담
 
