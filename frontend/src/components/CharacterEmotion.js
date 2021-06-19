@@ -7,7 +7,7 @@ import axios from "axios";
 
 const CharacterEmotion = ({ movieId }) => {
 const allCharacterEmotionsApiUrl =
-  `http://elice-kdt-ai-track-vm-da-04.koreacentral.cloudapp.azure.com:5000/api/${movieId}/characters/sentiments`;
+  `https://toyscriptapi.azurewebsites.net/api/${movieId}/characters/sentiments`;
 const [radarData, setRadarData] = useState({});
 const chartColors = [
     'rgba(255, 99, 132, 0.7)',

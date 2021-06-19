@@ -5,11 +5,11 @@ import Container from '@material-ui/core/Container';
 
 const Time = ({ movieId }) => {
   const allTimeApiUrl =
-    `http://elice-kdt-ai-track-vm-da-04.koreacentral.cloudapp.azure.com:5000/api/${movieId}/times/frequencys`;
+    `https://toyscriptapi.azurewebsites.net/api/${movieId}/times/frequencys`;
   const allScenesPerTimeApiUrl =
-    `http://elice-kdt-ai-track-vm-da-04.koreacentral.cloudapp.azure.com:5000/api/${movieId}/times/scenes`;
+    `https://toyscriptapi.azurewebsites.net/api/${movieId}/times/scenes`;
   const charactersPerTimeApiUrl =
-    `http://elice-kdt-ai-track-vm-da-04.koreacentral.cloudapp.azure.com:5000/api/${movieId}/times/characters`;
+    `https://toyscriptapi.azurewebsites.net/api/${movieId}/times/characters`;
   const [allTimeData, setAllTimeData] = useState({});
   const [allScenesPerTimeData, setAllScenesPerTimeData] = useState([]);
   const [topCharactersData, setTopCharactersData] = useState([]);
