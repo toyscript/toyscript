@@ -6,7 +6,7 @@ import axios from "axios";
 
 const CharacterFrequency = ({movieId}) => {
   const allCharacterFrequencyApiUrl =
-    `http://elice-kdt-ai-track-vm-da-04.koreacentral.cloudapp.azure.com:5000/api/${movieId}/characters/frequencys`;
+    `https://toyscriptapi.azurewebsites.net/api/${movieId}/characters/frequencys`;
   const [characterFrequencyData, setCharacterFrequencyData] = useState({});
 
   useEffect(() => {

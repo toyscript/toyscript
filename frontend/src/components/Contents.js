@@ -17,7 +17,7 @@ function ControlledTabs(prop) {
   const [key, setKey] = useState('summary');
 
   const summaryApiUrl =
-    `http://elice-kdt-ai-track-vm-da-04.koreacentral.cloudapp.azure.com:5000/api/movies/${movieId}`;
+    `https://toyscriptapi.azurewebsites.net/api/movies/${movieId}`;
 
     const [author, setAuthor] = useState("");
     const [title, setTitle] = useState("");

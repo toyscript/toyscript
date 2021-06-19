@@ -11,11 +11,12 @@ import axios from "axios";
 import { Link } from "react-router-dom";
 
 function Main() {
-  const MovieListApiUrl = `http://elice-kdt-ai-track-vm-da-04.koreacentral.cloudapp.azure.com:5000/api/movies`;
+  const MovieListApiUrl = `https://toyscriptapi.azurewebsites.net/api/movies`;
   const [term, setTerm] = useState("");
   const [movieIds, setMovieIds] = useState([]);
   const [movieTitles, setMovieTitles] = useState([]);
 
+  // 사용자 input 을 query 검색어로.
   useEffect(() => {
     const search = async () => {
       await axios
@@ -25,6 +26,7 @@ function Main() {
           },
         })
         .then((response) => {
+          // console.log(response);
           let movieIdList = [];
           let movieTitleList = [];
           for (let dataObj of response.data) {
@@ -42,17 +44,21 @@ function Main() {
 
   const handleGoClick = (movieIds) => {
     if (movieIds.length === 0 || movieIdString.includes(',')) {
+      // 없거나 여러개일 때?
       alert("영화 제목을 다시 확인해주세요.")
     }
   }
 
   let movieIdString = movieIds.toString();
+  // console.log(movieIdString)
   
 
   return (
     <>
+    {/* HEADER */}
       <Header />
       <main id="main">
+        {/* LOGO */}
         <Container>
           <center>
             <a href="/">
@@ -60,7 +66,7 @@ function Main() {
             </a>
           </center>
         </Container>
-
+        {/* SEARCH BAR */}
         <div className="container">
           <div className="d-flex justify-content-center">
             <div className="searchbar">
@@ -69,7 +75,7 @@ function Main() {
                 type="text"
                 placeholder="영화 제목을 입력하세요 !"
                 value={term}
-                onChange={(e) => setTerm(e.target.value)}
+                onChange={(e) => setTerm(e.target.value)} 
               />
               {movieIds.length === 0 || movieIdString.includes(',')?
               <Link to="/" onClick={() => handleGoClick(movieIds)}> Go!</Link>
@@ -78,6 +84,7 @@ function Main() {
             </div>
           </div>
         </div>
+        {/* 검색바 밑에 DB에 있고, 검색어와 부분 일치하는 영화 목록 보여주기 */}
             {term.length === 0?
             ""
             :

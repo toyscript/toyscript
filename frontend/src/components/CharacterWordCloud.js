@@ -10,7 +10,7 @@ const CharacterWordCloud = ({ movieId }) => {
   const [wordsFreqData, setWordsFreqData] = useState({ list: [] });
 
   const allCharacterWordCloudsApiUrl =
-    `http://elice-kdt-ai-track-vm-da-04.koreacentral.cloudapp.azure.com:5000/api/${movieId}/characters/words`;
+    `https://toyscriptapi.azurewebsites.net/api/${movieId}/characters/words`;
 
   useEffect(() => {
     const fetchAllCharacterWordsFreqData = async () => {

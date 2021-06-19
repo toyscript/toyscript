@@ -6,11 +6,11 @@ import Container from '@material-ui/core/Container';
 const Place = ({ movieId, title }) => {
   
   const allPlacesApiUrl =
-    `http://elice-kdt-ai-track-vm-da-04.koreacentral.cloudapp.azure.com:5000/api/${movieId}/places/frequencys`;
+    `https://toyscriptapi.azurewebsites.net/api/${movieId}/places/frequencys`;
   const scenesPerPlaceApiUrl =
-    `http://elice-kdt-ai-track-vm-da-04.koreacentral.cloudapp.azure.com:5000/api/${movieId}/places/scenes`;
+    `https://toyscriptapi.azurewebsites.net/api/${movieId}/places/scenes`;
   const charactersPerPlaceApiUrl =
-    `http://elice-kdt-ai-track-vm-da-04.koreacentral.cloudapp.azure.com:5000/api/${movieId}/places/characters`;
+    `https://toyscriptapi.azurewebsites.net/api/${movieId}/places/characters`;
   const [allPlacesData, setAllPlacesData] = useState({});
   const [topPlacesData, setTopPlacesData] = useState({});
   const [mostData, setMostData] = useState({});
@@ -105,7 +105,7 @@ const Place = ({ movieId, title }) => {
     const fetchAllCharactersData = async () => {
       const result = [];
       await axios.get(charactersPerPlaceApiUrl).then((response) => {
-        console.log(response);
+        // console.log(response);
         for (let dataObj of response.data) {
           result.push(dataObj);
         }
@@ -228,6 +228,7 @@ const Place = ({ movieId, title }) => {
           </p>
           <br />
           {topCharactersData.map((data) => {
+            // console.log(topCharactersData)
             let label = [data.place];
             let labels = [];
             let frequency = [];
@@ -237,7 +238,7 @@ const Place = ({ movieId, title }) => {
             let rgbList = [];
             for (let i = 0; i < data.characters.length; i++) {
               labels.push(data.characters[i].characterName);
-              frequency.push(data.characters[i].frequency);
+              frequency.push(data.characters[i].characters);
               const rand_red = Math.floor(Math.random() * 256);
               const rand_green = Math.floor(Math.random() * 256);
               const rand_blue = Math.floor(Math.random() * 256);
@@ -249,6 +250,7 @@ const Place = ({ movieId, title }) => {
               let rgb = `rgba(${redList[i]}, ${greenList[i]}, ${blueList[i]}, 0.4)`;
               rgbList.push(rgb);
             }
+            // console.log(frequency);
 
             return (
               <>
