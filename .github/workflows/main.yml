@@ -11,9 +11,9 @@ jobs:
     runs-on: ubuntu-latest
     environment: production
     env:
-        working-directory: ./client
+        working-directory: ./frontend
         AZURE_WEBAPP_NAME: toyscript    
-        AZURE_WEBAPP_PACKAGE_PATH: './client/build'     
+        AZURE_WEBAPP_PACKAGE_PATH: './frontend/build'     
         NODE_VERSION: '14.x'   
         
     steps:
