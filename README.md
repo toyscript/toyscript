@@ -1,15 +1,11 @@
 ## 프로젝트 구성 안내
 
 # 1. 프로젝트 소개
+- [imsdb](https://imsdb.com/) 사이트에서 대본 크롤링(Text) : 본 웹 서비스를 구현할 때 사용자가 입력한 영화의 타이틀을 기준으로 imsdb 사이트에서 대본을 크롤링하여 분석한 결과를 보여줍니다.   
 
-### 사용하려는 데이터(제안된 데이터 중 하나 또는 선택한 다른 데이터 세트)를 명시, 이에 대한 설명
+## 사용한 기술 스택, 라이브러리
 
-1. **Toy Story3 Script** PDF 파일 : **MVP 기능**을 구현할 때 분석 코드를 작성하기 위한 raw data로 사용합니다.
-2. [imsdb](https://imsdb.com/) 사이트에서 대본 크롤링(Text) : 본 웹 서비스를 구현할 때 사용자가 입력한 영화의 타이틀을 기준으로 imsdb 사이트에서 대본을 크롤링하여 분석한 결과를 보여줍니다.   
-
-### 사용한 기술 스택, 라이브러리
-
-1. 프론트엔드
+### **프론트엔드**
    - React
    - react-router-dom
    - React-Bootstrap
@@ -19,7 +15,7 @@
    - axios
    - fort awesome   
 
-2. 백엔드
+### **백엔드**
    - Flask
    - Flask-Restful
    - Flask-SQLAlchemy
@@ -72,14 +68,14 @@
 
 # 4. 프로젝트 구성
 
-- 화면
+### 화면
 ![Story Board](frontend/public/images/storyboard.png)
 
-- ERD
+### ERD
 
 ![toyscript_erd](https://user-images.githubusercontent.com/20367043/120112138-90efbc00-c1af-11eb-92ea-01a07e7cdabf.png)
 
-- 시스템 아키텍쳐 
+### 시스템 아키텍쳐 
 
 ![토스_시스템아키테겨](https://user-images.githubusercontent.com/20367043/120112467-f3958780-c1b0-11eb-88b5-d51c2ac3f3f4.PNG)
 
@@ -125,22 +121,22 @@
 
 # 7. 카테고리별 포함된 내용
 
-- 요약 탭(`Summary`) 
+- **요약 탭(`Summary`)** 
   - 대본의 저자
   - 총 등장인물 수
   - 총 등장하는 장소 수
   - 총 등장하는 시간대 수
-- 인물 탭(`Character`) 
+- **인물 탭(`Character`)**
   - 자주 등장하는 인물 Top 5
   - Top5 인물들의 감정 분석 결과
   - 등장인물간 관계도
   - Top5 등장인물이 자주 사용하는 단어 (워드 클라우드)
-- 장소 탭(`Place`) 
+- **장소 탭(`Place`)** 
   - 장소별 등장횟수 (`장소 예. KEVIN'S RESTAURANT 등` ) 
   - 가장 많이 나온 장소 Top 5
   - 각 장소에 해당하는 씬 넘버
   - 장소별 등장인물의 출연 빈도
-- 시간 탭(`Time`)
+- **시간 탭(`Time`)**
   - 시간대별 등장횟수 (`시간대 예. DAY, NIGHT, TWILIGHT 등` ) 
   - 가장 많이 나온 시간대 Top 5 
   - 각 시간대에 해당하는 씬 넘버
