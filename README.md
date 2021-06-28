@@ -146,6 +146,23 @@
   - 각 시간대에 해당하는 씬 넘버
   - 시간대별 등장인물의 출연 빈도
 
+### 그래프 이미지 ( 토이스토리 예시 )
+  - **Top 5 캐릭터 감정 분석**
+  <img src=https://user-images.githubusercontent.com/49539592/123669208-cf43ce00-d876-11eb-8330-3cf732b55dc9.png width=700 />
+  <br>
+  <br>
+  
+  
+  - **장소별 등장횟수** 
+  <img src=https://user-images.githubusercontent.com/49539592/123668959-9572c780-d876-11eb-8510-07169ef61a83.png width=700 />
+  
+  <br>
+  <br>
+  
+  - **장소별 등장인물 출연 빈도**
+  <img src=https://user-images.githubusercontent.com/49539592/123669170-c6eb9300-d876-11eb-8243-530ad6ee27f0.png width=700 />
+
+
 # 8. FAQ
 
 1. 시간대 별 정보가 이 서비스의 타겟 유저에게 필요할까요?
