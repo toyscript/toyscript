@@ -1,7 +1,9 @@
 name: toyscript client react app CI/CD
 
 on:
-  push
+  push:
+    branches:
+      - master
 
 jobs:
   build-and-deploy:
